@@ -1,0 +1,37 @@
+
+.navbar {
+    background-color: #ffffff; /* Color de fondo del navbar */
+    border: 1px solid #28a745; /* Color del borde del navbar */
+    color: black;
+}
+
+.navbar-brand {
+    font-size: 1.5rem; /* Tamaño de la fuente del logo */
+    color: #28a745; /* Color del texto del logo */
+    width: 30% !important;
+    height: auto; 
+
+}
+.navbar-nav a {
+padding: 0.5rem 1rem;
+    font-size: 1rem; /* Tamaño de la fuente de los elementos del navbar */
+    color: black; /* Color del texto del navbar */
+    text-decoration: none;
+}
+.flex-fill{
+    width: 100% !important;
+}
+
+/* Cambiar el color de fondo del navbar */
+.navbar-dark .navbar-toggler-icon {
+    background-color: #ffffff; /* Color del icono del botón de hamburguesa en pantallas pequeñas */
+}
+
+/* Alineación del contenido del navbar a la derecha */
+.navbar-nav {
+    margin-left: auto;
+}
+.logo1{
+    width: 50%;
+} 
+

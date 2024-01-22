@@ -1,0 +1,15 @@
+.logo1{
+    width: 30%;
+} 
+.hola{
+    color: black;
+}
+.hola:hover{
+    background-color: #3AAA3C !important;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    color: #fff !important;
+    transform: translateY(5px);
+}

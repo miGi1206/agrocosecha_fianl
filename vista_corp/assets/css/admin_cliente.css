@@ -1,0 +1,110 @@
+body {
+    background-color: #f8f9fa;
+}
+
+table {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    
+}
+@media (max-width: 768px) {
+    table {
+        width: 50%; /* Ajusta el valor según sea necesario para pantallas más pequeñas */
+    }
+}
+@media (max-width: 900px) {
+    div .contenedor{
+        display: none !important;
+    }
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(odd) {
+    background-color: #c4c4c4;
+}
+
+.botones {
+    padding: 10px 20px;
+    background-color: #3AAA3C;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 2%;
+    
+}
+h1{
+    text-align: center;
+    padding-top: 1%;
+}
+.botones:hover {
+    background-color: #065F2C;
+}
+
+.botones:active {
+    background-color: #065F2C;
+}
+
+th{
+    background-color: #3AAA3C;
+    color: white;
+}
+a{
+    text-decoration: none;
+    color: #fffdfd ;
+    text-decoration: dotted;
+}
+
+
+.boton-registrar {
+    background-color: #3AAA3C;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 3%;
+    margin-right: 0%;
+}
+
+
+.btn-color {
+    background-color: #3AAA3C !important; 
+    color: #fff !important;
+}
+.tabla_container{
+    padding-top: 2%;
+    width: 90%;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.buscar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1%;
+
+}
+.barra{
+    box-sizing: border-box;
+    height: 60px;
+    width: 50%;
+    color: #000000;
+    border-radius: 50px;
+    font-size: 20px;
+    border: 1px solid #065F2C ;
+    
+    
+}
+
+.dropdown-toggle{
+    margin-left: -10%;
+}
