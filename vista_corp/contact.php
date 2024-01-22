@@ -67,7 +67,7 @@ https://templatemo.com/tm-559-zay-shop
         </div>
         <form action="../vista_corp/assets/controladores/mensajes/enviar_mensaje.php" method="POST" class="fromcantact">
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
+                <label for="nombre">hola:</label>
                 <input type="text" id="nombre" name="nombre" required>
             </div>
 
