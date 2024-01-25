@@ -16,6 +16,8 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -30,6 +32,42 @@
     <!-- //TODO: Navbar -->
     <?php include "../../complementos/navbar_admin.php";?>
     <!-- //TODO: Fin del navbar -->
+
+    <!-- //* alerta nuevo registro -->
+    <?php
+    if(isset($_SESSION['msj_registrar'])){
+        $respuesta = $_SESSION['msj_registrar'];?>
+    <script>
+    Swal.fire({
+        title: "Informacion guardada exitosamente",
+        text: "",
+        icon: "success"
+    });
+    </script>
+
+    <?php
+    unset($_SESSION['msj_registrar']);
+    }
+    ?>
+
+    <!-- //* alerta modificar registro -->
+    <?php
+    if(isset($_SESSION['msj_modificar'])){
+        $respuesta = $_SESSION['msj_modificar'];?>
+    <script>
+    Swal.fire({
+        title: "Informacion modificada exitosamente",
+        text: "",
+        icon: "success"
+    });
+    </script>
+
+    <?php
+    unset($_SESSION['msj_modificar']);
+    }
+    ?>
+
+
 
 
     <h1>Clientes</h1>
@@ -66,60 +104,25 @@
                         <td><?php echo $row["usuario"] ?></td>
                         <td><?php echo $row["contraseña"] ?></td>
                         <td><?php echo $row["correo"] ?></td>
-                        <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
+                        <td
+                            style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
 
                             <!-- //* Enviar al formulario para modificar -->
-                            <form method="POST" action="./formulario_modi_cliente.php">
+                            <form method="POST" action="./formulario_modi_cliente.php" data-form="editar">
                                 <a href="./formulario_modi_cliente.php?id=<?php echo $row['id'];?>" type="botton"
-                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
+                                    class="botones"
+                                    style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
                             </form>
                             <!-- //* Enviar a la funcion de eliminar -->
-                            <form action="#" method="POST">
-                                <div>
-                                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                        <li class="nav-item">
-                                            <a class="botones" href="#" data-bs-toggle="modal"
-                                                style="border:none !important; color:white;"
-                                                data-bs-target="#exampleModalToggle" aria-expanded="false"
-                                                role="button">Eliminar</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                                    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div
-                                                    style="width:100%; display:flex; justify-content:center; aling-item:center; ">
-                                                    <img src="../../../assets/img/eliminar.jpg" alt="">
-                                                </div>
-                                                <div class="z-flex2">
-                                                    <p>
-                                                        <center>Esta seguro de eliminar el cliente</center>
-                                                    </p>
-                                                </div>
-
-                                                <div
-                                                    style="width:100%; display:flex; justify-content:space-evenly; aling-item:center; ">
-                                                    <form method="POST">
-                                                        <input type="hidden" name="id_a_eliminar"
-                                                            value="<?php echo $row['id']; ?>">
-                                                        <button type="submit" name="registro_eliminar"
-                                                            class="botones">Eliminar</button>
-                                                    </form>
-                                                    <button type="button" class="botones" data-bs-dismiss="modal"
-                                                        aria-label="Close">Cancelar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <form method="POST" class="eliminarForm">
+                                <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
+                                    value="<?php echo $row['id']; ?>">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn"
+                                    data-target="<?php echo $row['id']; ?>">
+                                    Eliminar
+                                </button>
                             </form>
+
                         </td>
                     </tr>
                     <?php    
@@ -135,6 +138,63 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+    <script src="/agrocosecha_final/vista_corp/assets/js/alert_eliminar.js"></script>
+
+    <!-- //* alerta eliminar registro -->
+    <script>
+    // Utiliza clases en lugar de ids para los botones y formularios
+    let eliminarBtns = document.querySelectorAll('.eliminarBtn');
+
+eliminarBtns.forEach(function(btn) {
+    btn.addEventListener('click', function(event) {
+        event.preventDefault();
+        let idAEliminar = btn.parentElement.querySelector('.id_a_eliminar_input').value;
+
+        Swal.fire({
+            title: "¿Estás seguro de eliminar la información con ID " + idAEliminar + "?",
+            text: "",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Eliminar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Obtener el formulario ascendente más cercano al botón actual
+                let formulario = btn.closest('form');
+
+                if (formulario) {
+                    // Si el formulario existe, enviarlo
+                    Swal.fire({
+                        title: "Informacion eliminada",
+                        text: "",
+                        icon: "success",
+                        willClose: () => {
+                            formulario.submit();
+                        }
+                    });
+                } else {
+                    // Manejar el caso en que no se encuentra el formulario
+                    Swal.fire({
+                        title: "Error",
+                        text: "No se encontró el formulario asociado al botón",
+                        icon: "error"
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: "Eliminacion cancelada",
+                    text: "",
+                    icon: "error"
+                });
+            }
+        });
+    });
+});
+
+
+    </script>
+
 
 </body>
 

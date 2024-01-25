@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
 <?php
 //! Conectarse con la base de datos
 include "../../conections/coneccion_tabla.php";
@@ -26,34 +35,89 @@ if (isset($_POST["guardar_cliente"])) {
 
     //* funcion para que el nombre solo lleve letras
     if (!preg_match('/^[a-zA-Z]+$/', $nombre)) {
+        echo '<script>
+            Swal.fire({
+                title: "El nombre solo debe contener letras.",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                window.location.replace("../../vistas/cliente/formulario_cliente.php");
+            });
+        </script>';
+        exit();
         echo "El nombre solo debe contener letras. Por favor, verifica.";
     }
 
     $maxLongitudUsuario = 20; // Establece la longitud máxima del usuario
-    if (strlen($usuario) > $maxLongitudUsuario) {
-        echo "El nombre de usuario debe tener como máximo $maxLongitudUsuario caracteres.";
-    }
+
+if (strlen($usuario) > $maxLongitudUsuario) {
+    echo '<script>
+        Swal.fire({
+            title: "El nombre de usuario tiene un máximo de ' . $maxLongitudUsuario . ' caracteres.",
+            text: "",
+            icon: "error"
+        }).then(function() {
+            window.location.replace("../../vistas/cliente/formulario_cliente.php");
+        });
+    </script>';
+    exit(); // Agrega esta línea para evitar que se ejecuten más acciones después de mostrar la alerta
+}
 
     // Validar longitud de la contraseña
     $minLongitudContrasena = 6; // Establece la longitud mínima de la contraseña
     $maxLongitudContrasena = 20; // Establece la longitud máxima de la contraseña
     if (strlen($contraseña) < $minLongitudContrasena || strlen($contraseña) > $maxLongitudContrasena) {
-        echo "La contraseña debe tener entre $minLongitudContrasena y $maxLongitudContrasena caracteres.";
+        echo '<script>
+            Swal.fire({
+                title: "La contraseña debe tener entre ' . $minLongitudContrasena . ' y ' . $maxLongitudContrasena . ' caracteres.",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                window.location.href = "../../vistas/cliente/formulario_cliente.php";
+            });
+        </script>';
     }
 
     //* Condicion de el ID existe o no
-    elseif (mysqli_num_rows($id_existencia) > 0) {    
-        echo "la identificacion ya esta registrada. Por favor, elige otro.";
+    elseif (mysqli_num_rows($id_existencia) > 0) {  
+        echo '<script>
+                Swal.fire({
+                    title: "La identificacion ya esta registrado. Por favor, elige otra",
+                    text: "",
+                    icon: "error"
+                }).then(function() {
+                    window.location.replace("../../vistas/cliente/formulario_cliente.php");
+                });
+            </script>';
+        exit();  
     } 
 
     //* Condicion de el correo existe o no
-    elseif(mysqli_num_rows($correo_existencia) > 0) {    
-        echo "El correo ya esta registrado. Por favor, elige otro.";
+    elseif(mysqli_num_rows($correo_existencia) > 0) { 
+        echo '<script>
+            Swal.fire({
+                title: "El correo ya esta registrado. Por favor, elige otro",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                window.location.replace("../../vistas/cliente/formulario_cliente.php");
+            });
+        </script>';
+        exit();   
     }
 
      //* Condicion de el ucuario existe o no
-    elseif(mysqli_num_rows($usuario_existencia) > 0) {    
-        echo "Este nombre de usuario ya esta registrado. Por favor, elige otro.";
+    elseif(mysqli_num_rows($usuario_existencia) > 0) { 
+        echo '<script>
+            Swal.fire({
+                title: "Este nombre de usuario ya esta registrado.Por favor, elige otro",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                window.location.replace("../../vistas/cliente/formulario_cliente.php");
+            });
+        </script>';
+        exit(); 
     }
 
     else {
@@ -74,9 +138,17 @@ if (isset($_POST["guardar_cliente"])) {
         //* Condicion de que si todo a sido correcto lo redireccione a la vista de la tabla
         if ($result_cliente && $result_usuario) {
             header("Location: ../../vistas/cliente/admin_cliente.php");
+            session_start();
+            $_SESSION['msj_registrar'] = "Se inserto la informacion al sistema";
         } else {
-            die("Error en la consulta: " . mysqli_error($conn));
+            session_start();
+            $_SESSION['msj_registrar'] = "error al guardar la información";
+            // die("Error en la consulta: " . mysqli_error($conn));
         }
     }
 }
 ?>
+
+</body>
+</html>
+

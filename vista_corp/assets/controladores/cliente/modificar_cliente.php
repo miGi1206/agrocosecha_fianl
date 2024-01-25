@@ -21,9 +21,13 @@ $sql_modi_usuario = "UPDATE `tbl_usuarios` SET `id`='$id_cliente', `usuario`='$u
 $result_modi_usuario = mysqli_query($conn, $sql_modi_usuario);
 
 //* Condicion de que si todo a sido correcto, lo redireccione a la vista de la tabla
-if($result_modi_cliente && $result_modi_usuario) {
-    header("location: ../../vistas/cliente/admin_cliente.php");
+if ($result_modi_usuario && $result_modi_cliente) {
+    header("Location: ../../vistas/cliente/admin_cliente.php");
+    session_start();
+    $_SESSION['msj_modificar'] = "Se modifico la informacion al sistema";
 } else {
-    die("Error en la consulta: " . mysqli_error($conn));
+    session_start();
+    $_SESSION['msj_modificar'] = "error al modificar la información";
+    // die("Error en la consulta: " . mysqli_error($conn));
 }
 ?>

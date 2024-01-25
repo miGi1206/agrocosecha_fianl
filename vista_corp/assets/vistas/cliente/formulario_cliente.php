@@ -10,15 +10,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <title>Agrocosecha</title>
     <link rel="website icon" type="jpg" href="../../img/Size-16.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<?php
+    if(isset($_SESSION['msj_contraseña'])){
+        $respuesta = $_SESSION['msj_contraseña'];?>
+        <script>
+            Swal.fire({
+                title: "contraseña invalida",
+                text: "",
+                icon: "success"
+            });
+        </script>
+
+    <?php
+    unset($_SESSION['msj_contraseña']);
+    }
+    ?>
 
     <!-- //TODO: Formulario de registro de cliente -->
     <div class="formulario-contacto">
         <div style="text-align: center;">
             <h3 class="text-success h1 formulario"><b>Registrar cliente</b></h3>
         </div>
-        <form action="../../controladores/cliente/registrar_cliente.php" method="POST" >
+        <form action="../../controladores/cliente/registrar_cliente.php" method="POST">
             <div class="form-group">
                 <label for="identificacion">Identificacion:</label>
                 <input type="number" id="identificacion" name="identificacion" required>

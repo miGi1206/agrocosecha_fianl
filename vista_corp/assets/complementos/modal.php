@@ -26,8 +26,10 @@
                                     placeholder="Contraseña">
                                 <label for="floatingInput">Contraseña</label>
                             </div>
-                            <button type="submit" class="btn-iniciar2">Iniciar sesión</button>
-                            <button type="submit" class="btn-iniciar2" data-bs-toggle="modal" data-bs-target="#registro" data-bs-dismiss="modal">Registrarse</button>
+                            <div style="display:grid; grid-template-columns: repeat(1, 1fr);">
+                                <button type="submit" class="btn-iniciar2" style="padding:1% 5%; margin-bottom:5%;">Iniciar sesión</button>
+                                <button type="submit" class="btn-iniciar2" data-bs-toggle="modal" data-bs-target="#registro" data-bs-dismiss="modal" style="padding:1% 5%;">Registrarse</button>
+                            </div>
                         </form>
                         <!-- fin del formulario  -->
 
