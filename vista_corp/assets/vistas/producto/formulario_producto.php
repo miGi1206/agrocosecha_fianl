@@ -9,6 +9,7 @@
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <title>Agrocosecha</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="website icon" type="jpg" href="../../img/Size-16.jpg">
 </head>
 <body>
@@ -19,29 +20,31 @@
             <h3 class="text-success h1 formulario"><b>Registrar producto</b></h3>
         </div>
         <form action="../../controladores/producto/registrar_producto.php" method="POST" >
-            <div class="form-group">
-                <label for="identificacion">Identificacion:</label>
-                <input type="number" id="identificacion" name="identificacion" required>
+
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" requered>
+                <label for="floatingInputidentificacion">Codigo:</label>
             </div>
 
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+            <div class="form-floating mb-3" style="margin-bottom:0px !important; margin-top:15px;">
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="floatingInputNombre" placeholder="Nombre" requered>
+                <label for="floatingInputNombre">Nombre:</label>
             </div>
+            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
 
             <div class="form-group">
                 <label for="descripcion">Descripcion:</label>
                 <textarea type="text" id="descripcion" name="descripcion" rows="4" required></textarea>
             </div>
 
-            <div class="form-group">
-                <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" required>
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" requered>
+                <label for="floatingInputprecio">Precio:</label>
             </div>
 
-            <div class="form-group">
-                <label for="stock">Stock:</label>
-                <input type="number" id="stock" name="stock" required>
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="stock" type="number" class="form-control cuadro_texto1" id="floatingInputstock" placeholder="stock" requered>
+                <label for="floatingInputstock">Stock:</label>
             </div>
 
             <button type="submit" class="submit" name="guardar_producto">Guardar</button>

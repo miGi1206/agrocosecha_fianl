@@ -23,6 +23,8 @@ VALUES ('', '$nombre', '$telefono', '$email', '$municipio', '$producto_interes',
     // TODO: funcion para mandarlo de regreso a la tabla si no que mande un error
     if($result_mensaje) {
         header("Location: /agrocosecha_final/vista_corp/contact.php");
+        session_start();
+        $_SESSION['msj_mensaje_enviado'] = "Mensaje enviado";
     } else {
         die("Error en la consulta: " . mysqli_error($conn));
     }

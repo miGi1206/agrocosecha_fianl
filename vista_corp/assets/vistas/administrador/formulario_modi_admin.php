@@ -19,8 +19,8 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-    <title>Agrocosecha</title>
-    <link rel="website icon" type="jpg" href="../../img/Size-16.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="website icon" type="jpg" href="../../img/Size-16.png">
 </head>
 <body>
     <!-- //TODO: Formulario para modificar al admin; el formulario se muestra con la informacion de la base de datos -->
@@ -30,36 +30,29 @@
                 <h1 class="text-success"><b>Modificar administrador</b></h1>
             </div> 
         <form action="../../controladores/admin/modificar_admin.php" method="POST">
-
-            <label for="floatingInputContrasena">Identificación:</label>
-            <div class="form-floating mb-3">
-                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="identificacion" placeholder="Identificacion" value="<?= $row['id']?>" requered>
-                <label for="floatingInputContrasena">Identificación</label>
-            </div>
-
-            <label for="floatingInputContrasena">Nombre:</label>
-            <div class="form-floating mb-3">
-                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
-                <label for="floatingInputContrasena">Nombre</label>
-            </div>
-
-            <label for="floatingInputContrasena">Correo:</label>
-            <div class="form-floating mb-3">
-                <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="Correo" value="<?= $row['correo']?>" requered>
-                <label for="floatingInputContrasena">Correo</label>
-            </div>
-
-            <label for="floatingInputContrasena">Usuario:</label>
-            <div class="form-floating mb-3" style="margin-top: 3%;">
-                <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario" placeholder="Usuario" value="<?= $row['usuario']?>" requered>
-                <label for="floatingInputContrasena">usuario</label>
+            
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" value="<?= $row['id']?>" readonly requered>
+                <label for="floatingInputidentificacion">Identificación:</label>
             </div>
             
-            <label for="floatingInputContrasena">Contraseña:</label>
-            <div class="form-floating mb-3">
-                <input name="contraseña" type="password" class="form-control cuadro_texto1" id="contraseña" placeholder="Contraseña" requered>
-                <label for="floatingInputContrasena">Contraseña</label>
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
+                <label for="floatingInputNombre">Nombre:</label>
             </div>
+            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
+            
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="Correo" value="<?= $row['correo']?>" requered>
+                <label for="floatingInputCorreo">Correo electronico:</label>
+            </div>
+            
+            <div class="form-floating mb-3" style="margin-top: 3%;">
+                <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario" placeholder="Usuario" value="<?= $row['usuario']?>" requered>
+                <label for="floatingInputUsuario">usuario:</label>
+            </div>
+            <label for="floatingInputcorreo" style="color:red;">Maximo 20 caracteres</label>
+            
             <button type="submit" name="sumit">Actualizar</button>
         </form>
     </div>

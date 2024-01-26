@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Error</title>
+    <link rel="website icon" type="jpg" href="../../img/Size-16.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
-<?php
+    <?php
 //! Conectarse con la base de datos
 include "../../conections/coneccion_tabla.php";
 
@@ -25,6 +28,10 @@ if (isset($_POST["guardar_cliente"])) {
     $consulta_existencia = "SELECT id FROM tbl_cliente WHERE id = '$id'";
     $id_existencia = mysqli_query($conn, $consulta_existencia);
 
+    //* Validar si el ID ya existe en los usuarios
+    $consulta_existencia = "SELECT id FROM tbl_usuarios WHERE id = '$id'";
+    $id_usuario_existencia = mysqli_query($conn, $consulta_existencia);
+
     //* Validar si el correo ya existe
     $consulta_existencia = "SELECT correo FROM tbl_cliente WHERE correo = '$correo'";
     $correo_existencia = mysqli_query($conn, $consulta_existencia);
@@ -41,27 +48,26 @@ if (isset($_POST["guardar_cliente"])) {
                 text: "",
                 icon: "error"
             }).then(function() {
-                window.location.replace("../../vistas/cliente/formulario_cliente.php");
+                history.back(); // Regresa a la página anterior
             });
         </script>';
         exit();
-        echo "El nombre solo debe contener letras. Por favor, verifica.";
     }
 
     $maxLongitudUsuario = 20; // Establece la longitud máxima del usuario
 
-if (strlen($usuario) > $maxLongitudUsuario) {
-    echo '<script>
-        Swal.fire({
-            title: "El nombre de usuario tiene un máximo de ' . $maxLongitudUsuario . ' caracteres.",
-            text: "",
-            icon: "error"
-        }).then(function() {
-            window.location.replace("../../vistas/cliente/formulario_cliente.php");
-        });
-    </script>';
-    exit(); // Agrega esta línea para evitar que se ejecuten más acciones después de mostrar la alerta
-}
+    if (strlen($usuario) > $maxLongitudUsuario) {
+        echo '<script>
+            Swal.fire({
+                title: "El nombre de usuario tiene un máximo de ' . $maxLongitudUsuario . ' caracteres.",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                history.back(); // Regresa a la página anterior
+            });
+        </script>';
+        exit(); // Agrega esta línea para evitar que se ejecuten más acciones después de mostrar la alerta
+    }
 
     // Validar longitud de la contraseña
     $minLongitudContrasena = 6; // Establece la longitud mínima de la contraseña
@@ -73,20 +79,20 @@ if (strlen($usuario) > $maxLongitudUsuario) {
                 text: "",
                 icon: "error"
             }).then(function() {
-                window.location.href = "../../vistas/cliente/formulario_cliente.php";
+                history.back(); // Regresa a la página anterior
             });
         </script>';
     }
 
     //* Condicion de el ID existe o no
-    elseif (mysqli_num_rows($id_existencia) > 0) {  
+    elseif (mysqli_num_rows($id_existencia) > 0 || mysqli_num_rows($id_usuario_existencia) > 0) {  
         echo '<script>
                 Swal.fire({
                     title: "La identificacion ya esta registrado. Por favor, elige otra",
                     text: "",
                     icon: "error"
                 }).then(function() {
-                    window.location.replace("../../vistas/cliente/formulario_cliente.php");
+                    history.back(); // Regresa a la página anterior
                 });
             </script>';
         exit();  
@@ -100,7 +106,7 @@ if (strlen($usuario) > $maxLongitudUsuario) {
                 text: "",
                 icon: "error"
             }).then(function() {
-                window.location.replace("../../vistas/cliente/formulario_cliente.php");
+                history.back(); // Regresa a la página anterior
             });
         </script>';
         exit();   
@@ -114,7 +120,7 @@ if (strlen($usuario) > $maxLongitudUsuario) {
                 text: "",
                 icon: "error"
             }).then(function() {
-                window.location.replace("../../vistas/cliente/formulario_cliente.php");
+                history.back(); // Regresa a la página anterior
             });
         </script>';
         exit(); 
@@ -150,5 +156,5 @@ if (strlen($usuario) > $maxLongitudUsuario) {
 ?>
 
 </body>
-</html>
 
+</html>

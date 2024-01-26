@@ -34,30 +34,28 @@
             <h3 class="text-success h1 formulario"><b>Modificar cliente</b></h3>
         </div>
         <form action="../../controladores/cliente/modificar_cliente.php" method="POST">
-            <div class="form-group">
-                <label for="identificacion">Identificacion:</label>
-                <input type="number" id="identificacion" name="identificacion" value="<?= $row['id']?>" required>
+
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" value="<?= $row['id']?>" readonly requered>
+                <label for="floatingInputidentificacion">Identificación:</label>
             </div>
 
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre"  value="<?= $row['nombre']?>" required>
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
+                <label for="floatingInputNombre">Nombre:</label>
+            </div>
+            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
+
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="Correo" value="<?= $row['correo']?>" requered>
+                <label for="floatingInputCorreo">Correo electronico:</label>
             </div>
 
-            <div class="form-group">
-                <label for="correo">Correo electronico:</label>
-                <input type="email" id="correo" name="correo"  value="<?= $row['correo']?>" required>
+            <div class="form-floating mb-3" style="margin-top: 3%;">
+                <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario" placeholder="Usuario" value="<?= $row['usuario']?>" requered>
+                <label for="floatingInputUsuario">usuario:</label>
             </div>
-
-            <div class="form-group">
-                <label for="usuario">Usuario:</label>
-                <input type="text" id="usuario" name="usuario"  value="<?= $row['usuario']?>" required>
-            </div>
-
-            <div class="form-group">
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="contraseña"  required>
-            </div>
+            <label for="floatingInputcorreo" style="color:red;">Maximo 20 caracteres</label>
 
             <button type="submit" class="submit" name="actualizar_cliente">Actualizar</button>
         </form>

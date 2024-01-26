@@ -8,8 +8,8 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-    <title>Agrocosecha</title>
-    <link rel="website icon" type="jpg" href="../../img/Size-16.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="website icon" type="jpg" href="../../img/Size-16.png">
 </head>
 <body>
     <!--//TODO: formulario de registro de cliente -->
@@ -18,35 +18,39 @@
             <h3 class="text-success h1 formulario"><b>Registrar proveedor</b></h3>
         </div>
         <form action="../../controladores/proveedor/registrar_proveedor.php" method="POST" >
-            <div class="form-group">
-                <label for="identificacion">Identificacion:</label>
-                <input type="number" id="identificacion" name="identificacion" required>
+        
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" requered>
+                <label for="floatingInputidentificacion">Identificacion:</label>
             </div>
 
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+            <div class="form-floating mb-3" style="margin-bottom:0px !important; margin-top:15px;">
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="floatingInputNombre" placeholder="Nombre" requered>
+                <label for="floatingInputNombre">Nombre:</label>
+            </div>
+            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
+
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="telefono" type="number" class="form-control cuadro_texto1" id="floatingInputtelefono" placeholder="telefono" requered>
+                <label for="floatingInputtelefono">Telefono:</label>
             </div>
 
-            <div class="form-group">
-                <label for="usuario">Usuario:</label>
-                <input type="text" id="usuario" name="usuario" required>
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="correo" type="email" class="form-control cuadro_texto1" id="floatingInputcorreo" placeholder="correo" requered>
+                <label for="floatingInputcorreo">Correo electronico:</label> 
             </div>
 
-            <div class="form-group">
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="contraseña" required>
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
+                <input name="usuario" type="text" class="form-control cuadro_texto1" id="floatingInputusuario" placeholder="Usuario" requered>
+                <label for="floatingInputusuario">Usuario:</label>
             </div>
+            <label for="floatingInputcorreo" style="color:red;">Maximo 20 caracteres</label>
 
-            <div class="form-group">
-                <label for="telefono">Telefono:</label>
-                <input type="number" id="telefono" name="telefono" required>
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
+                <input name="contraseña" type="password" class="form-control cuadro_texto1" id="floatingInputcontraseña" placeholder="contraseña" requered>
+                <label for="floatingInputcontraseña">Contraseña:</label>
             </div>
-
-            <div class="form-group">
-                <label for="correo">Correo electronico:</label>
-                <input type="email" id="correo" name="correo" required>
-            </div>
+            <label for="floatingInputcorreo" style="color:red;">Entre 6 a 20 caracteres</label>
 
             <button type="submit" class="submit" name="guardar_proveedor">Guardar</button>
         </form>

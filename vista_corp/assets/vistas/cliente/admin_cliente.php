@@ -35,36 +35,7 @@
 
     <!-- //* alerta nuevo registro -->
     <?php
-    if(isset($_SESSION['msj_registrar'])){
-        $respuesta = $_SESSION['msj_registrar'];?>
-    <script>
-    Swal.fire({
-        title: "Informacion guardada exitosamente",
-        text: "",
-        icon: "success"
-    });
-    </script>
-
-    <?php
-    unset($_SESSION['msj_registrar']);
-    }
-    ?>
-
-    <!-- //* alerta modificar registro -->
-    <?php
-    if(isset($_SESSION['msj_modificar'])){
-        $respuesta = $_SESSION['msj_modificar'];?>
-    <script>
-    Swal.fire({
-        title: "Informacion modificada exitosamente",
-        text: "",
-        icon: "success"
-    });
-    </script>
-
-    <?php
-    unset($_SESSION['msj_modificar']);
-    }
+    include "../../controladores/alertas.php";
     ?>
 
 
@@ -114,7 +85,7 @@
                                     style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
                             </form>
                             <!-- //* Enviar a la funcion de eliminar -->
-                            <form method="POST" class="eliminarForm">
+                            <form method="POST" class="eliminarForm" style="margin-top:-13px;">
                                 <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
                                     value="<?php echo $row['id']; ?>">
                                 <button type="submit" name="registro_eliminar" class="botones eliminarBtn"
@@ -141,59 +112,9 @@
     <script src="/agrocosecha_final/vista_corp/assets/js/alert_eliminar.js"></script>
 
     <!-- //* alerta eliminar registro -->
-    <script>
-    // Utiliza clases en lugar de ids para los botones y formularios
-    let eliminarBtns = document.querySelectorAll('.eliminarBtn');
-
-eliminarBtns.forEach(function(btn) {
-    btn.addEventListener('click', function(event) {
-        event.preventDefault();
-        let idAEliminar = btn.parentElement.querySelector('.id_a_eliminar_input').value;
-
-        Swal.fire({
-            title: "¿Estás seguro de eliminar la información con ID " + idAEliminar + "?",
-            text: "",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Eliminar"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Obtener el formulario ascendente más cercano al botón actual
-                let formulario = btn.closest('form');
-
-                if (formulario) {
-                    // Si el formulario existe, enviarlo
-                    Swal.fire({
-                        title: "Informacion eliminada",
-                        text: "",
-                        icon: "success",
-                        willClose: () => {
-                            formulario.submit();
-                        }
-                    });
-                } else {
-                    // Manejar el caso en que no se encuentra el formulario
-                    Swal.fire({
-                        title: "Error",
-                        text: "No se encontró el formulario asociado al botón",
-                        icon: "error"
-                    });
-                }
-            } else {
-                Swal.fire({
-                    title: "Eliminacion cancelada",
-                    text: "",
-                    icon: "error"
-                });
-            }
-        });
-    });
-});
-
-
-    </script>
+    <?php
+    include "../../controladores/alerta_eliminar.php";
+    ?>
 
 
 </body>

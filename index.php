@@ -1,43 +1,3 @@
-<?php
-    session_start();
-	include "./vista_corp/config/SERVER.php";
-	include "./vista_corp/config/database.php";
-
-
-    if($_POST){
-
-        $usuario = $_POST['usuario'];
-        $password = $_POST['password'];
-        
-        $sql = "SELECT id, usuario, `password`, tipo_usuario from tbl_usuarios where usuario='$usuario'";
-        $resultado = $mysqli->query($sql);
-        $num = $resultado->num_rows;
-
-        if($num > 0){
-            $row= $resultado->fetch_assoc();
-            $password_bd = $row['password'];
-            $pass_c = sha1($password);
-
-            if($password_bd == $pass_c){
-
-                $_SESSION['id'] = $row['id'];
-                $_SESSION['usuario'] = $row['usuario'];
-                $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
-                if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == "1") {
-                    header("Location: ./vista_corp/assets/vistas/mensaje/admin_mensaje.php");
-                } else {
-                    header("Location: /agrocosecha_final/index.php");
-                }          
-                exit;
-            } else{
-                echo "La contraseña no coincide";
-            }
-        }else{
-            echo "No existe ese usuario";
-        }
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,6 +15,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="./vista_corp/assets/css/fontawesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!--
     
 TemplateMo 559 Zay Shop
@@ -65,10 +27,74 @@ https://templatemo.com/tm-559-zay-shop
 </head>
 
 <body>
+    <!-- //! iniciar sesion -->
+    <?php
+        session_start();
+        include "./vista_corp/config/SERVER.php";
+        include "./vista_corp/config/database.php";
+
+
+        if($_POST){
+
+            $usuario = $_POST['usuario'];
+            $password = $_POST['password'];
+            
+            $sql = "SELECT id, usuario, `password`, tipo_usuario from tbl_usuarios where usuario='$usuario'";
+            $resultado = $mysqli->query($sql);
+            $num = $resultado->num_rows;
+
+            if($num > 0){
+                $row= $resultado->fetch_assoc();
+                $password_bd = $row['password'];
+                $pass_c = sha1($password);
+
+                if($password_bd == $pass_c){
+
+                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['usuario'] = $row['usuario'];
+                    $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
+                    if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == "1") {
+                        header("Location: ./vista_corp/assets/vistas/mensaje/admin_mensaje.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    } else {
+                        header("Location: /agrocosecha_final/index.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    }          
+                    
+                    exit;
+                } else{
+                    echo '<script>
+                        Swal.fire({
+                            title: "contraseña incorrecta",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+                }
+            }else{
+                echo '<script>
+                        Swal.fire({
+                            title: "No existe este usuario",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+            }
+        }
+    ?>
+
+
+
     <!-- Start Top Nav -->
     <?php include "./vista_corp/assets/complementos/navbar_superior.php"?>
     <!-- Close Top Nav -->
-    
+
 
     <!-- Header -->
     <?php include "./vista_corp/assets/complementos/navbar_menu.php";?>
@@ -78,6 +104,25 @@ https://templatemo.com/tm-559-zay-shop
     <?php include "./vista_corp/assets/complementos/modal.php"?>
     <!--fin moval-->
 
+    <!-- //* alerta sesion iniciada -->
+    <?php
+    if(isset($_SESSION['msj_inicio_sesion'])){
+        $respuesta = $_SESSION['msj_inicio_sesion'];?>
+    <script>
+    Swal.fire({
+        title: "Sesion iniciada",
+        text: "",
+        icon: "success",
+        timer: 2000,
+        timerProgressBar: true,
+        backdrop: false
+    });
+    </script>
+
+    <?php
+    unset($_SESSION['msj_inicio_sesion']);
+    }
+    ?>
 
     <!-- Carrusel -->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -166,19 +211,23 @@ https://templatemo.com/tm-559-zay-shop
         </div>
         <div class="row">
             <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="./vista_corp/vista_arroz.php"><img src="./vista_corp/assets/img/arrozcirculo.png" class="rounded-circle img-fluid border"></a>
+                <a href="./vista_corp/vista_arroz.php"><img src="./vista_corp/assets/img/arrozcirculo.png"
+                        class="rounded-circle img-fluid border"></a>
                 <h5 class="text-center mt-3 mb-3">Arroz</h5>
             </div>
             <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="./vista_corp/vista_gallinas.php"><img src="./vista_corp/assets/img/gallinacircular.jpg" class="rounded-circle img-fluid border"></a>
+                <a href="./vista_corp/vista_gallinas.php"><img src="./vista_corp/assets/img/gallinacircular.jpg"
+                        class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Gallina</h2>
             </div>
             <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="./vista_corp/vista_peces.php"><img src="./vista_corp/assets/img/pesecircular.jpg" class="rounded-circle img-fluid border"></a>
+                <a href="./vista_corp/vista_peces.php"><img src="./vista_corp/assets/img/pesecircular.jpg"
+                        class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Peces</h2>
             </div>
             <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="./vista_corp/vista_yuca.php"><img src="./vista_corp/assets/img/yucacircular.jpg" class="rounded-circle img-fluid border"></a>
+                <a href="./vista_corp/vista_yuca.php"><img src="./vista_corp/assets/img/yucacircular.jpg"
+                        class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Yuca</h2>
             </div>
         </div>

@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="" />
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
     <!--
     
 TemplateMo 559 Zay Shop
@@ -52,6 +55,26 @@ https://templatemo.com/tm-559-zay-shop
     <!--fin moval-->
     <?php include "./assets/conections/coneccion_tabla.php"?>
 
+    <!-- //* alerta mensaje enviado -->
+    <?php
+    if(isset($_SESSION['msj_mensaje_enviado'])){
+        $respuesta = $_SESSION['msj_mensaje_enviado'];?>
+    <script>
+    Swal.fire({
+        title: "mensaje enviado",
+        text: "",
+        icon: "success",
+        timer: 2000,
+        timerProgressBar: true,
+        backdrop: false
+    });
+    </script>
+
+    <?php
+    unset($_SESSION['msj_mensaje_enviado']);
+    }
+    ?>
+
 
     <!-- Start Content Page -->
     <div class="contenedor">
@@ -67,13 +90,13 @@ https://templatemo.com/tm-559-zay-shop
         </div>
         <form action="../vista_corp/assets/controladores/mensajes/enviar_mensaje.php" method="POST" class="fromcantact">
             <div class="form-group">
-                <label for="nombre">hola:</label>
+                <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
             </div>
 
             <div class="form-group">
                 <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" required>
+                <input type="number" id="telefono" name="telefono" required>
             </div>
 
             <div class="form-group">

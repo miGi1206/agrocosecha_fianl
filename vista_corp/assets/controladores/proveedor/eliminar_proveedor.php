@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php
 //! Conectarse a la base de datos
 include  "../../conections/coneccion_tabla.php";
@@ -7,18 +8,22 @@ if(isset($_POST['id_a_eliminar'])) {
     $id_a_eliminar = $_POST['id_a_eliminar'];
 
     //! Consulta SQL para eliminar el registro del admin
-    $sql_delete_admin = "DELETE FROM `tbl_proveedor` WHERE  `tbl_proveedor`.`id`= $id_a_eliminar";
-    $result_detete_admin = mysqli_query($conn, $sql_delete_admin);
-
+    $sql_delete_proveedor = "DELETE FROM `tbl_proveedor` WHERE  `tbl_proveedor`.`id`= $id_a_eliminar";
+    
     //! Consulta SQL para eliminar el usuario del admin
     $sql_delete_usuario = "DELETE FROM `tbl_usuarios` WHERE `tbl_usuarios`.`id` = $id_a_eliminar";
-    $result_detete_usuario = mysqli_query($conn, $sql_delete_usuario);
 
     //* Condicion de registro eliminado
-    if ($result_detete_admin && $result_detete_usuario) {
-        echo "Registro eliminado correctamente";
+    if (mysqli_query($conn, $sql_delete_proveedor) && mysqli_query($conn, $sql_delete_usuario)) {
+        session_start();
+        $_SESSION['msj_eliminar'] = "Se eliminó la información del sistema";
+        header("Location: ../../vistas/proveedor/admin_provee_tabla.php");
+        exit(); // Asegúrate de salir después de la redirección
     } else {
-        echo "Error al eliminar el registro: " . mysqli_error($conn);
+        session_start();
+        $_SESSION['msj_eliminar'] = "Error al eliminar la información";
+        header("Location: ../../vistas/proveedor/admin_provee_tabla.php");
+        exit(); // Asegúrate de salir después de la redirección
     }
 }
 ?>

@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../vista_corp/assets/css/fontawesome.min.css">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -31,6 +32,10 @@
     <?php include "../../complementos/navbar_admin.php";?>
     <!-- //TODO Fin del navbar -->
 
+    <!-- //* alerta nuevo registro -->
+    <?php
+    include "../../controladores/alertas.php";
+    ?>
 
     <h1>Administrador</h1>
     <!-- //* Fin de la barra de busqueda -->
@@ -78,51 +83,12 @@
                             </form>
 
                             <!-- //* Coneccion con la funcion para eliminar el registro -->
-                            <form action="#" method="POST">
-                                <div>
-                                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                        <li class="nav-item">
-                                            <a class="botones" href="#" data-bs-toggle="modal"
-                                                style="border:none !important; color:white;"
-                                                data-bs-target="#exampleModalToggle" aria-expanded="false"
-                                                role="button">Eliminar</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                                    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div
-                                                    style="width:100%; display:flex; justify-content:center; aling-item:center; ">
-                                                    <img src="../../../assets/img/eliminar.jpg" alt="">
-                                                </div>
-                                                <div class="z-flex2">
-                                                    <p>
-                                                        <center>Esta seguro de eliminar el administrador</center>
-                                                    </p>
-                                                </div>
-
-                                                <div
-                                                    style="width:100%; display:flex; justify-content:space-evenly; aling-item:center; ">
-                                                    <form method="POST">
-                                                        <input type="hidden" name="id_a_eliminar"
-                                                            value="<?php echo $row['id']; ?>">
-                                                        <button type="submit" name="registro_eliminar"
-                                                            class="botones">Eliminar</button>
-                                                    </form>
-                                                    <button type="button" class="botones" data-bs-dismiss="modal"
-                                                        aria-label="Close">Cancelar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <form method="POST" class="eliminarForm" style="margin-top:-13px;">
+                                <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
+                                    style="margin-top:5% !important;" value="<?php echo $row['id']; ?>">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn">
+                                    Eliminar
+                                </button>
                             </form>
                         </td>
                     </tr>
@@ -139,6 +105,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- //* alerta eliminar registro -->
+    <?php
+    include "../../controladores/alerta_eliminar.php";
+    ?>
 
 </body>
 

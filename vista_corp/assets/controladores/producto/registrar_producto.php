@@ -1,4 +1,13 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrocosecha</title>
+    <link rel="website icon" type="jpg" href="../../img/Size-16.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
 <?php
 include "../../conections/coneccion_tabla.php";
 
@@ -14,22 +23,60 @@ if(isset($_POST["guardar_producto"])) {
     $stock = $_POST['stock'];
     
     // TODO: verifica si la identificacion ya esta registrada
-    $verificar_id = mysqli_query($conn, "SELECT id FROM tbl_producto WHERE id = '$id'");
-    if(mysqli_num_rows($verificar_id) > 0) {
-        die("Error: El ID '$id' ya existe esta registrado");
+    $consulta_existencia = "SELECT id FROM tbl_producto WHERE id = '$id'";
+    $id_existencia = mysqli_query($conn, $consulta_existencia);
+
+    //* funcion para que el nombre solo lleve letras
+    if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+        echo '<script>
+            Swal.fire({
+                title: "El nombre no debe contener numeros.",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                history.back(); // Regresa a la página anterior
+            });
+        </script>';
+        exit();
     }
 
+    //* Validar si el usuario ya existe
+    $consulta_existencia = "SELECT nombre FROM tbl_producto WHERE nombre = '$nombre'";
+    $nombre_existencia = mysqli_query($conn, $consulta_existencia);
 
-    // TODO: consulta sql para ingresar datos a la tabla admin
-    $sql_servicio = "INSERT INTO `tbl_producto`(`id`, `nombre`, `descripcion`, `precio`, `fecha_registro`, `stock`) VALUES ('$id', '$nombre','$descripcion','$precio','$fecha_registro','$stock')";
-    echo "Consulta SQL: " . $sql_proveedor; // Imprime la consulta SQL para depuración
-    $result_servicio = mysqli_query($conn, $sql_servicio);
+    //* Condicion de el ID existe o no
+    if (mysqli_num_rows($nombre_existencia) > 0) {  
+        echo '<script>
+                Swal.fire({
+                    title: "Este nombre ya esta registrado. Por favor, elige otro",
+                    text: "",
+                    icon: "error"
+                }).then(function() {
+                    history.back(); // Regresa a la página anterior
+                });
+            </script>';
+        exit();  
+    } 
 
-    // TODO: funcion para mandarlo de regreso a la tabla si no que mande un error
-    if($result_servicio) {
-        header("Location: ../../vistas/producto/admin_producto_tabla.php");
-    } else {
-        die("Error en la consulta: " . mysqli_error($conn));
+    else {
+
+        // TODO: consulta sql para ingresar datos a la tabla admin
+        $sql_servicio = "INSERT INTO `tbl_producto`(`id`, `nombre`, `descripcion`, `precio`, `fecha_registro`, `stock`) VALUES ('$id', '$nombre','$descripcion','$precio','$fecha_registro','$stock')";
+        echo "Consulta SQL: " . $sql_proveedor; // Imprime la consulta SQL para depuración
+        $result_servicio = mysqli_query($conn, $sql_servicio);
+
+        // TODO: funcion para mandarlo de regreso a la tabla si no que mande un error
+        if($result_servicio) {
+            header("Location: ../../vistas/producto/admin_producto_tabla.php");
+            session_start();
+            $_SESSION['msj_registrar'] = "Se inserto la informacion al sistema";
+        } else {
+            session_start();
+            $_SESSION['msj_registrar'] = "error al guardar la información";
+            // die("Error en la consulta: " . mysqli_error($conn));
+        }
     }
 }
 ?>
+</body>
+</html>
