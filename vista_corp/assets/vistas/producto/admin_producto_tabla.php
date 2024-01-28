@@ -39,7 +39,54 @@
 
     <h1>Productos</h1>
 
-    <div class="tabla_container">
+    <!-- //! Barra de busqueda -->
+    <div class="container-fluid" style="display:flex; justify-content:center;">
+        <form class="d-flex" style="width: 70%;">
+            <form action="" method="GET">
+
+                <!-- //TODO: informacion sobre busqueda -->
+                <div class="btn-group" style="height:30px !important">
+                    <button type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="margin-top:5px; background-color:transparent !important; border:none;">
+                        <img src="../../img/informacion.png" alt="">
+                    </button>
+                    <ul class="dropdown-menu" style="width:200px !important;">
+                        <p style="padding:10% !important;">
+                            Puedes buscar por: <br>
+                            codigo, <br>
+                            nombre, <br>
+                            fecha: <span style="color: red;">AAAA-MM-DD</span>
+                            <br><br>
+                            <span style="color:#065F2C;">
+                            <b>
+                            Para regresar darle
+                            click a buscar sin nada en la barra
+                            de busqueda
+                            </b>
+                            </span>
+                        </p>
+                    </ul>
+                </div>
+                <!-- //TODO: Fin de informacion sobre busqueda -->
+                <input style="border-radius:30px; height:70% !important;"class="form-control me-2" type="search" placeholder="Buscar" name="busqueda">
+                <button style="height:auto !important; margin-top:0px !important; border-radius:100px;" class="botones" type="submit" name="enviar">Buscar</button>
+            </form>
+        </form>
+    </div>
+    <!-- //! Fin barra de busqueda -->
+
+    <?php
+    $buscar="";
+    if (isset($_GET['enviar'])){
+        $busqueda = $_GET['busqueda'];
+
+        if (isset($_GET['busqueda'])){
+            $buscar = "WHERE id LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%' OR fecha_registro LIKE '%".$busqueda."%'";
+        }
+    }
+    ?>
+
+    <div class="tabla_container" style="margin-top:-15px !important;">
         <button class="boton-registrar"><a href="./formulario_producto.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
         <div style="overflow-x:auto !important; width:100% !important;">
@@ -50,15 +97,15 @@
                         <th>Nombres</th>
                         <th>Descripcion</th>
                         <th>Precio</th>
-                        <th>Fecha de Registro</th>
                         <th>Stock</th>
+                        <th>Fecha de Registro</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
 
-                    $sql = "SELECT * FROM `tbl_producto`";
+                    $sql = "SELECT * FROM `tbl_producto` $buscar";
 
                     $result = mysqli_query($conn,$sql);
                     while ($row = mysqli_fetch_assoc($result)){ 
@@ -74,8 +121,8 @@
                                 echo "<button onclick='leerMenos(" . $row['id'] . ")' style='display:none; background-color: transparent; border:none; color:blue;'>Leer menos</button>";
                         ?></td>
                         <td>$<?php echo $row["precio"] ?></td>
-                        <td><?php echo $row["fecha_registro"] ?></td>
                         <td><?php echo $row["stock"] ?></td>
+                        <td><?php echo $row["fecha_registro"] ?></td>
                         <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
                             <form method="POST" action="./formulario_modi_producto.php">
                                 <a href="./formulario_modi_producto.php?id=<?php echo $row['id'];?>" type="botton"

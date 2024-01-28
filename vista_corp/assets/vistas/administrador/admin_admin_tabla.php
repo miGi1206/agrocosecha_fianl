@@ -17,6 +17,7 @@
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -38,10 +39,63 @@
     ?>
 
     <h1>Administrador</h1>
-    <!-- //* Fin de la barra de busqueda -->
+
+    <!-- //! Barra de busqueda -->
+    <div class="container-fluid" style="display:flex; justify-content:center;">
+        <form class="d-flex" style="width: 70%;">
+            <form action="" method="GET">
+                
+                <!-- //TODO: informacion sobre busqueda -->
+                <div class="btn-group" style="height:30px !important">
+                    <button type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="margin-top:5px; background-color:transparent !important; border:none;">
+                        <img src="../../img/informacion.png" alt="">
+                    </button>
+                    <ul class="dropdown-menu" style="width:200px !important;">
+                        <p style="padding:10% !important;">
+                            Puedes buscar por: <br>
+                            identificacion, <br>
+                            nombre, <br>
+                            usuario, <br>
+                            correo, <br>
+                            fecha: <span style="color: red;">AAAA-MM-DD</span>
+                            <br><br>
+                            <span style="color:#065F2C;">
+                            <b>
+                            Para regresar darle
+                            click a buscar sin nada en la barra
+                            de busqueda
+                            </b>
+                            </span>
+                        </p>
+
+                    </ul>
+                </div>
+                <!-- //TODO: Fin de informacion sobre busqueda -->
+
+                <input style="border-radius:30px; height:70% !important;" class="form-control me-2" type="search"
+                    placeholder="Buscar"
+                    name="busqueda">
+                <button style="height:auto !important; margin-top:0px !important; border-radius:100px;" class="botones"
+                    type="submit" name="enviar">Buscar</button>
+            </form>
+        </form>
+    </div>
+    <!-- //! Fin barra de busqueda -->
+
+    <?php
+    $buscar="";
+    if (isset($_GET['enviar'])){
+        $busqueda = $_GET['busqueda'];
+
+        if (isset($_GET['busqueda'])){
+            $buscar = "WHERE id LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%' OR usuario LIKE '%".$busqueda."%' OR fecha_registro LIKE '%".$busqueda."%'  OR correo LIKE '%".$busqueda."%'";
+        }
+    }
+    ?>
 
     <!-- //TODO: Inicio de la tabla de los administradores -->
-    <div class="tabla_container">
+    <div class="tabla_container" style="margin-top:-15px !important;">
 
         <button class="boton-registrar"><a href="formulario_admin.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
@@ -51,17 +105,17 @@
                     <tr>
                         <th>Identificación</th>
                         <th>Nombres</th>
+                        <th>Correo</th>
+                        <th>Fecha de registro</th>
                         <th>Usuario</th>
                         <th>Contraseña</th>
-                        <th>Fecha de registro</th>
-                        <th>Correo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql = "SELECT * FROM `tbl_admin`";
+                    $sql = "SELECT * FROM `tbl_admin` $buscar";
                     $result = mysqli_query($conn,$sql);
 
                     //* Ciclo para mostrar los registros
@@ -70,16 +124,19 @@
                     <tr>
                         <td><?php echo $row["id"] ?></td>
                         <td><?php echo $row["nombre"] ?></td>
+                        <td><?php echo $row["correo"] ?></td>
+                        <td><?php echo $row["fecha_registro"] ?></td>
                         <td><?php echo $row["usuario"] ?></td>
                         <td><?php echo $row["contraseña"] ?></td>
-                        <td><?php echo $row["fecha_registro"] ?></td>
-                        <td><?php echo $row["correo"] ?></td>
-                        <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
+
+                        <td
+                            style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
 
                             <!-- //* Ingresar al formulario para modificar los datos del admin -->
                             <form method="POST" action="formulario_modi_admin.php">
                                 <a href="formulario_modi_admin.php?id=<?php echo $row['id'];?>" type="botton"
-                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
+                                    class="botones"
+                                    style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
                             </form>
 
                             <!-- //* Coneccion con la funcion para eliminar el registro -->

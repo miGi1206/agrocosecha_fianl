@@ -78,7 +78,10 @@
                 <tbody>
                     <?php
 
-                    $sql = "SELECT * FROM `contactanos`";
+                    $sql = "SELECT `contactanos`.`id`, `contactanos`.`nombre`, `contactanos`.`telefono`,
+                    `contactanos`.`correo`, `contactanos`.`municipio`, `tbl_producto`.`nombre`, 
+                    `contactanos`.`mensaje`, `contactanos`.`fecha_envio` FROM `contactanos`, 
+                    `tbl_producto` WHERE `contactanos`.`producto_interes` = `tbl_producto`.`id`";
 
                     $result = mysqli_query($conn,$sql);
                     while ($row = mysqli_fetch_assoc($result)){ 
@@ -89,7 +92,7 @@
                         <td><?php echo $row["telefono"] ?></td>
                         <td><?php echo $row["correo"] ?></td>
                         <td><?php echo $row["municipio"] ?></td>
-                        <td><?php echo $row["producto_interes"] ?></td>
+                        <td><?php echo $row["nombre"] ?></td>
                         <td><?php
                                 // Muestra solo una parte de la información y agrega un botón "Leer más"
                                 echo "<span id='resumen" . $row['id'] . "'>" . substr($row["mensaje"], 0, 100) . "</span>";
