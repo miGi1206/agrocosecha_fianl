@@ -166,8 +166,8 @@
                             <div class="navbar align-self-center d-flex">
                         <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                             <li class="nav-item">
-                                <button class="nav-link" href="#" style="background-color:#3aaa3c; border-radius:5px; padding:5%; color:white;" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModalToggle2" aria-expanded="false" role="button">comprar</button>
+                                <button class="nav-link" href="#" style="background-color:#3aaa3c; border-radius:5px; padding:5%; color:white;  width: 130px;" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalToggle2" aria-expanded="false" role="button"><img src="/agrocosecha_final/vista_corp/assets/img/carrito-de-compras.png"alt="" ></button>
                             </li>
                         </ul>
                     </div>
@@ -186,8 +186,8 @@
 
                                         <!-- inicio del formulario -->
                                         <form method="POST" action="<?php  echo $_SERVER['PHP_SELF'];?>">
-                                            <img src="/agrocosecha_final/vista_corp/assets/img/logomaiz1.png"
-                                                class="col-sm-6" id="ini_logo3" style="margin-top: -14%">
+                                            <img src="/agrocosecha_final/vista_corp/assets/img/nombre_logo.png"
+                                                class="col-sm-6" id="ini_logo3" style="margin: auto">
                                             <h5 class="modal-title" id="exampleModalToggleLabel"
                                                 style="margin-bottom: 5%; color: #065F2C;"><b>Comprar</b></h5>
                                             <div class="form-floating mb-3">
@@ -200,12 +200,14 @@
                                                     id="floatingInput" name="direccion" placeholder="direccion" required>
                                                 <label for="floatingInput">Dirección</label>
                                             </div>
-                                            <button type="submit" class="btn-iniciar2" style="padding:1% 5%;">Comprar</button>
-                                            <button type="submit" class="btn-iniciar2" data-bs-toggle="modal"
-                                                data-bs-target="#registro" data-bs-dismiss="modal" style="padding:1% 5%;">Cancelar</button>
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control cuadro_texto2"
+                                                    id="floatingInput" name="telefono" placeholder="direccion" required>
+                                                <label for="floatingInput">Telefono</label>
+                                            </div>
+                                            <button type="submit" class="btn-iniciar2" style="padding:1% 5%; "> Comprar</button>
                                         </form>
                                         <!-- fin del formulario  -->
-
                                     </div>
                                 </div>
                             </div>
