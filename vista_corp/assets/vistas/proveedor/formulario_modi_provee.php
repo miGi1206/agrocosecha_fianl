@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['usuario'])){
+        header("Location: /agrocosecha_final/index.php");
+        exit();
+    }
+    
+    
+?>
 <?php 
     //! Conectarse a la base de datos
     include("../../conections/coneccion_tabla.php");
