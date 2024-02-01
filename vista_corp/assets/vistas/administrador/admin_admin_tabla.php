@@ -89,16 +89,16 @@
     </div>
     <!-- //! Fin barra de busqueda -->
 
-    <?php
-    $buscar="";
-    if (isset($_GET['enviar'])){
-        $busqueda = $_GET['busqueda'];
+    <   $busqueda = $_GET['busqueda'];
 
         if (isset($_GET['busqueda'])){
             $buscar = "WHERE id LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%' OR usuario LIKE '%".$busqueda."%' OR fecha_registro LIKE '%".$busqueda."%'  OR correo LIKE '%".$busqueda."%'";
         }
     }
-    ?>
+    ?>?php
+    $buscar="";
+    if (isset($_GET['enviar'])){
+     
 
     <!-- //TODO: Inicio de la tabla de los administradores -->
     <div class="tabla_container" style="margin-top:-15px !important;">

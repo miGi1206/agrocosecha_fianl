@@ -94,6 +94,7 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Start Top Nav -->
     <?php include "./vista_corp/assets/complementos/navbar_superior.php"?>
     <!-- Close Top Nav -->
+    <?php include "./vista_corp/assets/conections/coneccion_tabla.php" ?>
 
 
     <!-- Header -->
@@ -104,6 +105,7 @@ https://templatemo.com/tm-559-zay-shop
     <?php include "./vista_corp/assets/complementos/modal.php"?>
     <!--fin moval-->
 
+    
     <!-- //* alerta sesion iniciada -->
     <?php
     if(isset($_SESSION['msj_inicio_sesion'])){

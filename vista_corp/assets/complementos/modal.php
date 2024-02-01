@@ -101,7 +101,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn-iniciar2" name="nuevo_registro">Registrase</button>
+                                <button type="submit" class="btn-iniciar2" name="nuevo_registro">Registrarse</button>
                             </div>
                         </div>
                     </form>

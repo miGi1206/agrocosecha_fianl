@@ -13,6 +13,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <?php
+            // Realiza una consulta SQL para obtener el primer ID de la base de datos
+            $sql_obtener_primer_id = "SELECT id FROM tbl_producto ORDER BY id ASC LIMIT 1";
+            $resultado = mysqli_query($conn, $sql_obtener_primer_id);
+
+            if ($row = mysqli_fetch_assoc($resultado)) {
+                // Obtiene el ID
+                $primer_id = $row['id'];
+            }
+        ?>
+
         <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
             id="templatemo_main_nav">
             <div class="flex-fill">
@@ -21,7 +32,7 @@
                         <a class="nav-link" href="/agrocosecha_final/index.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/agrocosecha_final/vista_corp/vista_arroz.php">Productos y Servicios</a>
+                        <a class="nav-link" href="/agrocosecha_final/vista_corp/pagina_auto.php?busqueda=<?= $primer_id ?>">Productos y Servicios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/agrocosecha_final/vista_corp/quienessomos.php">Quienes somos</a>

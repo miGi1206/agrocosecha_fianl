@@ -56,9 +56,9 @@
     font-size: 15px;
     text-transform: uppercase;
 }
-#A{
+.A{
     position: relative;
-    color: rgba(85, 83, 83);
+    color: rgba(85, 83, 83) !important;
     font-size: 13px;
     display: table;
     width: 300px;
@@ -81,11 +81,13 @@
     font-size: 5px;
 }
 .nav_item{
+    text-align: center !important;
     position: relative;
     top: 8px;
     margin-left: 20px;
 }
 .A:hover{
+    color:#fff !important;
     background: #28a745;
 }
 #container_nav:hover{

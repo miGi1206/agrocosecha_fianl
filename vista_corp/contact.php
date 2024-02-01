@@ -43,6 +43,8 @@ https://templatemo.com/tm-559-zay-shop
     <?php include "./assets/complementos/navbar_superior.php"; ?>
     <!-- Close Top Nav -->
 
+    <?php include "./assets/conections/coneccion_tabla.php" ?>
+
 
     <!-- Header -->
     <?php include "./assets/complementos/navbar_menu.php"; ?>

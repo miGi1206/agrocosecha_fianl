@@ -147,20 +147,86 @@
                         </div>
                     </div>
                     <!-- col end -->
+                    
+                    <?php
+                    $productos="";
+                    if (isset($_GET['busqueda'])){
+                        $busqueda = $_GET['busqueda'];
+                        $productos = "WHERE tbl_producto.id = '$busqueda'";
+                    }
+                    ?>
+
+                    <?php
+                    $alquiler="";
+                    if (isset($_GET['busqueda2'])){
+                        $alquiler_equipos = $_GET['busqueda2'];
+                        $alquiler = "WHERE tbl_servicio.id = '$alquiler_equipos'";
+                    }
+                    ?>
+
+                    <?php
+                    $servicio_personal="";
+                    if (isset($_GET['busqueda3'])){
+                        $personal = $_GET['busqueda3'];
+                        $servicio_personal = "WHERE tbl_servicio.id = '$personal'";
+                    }
+                    ?>
+                    
                     <div class="col-lg-7 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h1 class="h2">Arroz</h1>
-                                <?php
-                                //! Mostrar el stock o el precio
-                                include "../vista_corp/assets/controladores/stock_precio.php";
-                                ?>
+                            <?php
+                                $productos = "";
+                                $alquiler = "";
 
-                                <h6>Description:</h6>
-                                <p>Nos enorgullece presentar nuestro arroz, cultivado con cuidado y dedicación
-                                    en los fértiles campos de la región del Darién. Nuestro arroz es el resultado
-                                    de prácticas agrícolas sostenibles, garantizando no solo un producto de alta calidad
-                                    sino también el respeto por el medio ambiente.</p>
+                                if (isset($_GET['busqueda'])) {
+                                    $busqueda = $_GET['busqueda'];
+                                    $productos = "WHERE tbl_producto.id = '$busqueda'";
+                                    $sql_producto = "SELECT * FROM `tbl_producto` $productos";
+                                    $result_producto = mysqli_query($conn, $sql_producto);
+
+                                    while ($row = mysqli_fetch_assoc($result_producto)) {
+                            ?>
+                                        <h1 class="h2"><?= $row['nombre']?></h1>
+                                        <p><b>Precio: <?= $row['precio']?></b></p>
+                                        <p><b>Stock: <?= $row['stock']?> unidades</b></p>
+                                        <h6>Descripción</h6>
+                                        <p><?= $row['descripcion']?></p>
+                            <?php
+                                    }
+                                } elseif (isset($_GET['busqueda2'])) {
+                                    $alquiler_equipos = $_GET['busqueda2'];
+                                    $alquiler = "WHERE tbl_servicio.id = '$alquiler_equipos'";
+                                    $sql_alquiler = "SELECT * FROM `tbl_servicio` $alquiler";
+                                    $result_alquiler = mysqli_query($conn, $sql_alquiler);
+
+                                    while ($row = mysqli_fetch_assoc($result_alquiler)) {
+                            ?>
+                                        <h1 class="h2"><?= $row['nombre']?></h1>
+                                        <p><b>Precio: <?= $row['precio']?></b></p>
+                                        <p><b>Duración: <?= $row['duracion']?> horas</b></p>
+                                        <h6>Descripción</h6>
+                                        <p><?= $row['descripcion']?></p>
+                            <?php
+                                    }
+                                }elseif (isset($_GET['busqueda3'])) {
+                                    $personal = $_GET['busqueda3'];
+                                    $servicio_personal = "WHERE tbl_servicio.id = '$personal'";
+                                    $sql_servicio_personal = "SELECT * FROM `tbl_servicio` $servicio_personal";
+                                    $result_personal = mysqli_query($conn, $sql_servicio_personal);
+
+                                    while ($row = mysqli_fetch_assoc($result_personal)) {
+                            ?>
+                                        <h1 class="h2"><?= $row['nombre']?></h1>
+                                        <p><b>Precio: <?= $row['precio']?></b></p>
+                                        <p><b>Duración: <?= $row['duracion']?> horas</b></p>
+                                        <h6>Descripción</h6>
+                                        <p><?= $row['descripcion']?></p>
+                            <?php
+                                    }
+                            }
+                            ?>
+
 
                             </div>
                             <div class="navbar align-self-center d-flex">
