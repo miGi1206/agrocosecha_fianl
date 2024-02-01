@@ -20,6 +20,7 @@
     <title>Agrocosecha</title>
     <link rel="website icon" type="jpg" href="../../img/Size-16.jpg">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 </head>
 <body>
 
@@ -37,31 +38,38 @@
             </div>
 
             <div class="form-floating mb-3" style="margin-bottom:0px !important; margin-top:15px;">
-                <input name="nombre" type="text" class="form-control cuadro_texto1" id="floatingInputNombre" placeholder="Nombre" requered>
-                <label for="floatingInputNombre">Nombre:</label>
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" requered>
+                <label for="nombre">Nombre:</label>
+                <div id="result_nombre" style="color:red; font-size:15px;"></div>
             </div>
-            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
+            
+            
+            <!-- <label for="floatingInputcorreo" style="color:red;">Solo letras</label> -->
 
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="correo" type="email" class="form-control cuadro_texto1" id="floatingInputcorreo" placeholder="correo" requered>
-                <label for="floatingInputcorreo">Correo:</label> 
+                <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="correo" requered>
+                <label for="correo">Correo:</label>
             </div>
 
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
-                <input name="usuario" type="text" class="form-control cuadro_texto1" id="floatingInputusuario" placeholder="Usuario" requered>
-                <label for="floatingInputusuario">Usuario:</label>
+                <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario" placeholder="Usuario" requered>
+                <label for="usuario">Usuario:</label>
+                <div id="result_usuario" style="color:red; font-size:15px;"></div>
             </div>
-            <label for="floatingInputcorreo" style="color:red;">Maximo 20 caracteres</label>
+            <!-- <label for="floatingInputcorreo" style="color:red;">Maximo 20 caracteres</label> -->
 
-            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
-                <input name="contraseña" type="password" class="form-control cuadro_texto1" id="floatingInputcontraseña" placeholder="contraseña" requered>
-                <label for="floatingInputcontraseña">Contraseña:</label>
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:15px !important;">
+                <input name="contraseña" type="password" class="form-control cuadro_texto1" id="contraseña" placeholder="contraseña" requered>
+                <label for="contraseña">Contraseña:</label>
+                <div id="result_contraseña" style="color:red; font-size:15px;"></div>
             </div>
-            <label for="floatingInputcorreo" style="color:red;">Entre 6 a 20 caracteres</label>
 
             <button type="submit" class="submit" name="guardar_cliente">Guardar</button>
         </form>
     </div>
     <!--//TODO: Fin formulario de registro del cliente -->
+
+    <script src="../../js/validaciones.js"></script>
+    
 </body>
 </html>

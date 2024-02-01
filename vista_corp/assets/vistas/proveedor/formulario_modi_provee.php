@@ -47,9 +47,9 @@
 
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
                 <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
-                <label for="floatingInputNombre">Nombre:</label>
+                <label for="nombre">Nombre:</label>
+                <div id="result_nombre" style="color:red; font-size:15px;"></div>
             </div>
-            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
 
             <div class="form-floating mb-3" style="margin-top:15px;">
                 <input name="telefono" type="number" class="form-control cuadro_texto1" id="floatingInputtelefono" placeholder="telefono" value="<?= $row['telefono']?>" requered>
@@ -58,19 +58,21 @@
 
             <div class="form-floating mb-3" style="margin-top:15px;">
                 <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="Correo" value="<?= $row['correo']?>" requered>
-                <label for="floatingInputCorreo">Correo electronico:</label>
+                <label for="correo">Correo electronico:</label>
             </div>
 
             <div class="form-floating mb-3" style="margin-top: 3%;">
                 <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario" placeholder="Usuario" value="<?= $row['usuario']?>" requered>
-                <label for="floatingInputUsuario">usuario:</label>
+                <label for="usuario">usuario:</label>
+                <div id="result_usuario" style="color:red; font-size:15px;"></div>
             </div>
-            <label for="floatingInputcorreo" style="color:red;">Maximo 20 caracteres</label>
             
             <button type="submit" name="modificar_proveedor" style="border-radius:5px !important;">Actualizar</button>
         </form>
     </div>
     <!-- //TODO: Fin del formulario -->
 </div>
+
+    <script src="../../js/validaciones.js"></script>
 </body>
 </html>

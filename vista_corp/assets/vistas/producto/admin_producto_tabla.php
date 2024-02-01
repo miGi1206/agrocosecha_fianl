@@ -120,12 +120,18 @@
                         <td><?php echo $row["id"] ?></td>
                         <td><?php echo $row["nombre"] ?></td>
                         <td><?php
-                                // Muestra solo una parte de la información y agrega un botón "Leer más"
-                                echo "<span id='resumen" . $row['id'] . "'>" . substr($row["descripcion"], 0, 100) . "</span>";
-                                echo "<span id='detalle" . $row['id'] . "' style='display:none;'>" . substr($row["descripcion"], 100) . "</span>";
+                            $descripcion_corta = substr($row["descripcion"], 0, 100);
+                            $descripcion_larga = substr($row["descripcion"], 100);
+
+                            echo "<span id='resumen" . $row['id'] . "'>" . $descripcion_corta . "</span>";
+
+                            if (strlen($row["descripcion"]) > 100) {
+                                echo "<span id='detalle" . $row['id'] . "' style='display:none;'>" . $descripcion_larga . "</span>";
                                 echo "<button onclick='leerMas(" . $row['id'] . ")' style='background-color: transparent; border:none; color:blue;'>Leer más</button>";
                                 echo "<button onclick='leerMenos(" . $row['id'] . ")' style='display:none; background-color: transparent; border:none; color:blue;'>Leer menos</button>";
-                        ?></td>
+                            }
+                            ?>
+                        </td>
                         <td>$<?php echo $row["precio"] ?></td>
                         <td><?php echo $row["stock"] ?></td>
                         <td><?php echo $row["fecha_registro"] ?></td>

@@ -75,11 +75,11 @@
                 </select>
             </div>
 
-            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:15px !important;">
                 <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
-                <label for="floatingInputNombre">Nombre:</label>
+                <label for="nombre">Nombre:</label>
+                <div id="result_nombre" style="color:red; font-size:15px;"></div>
             </div>
-            <label for="floatingInputcorreo" style="color:red;">Solo letras</label>
 
             <div class="form-group">
                 <label for="descripcion">Descripcion:</label>
@@ -101,6 +101,8 @@
     </div>
     <!--//TODO: Fin formulario de registro del cliente -->
     </div>
+
+    <script src="../../js/validaciones.js"></script>
 </body>
 
 </html>
