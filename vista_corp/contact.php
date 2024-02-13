@@ -111,6 +111,7 @@ https://templatemo.com/tm-559-zay-shop
                 <input type="text" id="municipio" name="municipio" required>
             </div>
 
+             <!-- esto es un combobox -->
             <div class="form-group">
                 <label for="productos">Productos de Interés:</label>
                 <select id="productos" name="productos">
@@ -128,7 +129,8 @@ https://templatemo.com/tm-559-zay-shop
                     }?>               
                 </select>
             </div>
-
+            <!-- fin de combo box -->
+            
             <div class="form-group">
                 <label for="mensaje">Mensaje:</label>
                 <textarea id="mensaje" name="mensaje" rows="4"></textarea>

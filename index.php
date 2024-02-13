@@ -39,7 +39,7 @@ https://templatemo.com/tm-559-zay-shop
             $usuario = $_POST['usuario'];
             $password = $_POST['password'];
             
-            $sql = "SELECT id, usuario, `password`, tipo_usuario from tbl_usuarios where usuario='$usuario'";
+            $sql = "SELECT codigo_usuario, usuario, `contraseña`, cod_tipo_usuario  from tbl_usuario where usuario='$usuario'";
             $resultado = $mysqli->query($sql);
             $num = $resultado->num_rows;
 

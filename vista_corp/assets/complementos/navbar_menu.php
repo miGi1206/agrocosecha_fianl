@@ -15,7 +15,7 @@
 
         <?php
             // Realiza una consulta SQL para obtener el primer ID de la base de datos
-            $sql_obtener_primer_id = "SELECT id FROM tbl_producto ORDER BY id ASC LIMIT 1";
+            $sql_obtener_primer_id = "SELECT codigo_producto FROM tbl_producto ORDER BY codigo_producto ASC LIMIT 1";
             $resultado = mysqli_query($conn, $sql_obtener_primer_id);
 
             if ($row = mysqli_fetch_assoc($resultado)) {
