@@ -140,18 +140,30 @@ elseif(mysqli_num_rows($usuario_existencia) > 0) {
             // Verificar si las contraseñas coinciden
             if ($contraseña === $confirm_password) {
                    //! Consulta SQL para guardar la informacion del cliente en la base de datos
+                  
                 $sql_persona = "INSERT INTO 
-                `tbl_persona` (`codigo_persona`,`identificacion`, `primer_nombre`, `segundo_nombre`,`primer_apellido`,`segundo_apellido`,`telefono`,`correo`,`cod_sexo `,`fecha_nacimiento`,`direccion`,`fecha_creacion`) 
-                VALUES ('','$id', '$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$telefono','$correo','$sexo','$fecha_nacimiento','$direccion','$fecha_creacion')";
+                `tbl_persona` (`codigo_persona`,`identificacion`, `primer_nombre`, `segundo_nombre`,`primer_apellido`,`segundo_apellido`,`telefono`,`correo`,`cod_sexo`,`fecha_nacimiento`,`direccion`,`fecha_creacion`) 
+                VALUES (NULL,'$id', '$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$telefono','$correo','$sexo','$fecha_nacimiento','$direccion','$fecha_creacion')";
 
                 $result_persona = mysqli_query($conn, $sql_persona);
                 
+                $sql_persona2 = "SELECT codigo_persona FROM tbl_persona WHERE identificacion='$id'";
+                $result_persona2= mysqli_query($conn,$sql_persona2);
 
+                if($result_persona2){
+                    $row = mysqli_fetch_assoc($result_persona2);
+                    // ahora $row contiene los datos de la fila y puede acceder al codigo de la persona 
+                    $codigo_persona2 = $row['codigo_persona'];
+                }
+               
                 //! Consulta SQL para mandar el usuario y contraseña a una tabla de usuario
-                $sql_usuario = "INSERT INTO `tbl_usuario` (`usuario`, `contraseña`, `cod_tipo_usuario `) VALUES ('$id', '$usuario', '$hashed_password','2')";                   
-                $result_usuario = mysqli_query($conn, $sql_usuario);
-
-                if ($result_persona && $result_usuario) {
+                $sql_usuario = "INSERT INTO `tbl_usuario` (`codigo_usuario`,`usuario`, `contraseña`,`cod_persona`, `cod_tipo_usuario`, `nit_proveedor`) VALUES
+                 (null,'$usuario', '$hashed_password','$codigo_persona2','2', null)";
+                
+                 echo "Consulta SQL: " . $sql_usuario; // Imprime la consulta SQL para depuración
+                 $result_usuario = mysqli_query($conn, $sql_usuario);
+                 
+                if ($result_persona) {
                     echo '<script>
                         Swal.fire({
                             title: "registro exitoso",
