@@ -4,11 +4,11 @@
 
     if(isset($_POST['id_a_eliminar'])) {
         $id_a_eliminar = $_POST['id_a_eliminar'];
-        $sql_delete = "DELETE FROM `tbl_cliente` WHERE  `tbl_cliente`.`id`= $id_a_eliminar";
+        $sql_delete_cliente = "DELETE FROM `tbl_cliente` WHERE  `tbl_cliente`.`id`= $id_a_eliminar";
 
-        $sql_delete2 = "DELETE FROM `tbl_usuarios` WHERE  `tbl_usuarios`.`id`= $id_a_eliminar";
+        $sql_delete_usuario = "DELETE FROM `tbl_usuarios` WHERE  `tbl_usuarios`.`id`= $id_a_eliminar";
 
-        if (mysqli_query($conn, $sql_delete) && mysqli_query($conn, $sql_delete2)) {
+        if (mysqli_query($conn, $sql_delete_cliente) && mysqli_query($conn, $sql_delete_usuario)) {
             session_start();
             $_SESSION['msj_eliminar'] = "Se eliminó la información del sistema";
             header("Location: ../../vistas/cliente/admin_cliente.php");

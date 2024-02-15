@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['usuario'])){
+        header("Location: /agrocosecha_final/index.php");
+        exit();
+    }
+    
+    
+?>
 <?php 
 
     //! Conectarse con la base de datos
@@ -22,8 +31,8 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-    <title>Agrocosecha</title>
-    <link rel="website icon" type="jpg" href="../../img/Size-16.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="website icon" type="jpg" href="../../img/Size-16.png">
 </head>
 <body>
 
@@ -33,14 +42,16 @@
             <h3 class="text-success h1 formulario"><b>Modificar Producto</b></h3>
         </div>
         <form action="../../controladores/producto/modificar_producto.php" method="POST">
-            <div class="form-group">
-                <label for="identificacion">Identificacion:</label>
-                <input type="number" id="identificacion" name="identificacion" value="<?= $row['id']?>" required>
+        
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" value="<?= $row['id']?>" readonly requered>
+                <label for="floatingInputidentificacion">Codigo:</label>
             </div>
 
-            <div class="form-group">
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:15px !important;">
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre"  value="<?= $row['nombre']?>" required>
+                <div id="result_nombre" style="color:red; font-size:15px;"></div>
             </div>
 
             <div class="form-group">
@@ -48,15 +59,14 @@
                 <textarea type="text" id="descripcion" name="descripcion" rows="4" required><?= $row['descripcion']?></textarea>
             </div>
             
-
-            <div class="form-group">
-                <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio"  value="<?= $row['precio']?>" required>
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" value="<?= $row['precio']?>" requered>
+                <label for="floatingInputprecio">Precio:</label>
             </div>
 
-            <div class="form-group">
-                <label for="stock">Stock:</label>
-                <input type="number" id="stock" name="stock" value="<?= $row['stock']?>" required>
+            <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="stock" type="number" class="form-control cuadro_texto1" id="floatingInputstock" placeholder="stock" value="<?= $row['stock']?>" requered>
+                <label for="floatingInputstock">Stock:</label>
             </div>
 
             <button type="submit" class="submit" name="modificar_producto">Actualizar</button>
@@ -64,5 +74,8 @@
     </div> 
     <!--//TODO: Fin formulario de registro del cliente -->
     
+
+    <script src="../../js/validaciones.js"></script>
+
 </body>
 </html>

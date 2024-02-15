@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="" />
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
     <!--
     
 TemplateMo 559 Zay Shop
@@ -40,6 +43,8 @@ https://templatemo.com/tm-559-zay-shop
     <?php include "./assets/complementos/navbar_superior.php"; ?>
     <!-- Close Top Nav -->
 
+    <?php include "./assets/conections/coneccion_tabla.php" ?>
+
 
     <!-- Header -->
     <?php include "./assets/complementos/navbar_menu.php"; ?>
@@ -51,6 +56,26 @@ https://templatemo.com/tm-559-zay-shop
     <?php include "../vista_corp/assets/complementos/modal.php"?>
     <!--fin moval-->
     <?php include "./assets/conections/coneccion_tabla.php"?>
+
+    <!-- //* alerta mensaje enviado -->
+    <?php
+    if(isset($_SESSION['msj_mensaje_enviado'])){
+        $respuesta = $_SESSION['msj_mensaje_enviado'];?>
+    <script>
+    Swal.fire({
+        title: "mensaje enviado",
+        text: "",
+        icon: "success",
+        timer: 2000,
+        timerProgressBar: true,
+        backdrop: false
+    });
+    </script>
+
+    <?php
+    unset($_SESSION['msj_mensaje_enviado']);
+    }
+    ?>
 
 
     <!-- Start Content Page -->
@@ -67,13 +92,13 @@ https://templatemo.com/tm-559-zay-shop
         </div>
         <form action="../vista_corp/assets/controladores/mensajes/enviar_mensaje.php" method="POST" class="fromcantact">
             <div class="form-group">
-                <label for="nombre">hola:</label>
+                <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
             </div>
 
             <div class="form-group">
                 <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" required>
+                <input type="number" id="telefono" name="telefono" required>
             </div>
 
             <div class="form-group">
@@ -89,17 +114,16 @@ https://templatemo.com/tm-559-zay-shop
             <div class="form-group">
                 <label for="productos">Productos de Interés:</label>
                 <select id="productos" name="productos">
-                    <option value="00">------</option>
                 <?php
                 
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql_producto = "SELECT id,nombre FROM `tbl_producto`";
+                    $sql_producto = "SELECT codigo_producto,nombre FROM `tbl_producto`";
                     $result = mysqli_query($conn,$sql_producto);
                     
 
                     //* Ciclo para mostrar los registros
                     while ($row = mysqli_fetch_assoc($result)){
-                        echo "<option value='".$row['id']."'>".$row['nombre']."</option>"; 
+                        echo "<option value='".$row['codigo_producto']."'>".$row['nombre']."</option>"; 
                     }?>               
                 </select>
             </div>

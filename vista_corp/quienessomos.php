@@ -33,6 +33,9 @@ https://templatemo.com/tm-559-zay-shop
     <?php include "./assets/complementos/navbar_superior.php"; ?>
     <!-- Close Top Nav -->
 
+    <?php include "./assets/conections/coneccion_tabla.php" ;?>
+
+
     <!-- Header -->
     <?php include "./assets/complementos/navbar_menu.php"; ?>
     <!-- Close Header -->
@@ -43,7 +46,7 @@ https://templatemo.com/tm-559-zay-shop
 
     <section class="py-5 quienessomos">
         
-            <div class="row align-items-center py-5">
+            <div class="row align-items-center py-5" style="margin-left:15%;">
                 <div class="col12 col-md-6 text-white">
                     <h1><b>Quienes somos</b></h1>
                     <p>

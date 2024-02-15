@@ -22,7 +22,7 @@
                                 <label for="floatingInput">Usuario</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control cuadro_texto2" id="floatingInput" name="password"
+                                <input type="password" class="form-control cuadro_texto2" id="floatingInput" name="contraseña"
                                     placeholder="Contraseña">
                                 <label for="floatingInput">Contraseña</label>
                             </div>
@@ -48,7 +48,7 @@
                 </div>
                 <!-- formulario de registro-->
                 <div class="modal-body">
-                    <form action="./vista_corp/assets/controladores/cliente/registrar_usuario.php" method="POST">
+                    <form action="./vista_corp/assets/controladores/cliente/registrar_usuario.php" method="POST"  onsubmit="return validarContraseña()">
                         <img src="/agrocosecha_final/vista_corp/assets/img/logomaiz1.png" id="ini_logo2"
                             style="margin-top: -1%; width: 35%; margin-left: 32%;">
                         <h5 style="margin-left: 40%; margin-bottom: 10%; color: #065F2C;">Registrate</h5>
@@ -82,16 +82,6 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control cuadro_texto2" id="floatingInputCiudad"
-                                        placeholder="Contraseña" name="contraseña">
-                                    <label for="floatingInputCiudad">Contraseña</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
                                     <input type="text" class="form-control cuadro_texto2" id="floatingInputTelefono"
                                         placeholder="correo" name="correo">
                                     <label for="floatingInputTelefono">Correo</label>
@@ -99,9 +89,52 @@
                             </div>
                         </div>
 
+
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="submit" class="btn-iniciar2" name="nuevo_registro">Registrase</button>
+                                <div class="form-floating mb-3">
+                                <input type="password" class="form-control cuadro_texto2" id="contraseña" placeholder="Contraseña" name="contraseña">
+                                    <label for="contraseña">Contraseña</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control cuadro_texto2" id="confirm_password" placeholder="Confirmar contraseña" name="confirm_password">
+                                    <label for="confirm_password">Confirmar contraseña</label>
+                                    <span class="error-message" id="error_message" style="color: red;  font-size: 15px; margin-left: 2% "></span>
+                                    <span class="exelen" id="exelen" style="color: #065F2C;  font-size: 15px; margin-left: 2% "></span>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function validarContraseña() {
+                                var password = document.getElementById("contraseña").value;
+                                var confirm_password = document.getElementById("confirm_password").value;
+                                var error_message = document.getElementById("error_message");
+                                var exelen = document.getElementById("exelen");
+                                if (password === "" || confirm_password === "") {
+                                    error_message.textContent = "";
+                                    exelen.textContent = "";
+                                    return; // Salir de la función si los campos están vacíos
+                                }
+                                if (password !== confirm_password) {
+                                    error_message.textContent = "Las contraseñas no coinciden.";
+                                    exelen.textContent = "";
+                                } else {
+                                    error_message.textContent = ""; // Limpiar el mensaje de error si las contraseñas coinciden
+                                    exelen.textContent = "Las contraseñas coinciden.";
+                                }
+                            }
+
+                            // Asignar la función validarContraseña a los eventos oninput de los campos de contraseña
+                            document.getElementById("contraseña").oninput = validarContraseña;
+                            document.getElementById("confirm_password").oninput = validarContraseña;
+                            
+                        </script>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn-iniciar2" name="nuevo_registro">Registrarse</button>
                             </div>
                         </div>
                     </form>

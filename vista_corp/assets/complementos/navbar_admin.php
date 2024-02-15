@@ -19,7 +19,7 @@
                             <a class=" nav-link hola" href="../cliente/admin_cliente.php">Clientes</a>
                         </li>
                         <li class="nav-item">
-                            <a class=" nav-link hola" href="../administrador/admin_admin_tabla.php">Administradores</a>
+                            <a class=" nav-link hola" href="../administrador/admin_admin_tabla.php">Personas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link hola" href="../proveedor/admin_provee_tabla.php">Proveedores</a>
@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                 </div>
-                <?php if (!isset($_SESSION['id'])) { ?>
+                <?php if (!isset($_SESSION['codigo_usuario'])) { ?>
                 <div class="navbar align-self-center d-flex">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
@@ -61,7 +61,7 @@
                             <div class="dropdown-menu dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown"
                                 style="border:none !important;">
                                 <?php
-                    if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == "1") { ?>
+                    if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") { ?>
                                 <a class="dropdown-item"
                                     href="/agrocosecha_final/index.php">Home</a>
                                 <?php } ?>

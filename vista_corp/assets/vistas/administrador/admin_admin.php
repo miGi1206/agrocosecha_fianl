@@ -1,3 +1,13 @@
+<?php
+    if(!isset($_SESSION['usuario'])){
+        header("Location: ../../../../index.php");
+        exit();
+    }else{
+        session_start();
+    }
+    
+    
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

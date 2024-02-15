@@ -12,9 +12,15 @@ if(isset($_POST['id_a_eliminar'])) {
 
     //* Condicion de registro eliminado
     if ($result_detete_servicio) {
-        echo "Registro eliminado correctamente";
+        session_start();
+        $_SESSION['msj_eliminar'] = "Se eliminó la información del sistema";
+        header("Location: ../../vistas/servicios/admin_servicio_tabla.php");
+        exit(); // Asegúrate de salir después de la redirección
     } else {
-        echo "Error al eliminar el registro: " . mysqli_error($conn);
+        session_start();
+        $_SESSION['msj_eliminar'] = "Error al eliminar la información";
+        header("Location: ../../vistas/servicios/admin_servicio_tabla.php");
+        exit(); // Asegúrate de salir después de la redirección
     }
 }
 ?>
