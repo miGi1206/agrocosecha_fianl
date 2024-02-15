@@ -15,12 +15,12 @@
 
         <?php
             // Realiza una consulta SQL para obtener el primer ID de la base de datos
-            $sql_obtener_primer_id = "SELECT id FROM tbl_producto ORDER BY id ASC LIMIT 1";
+            $sql_obtener_primer_id = "SELECT codigo_producto FROM tbl_producto ORDER BY codigo_producto ASC LIMIT 1";
             $resultado = mysqli_query($conn, $sql_obtener_primer_id);
 
             if ($row = mysqli_fetch_assoc($resultado)) {
                 // Obtiene el ID
-                $primer_id = $row['id'];
+                $primer_id = $row['codigo_producto'];
             }
         ?>
 
@@ -45,7 +45,7 @@
             </div>
 
             <!-- //TODO: Funcion para mostrar la opcion de iniciar sesion -->
-            <?php if (!isset($_SESSION['id'])) { ?>
+            <?php if (!isset($_SESSION['codigo_usuario'])) { ?>
             <div class="navbar align-self-center d-flex">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item">
@@ -70,7 +70,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown">
                                 <?php
-                                if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == "1") { ?>
+                                if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") { ?>
                                     <a class="dropdown-item" href="/agrocosecha_final/vista_corp/assets/vistas/mensaje/admin_mensaje.php">Admin</a>
                                 <?php } ?>
                                 <a class="dropdown-item" href="/agrocosecha_final/vista_corp/config/logout.php">Salir</a>

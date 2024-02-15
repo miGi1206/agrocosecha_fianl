@@ -37,23 +37,23 @@ https://templatemo.com/tm-559-zay-shop
         if($_POST){
 
             $usuario = $_POST['usuario'];
-            $password = $_POST['password'];
+            $password = $_POST['contraseña'];
             
-            $sql = "SELECT id, usuario, `password`, tipo_usuario from tbl_usuarios where usuario='$usuario'";
+            $sql = "SELECT codigo_usuario, usuario, contraseña, cod_tipo_usuario from tbl_usuario where usuario='$usuario'";
             $resultado = $mysqli->query($sql);
             $num = $resultado->num_rows;
 
             if($num > 0){
                 $row= $resultado->fetch_assoc();
-                $password_bd = $row['password'];
+                $password_bd = $row['contraseña'];
                 $pass_c = sha1($password);
 
                 if($password_bd == $pass_c){
 
-                    $_SESSION['id'] = $row['id'];
+                    $_SESSION['codigo_usuario'] = $row['codigo_usuario'];
                     $_SESSION['usuario'] = $row['usuario'];
-                    $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
-                    if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == "1") {
+                    $_SESSION['cod_tipo_usuario'] = $row['cod_tipo_usuario'];
+                    if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") {
                         header("Location: ./vista_corp/assets/vistas/mensaje/admin_mensaje.php");
                         session_start();
                         $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";

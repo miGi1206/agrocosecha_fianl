@@ -114,17 +114,16 @@ https://templatemo.com/tm-559-zay-shop
             <div class="form-group">
                 <label for="productos">Productos de Interés:</label>
                 <select id="productos" name="productos">
-                    <option value="00">------</option>
                 <?php
                 
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql_producto = "SELECT id,nombre FROM `tbl_producto`";
+                    $sql_producto = "SELECT codigo_producto,nombre FROM `tbl_producto`";
                     $result = mysqli_query($conn,$sql_producto);
                     
 
                     //* Ciclo para mostrar los registros
                     while ($row = mysqli_fetch_assoc($result)){
-                        echo "<option value='".$row['id']."'>".$row['nombre']."</option>"; 
+                        echo "<option value='".$row['codigo_producto']."'>".$row['nombre']."</option>"; 
                     }?>               
                 </select>
             </div>

@@ -93,53 +93,60 @@
         $busqueda = $_GET['busqueda'];
 
         if (isset($_GET['busqueda'])){
-            $buscar = "WHERE id LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%'
-            OR telefono LIKE '%".$busqueda."%' OR correo LIKE '%".$busqueda."%' 
-            OR usuario LIKE '%".$busqueda."%'";
+            $buscar = "WHERE nit LIKE '%".$busqueda."%' OR nombre_razonsocial LIKE '%".$busqueda."%' OR correo LIKE '%".$busqueda."%'
+            OR telefono LIKE '%".$busqueda."%' OR nom_per_contacto LIKE '%".$busqueda."%' OR tel_contacto LIKE '%".$busqueda."%' 
+            OR correo_contacto LIKE '%".$busqueda."%' OR usuario LIKE '%".$busqueda."%'";
         }
     }
     ?>
 
-    <div class="tabla_container" style="margin-top:-15px !important;">
+    <div class="tabla_container" style="margin-top:-15px !important; width:100%;">
         <button class="boton-registrar"><a href="formulario_proveedor.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
         <div style="overflow-x:auto !important; width:100% !important;">
             <table>
                 <thead>
                     <tr>
-                        <th>Identificación</th>
-                        <th>Nombres</th>
+                        <th>NIT</th>
+                        <th>Nombre o razon social</th>
+                        <th>Telefono empresarial</th>
+                        <th>Correo empresarial</th>
+                        <th>Persona de contacto</th>
                         <th>Telefono</th>
                         <th>Correo</th>
                         <th>Usuario</th>
-                        <th>Contraseña</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM `tbl_proveedor` $buscar";
+                    $sql = "SELECT tbl_proveedor.nit, tbl_proveedor.nombre_razonsocial, tbl_proveedor.telefono, tbl_proveedor.correo,
+                    tbl_proveedor.nom_per_contacto, tbl_proveedor.tel_contacto, tbl_proveedor.correo_contacto, tbl_usuario.usuario
+                    FROM `tbl_proveedor`
+                    JOIN `tbl_usuario` ON tbl_proveedor.nit = tbl_usuario.nit_proveedor $buscar";
                     $result = mysqli_query($conn,$sql);
                     while ($row = mysqli_fetch_assoc($result)){ 
                     ?>
                     <tr>
-                        <td><?php echo $row["id"] ?></td>
-                        <td><?php echo $row["nombre"] ?></td>
+                        <td><?php echo $row["nit"] ?></td>
+                        <td><?php echo $row["nombre_razonsocial"] ?></td>
                         <td><?php echo $row["telefono"] ?></td>
                         <td><?php echo $row["correo"] ?></td>
+                        <td><?php echo $row["nom_per_contacto"] ?></td>
+                        <td><?php echo $row["tel_contacto"] ?></td>
+                        <td><?php echo $row["correo_contacto"] ?></td>
                         <td><?php echo $row["usuario"] ?></td>
-                        <td><?php echo $row["contraseña"] ?></td>
                         <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
                             <form method="POST" action="./formulario_modi_proveedor.php">
-                                <a href="./formulario_modi_provee.php?id=<?php echo $row['id'];?>" type="botton"
-                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
+                                <a href="./formulario_modi_provee.php?nit=<?php echo $row['nit'];?>" type="botton"
+                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px; background-color: #FFCC03 !important;">Editar</a>
                             </form>
 
                             <!-- //* Coneccion con la funcion para eliminar el registro -->
                             <form method="POST" class="eliminarForm" style="margin-top:-13px;">
                                 <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
-                                    style="margin-top:5% !important;" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn">
+                                    style="margin-top:5% !important;" value="<?php echo $row['nit']; ?>">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn" style="background-color:red;">
                                     Eliminar
                                 </button>
                             </form>

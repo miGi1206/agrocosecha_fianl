@@ -46,7 +46,7 @@ https://templatemo.com/tm-559-zay-shop
 
     <section class="py-5 quienessomos">
         
-            <div class="row align-items-center py-5">
+            <div class="row align-items-center py-5" style="margin-left:15%;">
                 <div class="col12 col-md-6 text-white">
                     <h1><b>Quienes somos</b></h1>
                     <p>

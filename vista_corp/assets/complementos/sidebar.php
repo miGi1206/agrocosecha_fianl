@@ -16,7 +16,7 @@
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;" class="logo_nav A">
                 <!-- <input name="busqueda" type="button" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered readonly> -->
                 <button style="width:100%; height:50px !important; margin-top:0px !important; border-radius:100px;" class="A"
-                    type="submit" name="busqueda" value="<?= $row['id']?>"><?= $row['nombre']?></button>
+                    type="submit" name="busqueda" value="<?= $row['codigo_producto']?>"><?= $row['nombre']?></button>
             </div>
         </form>
         <?php    
@@ -32,8 +32,8 @@
         <form action="" method="GET">
         <?php
         //TODO: Consulta SQL para traer todos los datos de los administradores
-        $sql_alquiler = "SELECT * FROM `tbl_servicio`,`tipo_servicio` WHERE tbl_servicio.tipo_servicio = tipo_servicio.codigo_tipo
-        AND tipo_servicio.tipo='alquiler de equipos'";
+        $sql_alquiler = "SELECT * FROM `tbl_servicio`,`tbl_tipo_servicio` WHERE tbl_servicio.cod_tipo_servicio = tbl_tipo_servicio.codigo_tipo_servicio
+        AND tbl_tipo_servicio.tipo_servicio='alquiler de equipos'";
         $result_alquiler = mysqli_query($conn,$sql_alquiler);
 
         //* Ciclo para mostrar los registros
@@ -43,7 +43,7 @@
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;" class="logo_nav A">
                 <!-- <input name="busqueda" type="button" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered readonly> -->
                 <button style="width:100%; height:50px !important; margin-top:0px !important; border-radius:100px;" class="A"
-                    type="submit" name="busqueda2" value="<?= $row['id']?>"><?= $row['nombre']?></button>
+                    type="submit" name="busqueda2" value="<?= $row['codigo_servicio']?>"><?= $row['nombre']?></button>
             </div>
         </form>
         <?php    
@@ -59,8 +59,8 @@
         <form action="" method="GET">
         <?php
         //TODO: Consulta SQL para traer todos los datos de los administradores
-        $sql_personal = "SELECT * FROM `tbl_servicio`,`tipo_servicio` WHERE tbl_servicio.tipo_servicio = tipo_servicio.codigo_tipo
-        AND tipo_servicio.tipo='servicios personales'";
+        $sql_personal = "SELECT * FROM `tbl_servicio`,`tbl_tipo_servicio` WHERE tbl_servicio.cod_tipo_servicio = tbl_tipo_servicio.codigo_tipo_servicio
+        AND tbl_tipo_servicio.tipo_servicio='servicios personales'";
         $result_personal = mysqli_query($conn,$sql_personal);
 
         //* Ciclo para mostrar los registros
@@ -70,7 +70,7 @@
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;" class="logo_nav A">
                 <!-- <input name="busqueda" type="button" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered readonly> -->
                 <button style="width:100%; height:50px !important; margin-top:0px !important; border-radius:100px;" class="A"
-                    type="submit" name="busqueda3" value="<?= $row['id']?>"><?= $row['nombre']?></button>
+                    type="submit" name="busqueda3" value="<?= $row['codigo_servicio']?>"><?= $row['nombre']?></button>
             </div>
         </form>
         <?php    

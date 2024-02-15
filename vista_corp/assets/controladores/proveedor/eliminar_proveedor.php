@@ -7,11 +7,21 @@ include  "../../conections/coneccion_tabla.php";
 if(isset($_POST['id_a_eliminar'])) {
     $id_a_eliminar = $_POST['id_a_eliminar'];
 
+    $sql_proveedor = "SELECT nit FROM tbl_proveedor WHERE nit = '$id_a_eliminar'";
+    echo $sql_proveedor;    
+    $result_proveedor = mysqli_query($conn, $sql_proveedor);
+
+    if ($result_proveedor) {
+        $row = mysqli_fetch_assoc($result_proveedor);
+
+        // Ahora $row contiene los datos de la fila, y puedes acceder a 'codigo_persona'
+        $nit = $row['nit'];
+    }
     //! Consulta SQL para eliminar el registro del admin
-    $sql_delete_proveedor = "DELETE FROM `tbl_proveedor` WHERE  `tbl_proveedor`.`id`= $id_a_eliminar";
+    $sql_delete_proveedor = "DELETE FROM `tbl_proveedor` WHERE `tbl_proveedor`.`nit`= '$nit'";
     
     //! Consulta SQL para eliminar el usuario del admin
-    $sql_delete_usuario = "DELETE FROM `tbl_usuarios` WHERE `tbl_usuarios`.`id` = $id_a_eliminar";
+    $sql_delete_usuario = "DELETE FROM `tbl_usuario` WHERE `tbl_usuario`.`nit_proveedor` = '$nit'";
 
     //* Condicion de registro eliminado
     if (mysqli_query($conn, $sql_delete_proveedor) && mysqli_query($conn, $sql_delete_usuario)) {

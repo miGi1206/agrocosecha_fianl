@@ -152,7 +152,7 @@
                     $productos="";
                     if (isset($_GET['busqueda'])){
                         $busqueda = $_GET['busqueda'];
-                        $productos = "WHERE tbl_producto.id = '$busqueda'";
+                        $productos = "WHERE tbl_producto.codigo_producto = '$busqueda'";
                     }
                     ?>
 
@@ -160,7 +160,7 @@
                     $alquiler="";
                     if (isset($_GET['busqueda2'])){
                         $alquiler_equipos = $_GET['busqueda2'];
-                        $alquiler = "WHERE tbl_servicio.id = '$alquiler_equipos'";
+                        $alquiler = "WHERE tbl_servicio.codigo_servicio = '$alquiler_equipos'";
                     }
                     ?>
 
@@ -168,7 +168,7 @@
                     $servicio_personal="";
                     if (isset($_GET['busqueda3'])){
                         $personal = $_GET['busqueda3'];
-                        $servicio_personal = "WHERE tbl_servicio.id = '$personal'";
+                        $servicio_personal = "WHERE tbl_servicio.codigo_servicio = '$personal'";
                     }
                     ?>
 
@@ -181,96 +181,116 @@
 
                                 if (isset($_GET['busqueda'])) {
                                     $busqueda = $_GET['busqueda'];
-                                    $productos = "WHERE tbl_producto.id = '$busqueda'";
+                                    $productos = "WHERE tbl_producto.codigo_producto = '$busqueda'";
                                     $sql_producto = "SELECT * FROM `tbl_producto` $productos";
                                     $result_producto = mysqli_query($conn, $sql_producto);
 
                                     while ($row = mysqli_fetch_assoc($result_producto)) {
                             ?>
                                 <h1 class="h2"><?= $row['nombre']?></h1>
-                                <p><b>Precio: <?= $row['precio']?></b></p>
-                                <p><b>Stock: <?= $row['stock']?> unidades</b></p>
+
+                                <!-- //! Mostrar el precio y stock solo cuando se halla iniciado sesion como cliente -->
+                                <?php
+                                if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "2") {
+                                            echo "<p><b>Precio: $". $row['precio'] . "</b></p>";
+                                            echo "<p><b>Stock: ". $row['stock'] . "</b></p>";
+                                }
+                                ?>
+
                                 <h6>Descripción</h6>
                                 <p><?= $row['descripcion']?></p>
 
-                                <div class="navbar align-self-center d-flex">
-                                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                                    <li class="nav-item">
-                                        <button class="nav-link" href="#"
-                                            style="background-color:#3aaa3c; border-radius:5px; padding:5%; color:white;  width: 130px;"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModalToggle2"
-                                            aria-expanded="false" role="button"><img
-                                                src="/agrocosecha_final/vista_corp/assets/img/carrito-de-compras.png"
-                                                alt=""></button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
-                                aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-
-                                        <div class="modal-body">
-                                            <div class="z-flex2">
-
-                                                <!-- inicio del formulario -->
-                                                <form method="POST" action="<?php  echo $_SERVER['PHP_SELF'];?>">
-                                                    <img src="/agrocosecha_final/vista_corp/assets/img/nombre_logo.png"
-                                                        class="col-sm-6" id="ini_logo3" style="margin: auto">
-                                                    <h5 class="modal-title" id="exampleModalToggleLabel"
-                                                        style="margin-bottom: 5%; color: #065F2C;"><b>Comprar</b></h5>
-                                                    <div class="form-floating mb-3">
-                                                        <input type="number" class="form-control cuadro_texto2"
-                                                            id="floatingInput" name="cantidad" placeholder="cantidad"
-                                                            required>
-                                                        <label for="floatingInput">Cantidad</label>
+                                <!-- //! Mostrar el boton de comprar  -->
+                                <?php
+                                if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "2") {
+                                    echo '<div class="navbar align-self-center d-flex">
+                                                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                                                        <li class="nav-item">
+                                                            <button class="nav-link" href="#"
+                                                                style="background-color:#3aaa3c; border-radius:5px; padding:5%; color:white;  width: 130px;"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModalToggle2"
+                                                                aria-expanded="false" role="button"><img
+                                                                    src="/agrocosecha_final/vista_corp/assets/img/carrito-de-compras.png"
+                                                                    alt=""></button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+                                                    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                    
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                    
+                                                            <div class="modal-body">
+                                                                <div class="z-flex2">
+                    
+                                                                    <!-- inicio del formulario -->
+                                                                    <form method="POST" action="">
+                                                                        <img src="/agrocosecha_final/vista_corp/assets/img/nombre_logo.png"
+                                                                            class="col-sm-6" id="ini_logo3" style="margin: auto">
+                                                                        <h5 class="modal-title" id="exampleModalToggleLabel"
+                                                                            style="margin-bottom: 5%; color: #065F2C;"><b>Comprar</b></h5>
+                                                                        <div class="form-floating mb-3">
+                                                                            <input type="number" class="form-control cuadro_texto2"
+                                                                                id="floatingInput" name="cantidad" placeholder="cantidad"
+                                                                                required>
+                                                                            <label for="floatingInput">Cantidad</label>
+                                                                        </div>
+                                                                        <div class="form-floating mb-3">
+                                                                            <input type="text" class="form-control cuadro_texto2"
+                                                                                id="floatingInput" name="direccion" placeholder="direccion"
+                                                                                required>
+                                                                            <label for="floatingInput">Dirección</label>
+                                                                        </div>
+                                                                        <div class="form-floating mb-3">
+                                                                            <input type="number" class="form-control cuadro_texto2"
+                                                                                id="floatingInput" name="telefono" placeholder="direccion"
+                                                                                required>
+                                                                            <label for="floatingInput">Telefono</label>
+                                                                        </div>
+                                                                        <button type="submit" class="btn-iniciar2" style="padding:1% 5%; ">
+                                                                            Comprar</button>
+                                                                    </form>
+                                                                    <!-- fin del formulario  -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control cuadro_texto2"
-                                                            id="floatingInput" name="direccion" placeholder="direccion"
-                                                            required>
-                                                        <label for="floatingInput">Dirección</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input type="number" class="form-control cuadro_texto2"
-                                                            id="floatingInput" name="telefono" placeholder="direccion"
-                                                            required>
-                                                        <label for="floatingInput">Telefono</label>
-                                                    </div>
-                                                    <button type="submit" class="btn-iniciar2" style="padding:1% 5%; ">
-                                                        Comprar</button>
-                                                </form>
-                                                <!-- fin del formulario  -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                                </div>';
+                                
+                                }
+                                ?>
                                 <?php
                                     }
                                 } elseif (isset($_GET['busqueda2'])) {
                                     $alquiler_equipos = $_GET['busqueda2'];
-                                    $alquiler = "WHERE tbl_servicio.id = '$alquiler_equipos'";
+                                    $alquiler = "WHERE tbl_servicio.codigo_servicio = '$alquiler_equipos'";
                                     $sql_alquiler = "SELECT * FROM `tbl_servicio` $alquiler";
                                     $result_alquiler = mysqli_query($conn, $sql_alquiler);
 
                                     while ($row = mysqli_fetch_assoc($result_alquiler)) {
                             ?>
                                 <h1 class="h2"><?= $row['nombre']?></h1>
-                                <p><b>Precio: <?= $row['precio']?></b></p>
-                                <p><b>Duración: <?= $row['duracion']?> horas</b></p>
+
+                                <?php
+                                if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "2") {
+                                            echo "<p><b>Precio: $". $row['precio'] . "</b></p>";
+                                            echo "<p><b>Duración: ". $row['duracion'] . "</b></p>";
+                                }
+                                ?>
+                                <!-- <p><b>Precio: <?= $row['precio']?></b></p>
+                                <p><b>Duración: <?= $row['duracion']?> horas</b></p> -->
                                 <h6>Descripción</h6>
                                 <p><?= $row['descripcion']?></p>
                                 <?php
                                     }
                                 }elseif (isset($_GET['busqueda3'])) {
                                     $personal = $_GET['busqueda3'];
-                                    $servicio_personal = "WHERE tbl_servicio.id = '$personal'";
+                                    $servicio_personal = "WHERE tbl_servicio.codigo_servicio = '$personal'";
                                     $sql_servicio_personal = "SELECT * FROM `tbl_servicio` $servicio_personal";
                                     $result_personal = mysqli_query($conn, $sql_servicio_personal);
 
@@ -295,11 +315,13 @@
                 </div>
 
                 <div>
-                    <iframe width="100%" height="315"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/UxeZeUd0Yb0" frameborder="0" allowfullscreen></iframe>
+
+                    <!-- <iframe width="100%" height="315"
                         src="https://www.youtube.com/embed/JBOmT-Mnm60?si=rpB4_5W3-uPtVAE1" title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen></iframe>
+                        allowfullscreen></iframe> -->
                 </div>
             </div>
         </div>

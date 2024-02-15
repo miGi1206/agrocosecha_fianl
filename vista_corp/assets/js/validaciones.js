@@ -14,6 +14,22 @@ function isValidText(text){
     return /^[A-z\s]+$/.test(text);
 }
 
+const nombre2 = document.getElementById('nombre2');
+const result_nombre2 = document.getElementById('result_nombre2');
+
+nombre.addEventListener('input', (event) => {
+    const textValue = event.currentTarget.value;
+
+    if (!isValidText(textValue)){
+        return result_nombre2.innerHTML = `El nombre no puede contener números`;
+    };
+    result_nombre.innerHTML = '';
+});
+
+function isValidText(text){
+    return /^[A-z\s]+$/.test(text);
+}
+
 const usuario = document.getElementById('usuario');
 const result_usuario = document.getElementById('result_usuario');
 

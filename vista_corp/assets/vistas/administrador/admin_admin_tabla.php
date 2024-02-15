@@ -44,7 +44,7 @@
     include "../../controladores/alertas.php";
     ?>
 
-    <h1>Administrador</h1>
+    <h1>Clientes/Administradores</h1>
 
     <!-- //! Barra de busqueda -->
     <div class="container-fluid" style="display:flex; justify-content:center;">
@@ -59,12 +59,8 @@
                     </button>
                     <ul class="dropdown-menu" style="width:200px !important;">
                         <p style="padding:10% !important;">
-                            Puedes buscar por: <br>
-                            identificacion, <br>
-                            nombre, <br>
-                            usuario, <br>
-                            correo, <br>
-                            fecha: <span style="color: red;">AAAA-MM-DD</span>
+                            Puedes buscar por cualquier campo de la tabla <br>
+                            
                             <br><br>
                             <span style="color:#065F2C;">
                             <b>
@@ -95,13 +91,19 @@
         $busqueda = $_GET['busqueda'];
 
         if (isset($_GET['busqueda'])){
-            $buscar = "WHERE id LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%' OR usuario LIKE '%".$busqueda."%' OR fecha_registro LIKE '%".$busqueda."%'  OR correo LIKE '%".$busqueda."%'";
+            $buscar = "WHERE identificacion LIKE '%".$busqueda."%' OR primer_nombre LIKE '%".$busqueda."%'
+            OR segundo_nombre LIKE '%".$busqueda."%' OR primer_apellido LIKE '%".$busqueda."%' 
+            OR segundo_apellido LIKE '%".$busqueda."%'OR telefono LIKE '%".$busqueda."%' 
+            OR correo LIKE '%".$busqueda."%' OR sexo LIKE '%".$busqueda."%' OR tipo_usuario LIKE '%".$busqueda."%'
+            OR fecha_nacimiento LIKE '%".$busqueda."%' OR direccion LIKE '%".$busqueda."%' 
+            OR usuario LIKE '%".$busqueda."%' OR fecha_creacion LIKE '%".$busqueda."%'
+            AND tbl_persona.codigo_persona = tbl_usuario.cod_persona";
         }
     }
     ?>
 
     <!-- //TODO: Inicio de la tabla de los administradores -->
-    <div class="tabla_container" style="margin-top:-15px !important;">
+    <div class="tabla_container" style="margin-top:-15px !important; width:100%;">
 
         <button class="boton-registrar"><a href="formulario_admin.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
@@ -109,47 +111,67 @@
             <table>
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Identificación</th>
                         <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Telefono</th>
                         <th>Correo</th>
-                        <th>Fecha de registro</th>
+                        <th>Sexo</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Dirección</th>
                         <th>Usuario</th>
-                        <th>Contraseña</th>
+                        <th>Fecha de creación</th>
+                        <th>Tipo de usuario</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql = "SELECT * FROM `tbl_admin` $buscar";
-                    $result = mysqli_query($conn,$sql);
+                    $sql = "SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
+                    tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
+                    tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
+                    FROM `tbl_persona`
+                    JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
+                    JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
+                    JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
+                    $buscar";
 
+                    $result = mysqli_query($conn, $sql);
+        
                     //* Ciclo para mostrar los registros
                     while ($row = mysqli_fetch_assoc($result)){ 
                     ?>
                     <tr>
-                        <td><?php echo $row["id"] ?></td>
-                        <td><?php echo $row["nombre"] ?></td>
+                        <td><?php echo $row["codigo_persona"] ?></td>
+                        <td><?php echo $row["identificacion"] ?></td>
+                        <td><?php echo $row["primer_nombre"] . " " . $row["segundo_nombre"]; ?></td>
+                        <td><?php echo $row["primer_apellido"] . " " . $row["segundo_apellido"]; ?></td>
+                        <td><?php echo $row["telefono"] ?></td>
                         <td><?php echo $row["correo"] ?></td>
-                        <td><?php echo $row["fecha_registro"] ?></td>
+                        <td><?php echo $row["sexo"] ?></td>
+                        <td><?php echo $row["fecha_nacimiento"] ?></td>
+                        <td><?php echo $row["direccion"] ?></td>
                         <td><?php echo $row["usuario"] ?></td>
-                        <td><?php echo $row["contraseña"] ?></td>
-
+                        <td><?php echo $row["fecha_creacion"] ?></td>
+                        <td><?php echo $row["tipo_usuario"] ?></td>
+                        
                         <td
                             style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
 
                             <!-- //* Ingresar al formulario para modificar los datos del admin -->
                             <form method="POST" action="formulario_modi_admin.php">
-                                <a href="formulario_modi_admin.php?id=<?php echo $row['id'];?>" type="botton"
+                                <a href="formulario_modi_admin.php?id=<?php echo $row['identificacion'];?>" type="botton"
                                     class="botones"
-                                    style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
+                                    style="text-decoration:none !important; color:white; margin-right:5px; background-color: #FFCC03 !important;">Editar</a>
                             </form>
 
                             <!-- //* Coneccion con la funcion para eliminar el registro -->
                             <form method="POST" class="eliminarForm" style="margin-top:-13px;">
                                 <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
-                                    style="margin-top:5% !important;" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn">
+                                    style="margin-top:5% !important;" value="<?php echo $row['identificacion']; ?>">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn" style="background-color:red;">
                                     Eliminar
                                 </button>
                             </form>

@@ -22,7 +22,7 @@
                                 <label for="floatingInput">Usuario</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control cuadro_texto2" id="floatingInput" name="password"
+                                <input type="password" class="form-control cuadro_texto2" id="floatingInput" name="contraseña"
                                     placeholder="Contraseña">
                                 <label for="floatingInput">Contraseña</label>
                             </div>
