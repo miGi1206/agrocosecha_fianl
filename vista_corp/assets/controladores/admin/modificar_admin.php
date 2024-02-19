@@ -14,6 +14,7 @@ include "../../conections/coneccion_tabla.php";
 
 //TODO: Guarda la informaciion en variables 
 $id = $_POST['identificacion'];
+$tipo_usuario = $_POST['tipo_usuario'];
 $nombre = $_POST['nombre'];
 $nombre2 = $_POST['nombre2'];
 $apellido = $_POST['apellido'];
@@ -105,7 +106,7 @@ $usuario = $_POST['usuario'];
     $result_modi_admin = mysqli_query($conn, $sql_modi_admin);
 
     //! Consulta de actualización para tbl_usuarios
-    $sql_modi_usuario = "UPDATE `tbl_usuario` SET `usuario`='$usuario' WHERE `tbl_usuario`.`cod_persona`='$codigo_persona'";
+    $sql_modi_usuario = "UPDATE `tbl_usuario` SET `usuario`='$usuario', `cod_tipo_usuario`='$tipo_usuario' WHERE `tbl_usuario`.`cod_persona`='$codigo_persona'";
     $result_modi_usuraio = mysqli_query($conn, $sql_modi_usuario);
 
 

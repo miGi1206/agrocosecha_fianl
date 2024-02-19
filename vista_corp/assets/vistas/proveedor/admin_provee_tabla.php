@@ -57,12 +57,7 @@
                     </button>
                     <ul class="dropdown-menu" style="width:200px !important;">
                         <p style="padding:10% !important;">
-                            Puedes buscar por: <br>
-                            identificacion, <br>
-                            nombre, <br>
-                            telefono, <br>
-                            correo, <br>
-                            usuario,
+                            Puedes buscar por cualquier campo de la tabla 
                             <br><br>
                             <span style="color:#065F2C;">
                             <b>

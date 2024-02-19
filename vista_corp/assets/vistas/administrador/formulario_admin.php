@@ -37,6 +37,24 @@
                 <label for="floatingInputidentificacion">Identificación:</label>
             </div>
 
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:5% !important;">
+                <label for="tipo_usuario" style="margin-top:-2%;">Tipo de usuario:</label>
+                <select id="tipo_usuario" name="tipo_usuario" class="form-control cuadro_texto1">
+                <?php
+                
+                //TODO: Consulta SQL para traer todos los datos de los administradores
+                    $sql_sexo = "SELECT * FROM `tbl_tipo_usuario` WHERE tipo_usuario <> 'proveedor'";
+                    $result_sexo = mysqli_query($conn,$sql_sexo);
+                    
+                    //* Ciclo para mostrar los registros
+                    while ($row_sexo = mysqli_fetch_assoc($result_sexo)){
+                        echo "<option value='".$row_sexo['codigo_tipo_usuario']."'>".$row_sexo['tipo_usuario']."</option>"; 
+                    }?>               
+                </select>
+            </div>
+
+            <hr>
+
             <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
                 <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
                     <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="nombre" requered>

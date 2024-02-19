@@ -59,7 +59,8 @@
                     </button>
                     <ul class="dropdown-menu" style="width:200px !important;">
                         <p style="padding:10% !important;">
-                            Puedes buscar por cualquier campo de la tabla <br>
+                            Puedes buscar por cualquier campo de la tabla 
+                            <br>
                             
                             <br><br>
                             <span style="color:#065F2C;">
@@ -107,7 +108,7 @@
 
         <button class="boton-registrar"><a href="formulario_admin.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
-        <div style="overflow-x:auto !important; width:100% !important;">
+
             <table>
                 <thead>
                     <tr>

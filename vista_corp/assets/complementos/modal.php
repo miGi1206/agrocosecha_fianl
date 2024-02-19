@@ -48,7 +48,7 @@
                 </div>
                 <!-- formulario de registro-->
                 <div class="modal-body">
-                    <form action="./vista_corp/assets/controladores/cliente/registrar_usuario.php" method="POST"  onsubmit="return validarContraseña()">
+                    <form action="/agrocosecha_final/vista_corp/assets/controladores/cliente/registrar_usuario.php" method="POST"  onsubmit="return validarContraseña()">
                         <img src="/agrocosecha_final/vista_corp/assets/img/logomaiz1.png" id="ini_logo2"
                             style="margin-top: -1%; width: 35%; margin-left: 32%;">
                         <h5 style="margin-left: 40%; margin-bottom: 10%; color: #065F2C;">Registrate</h5>
@@ -56,7 +56,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="number" class="form-control cuadro_texto2" id="floatingInputNombre"
+                                    <input type="number" class="form-control cuadro_texto2" id="floatingInputidentificacion"
                                         placeholder="identificacion" name="identificacion">
                                     <label for="floatingInputNombre">Identificación</label>
                                 </div>
@@ -64,11 +64,93 @@
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputApellidos"
-                                        placeholder="nombre" name="nombre">
-                                    <label for="floatingInputApellidos">Nombre</label>
+                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputprimernombre"
+                                        placeholder="primer nombre" name="primer_nombre">
+                                    <label for="floatingInputApellidos">Primer nombre</label>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputsegundoNombre"
+                                        placeholder="segundo nombre" name="segundo_nombre">
+                                    <label for="floatingInputNombre">segundo nombre</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputprimerapellido"
+                                        placeholder="primer apellido" name="primer_apellido">
+                                    <label for="floatingInputApellidos">Primer apellido</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputsegundoapellido"
+                                        placeholder="segundo apellido" name="segundo_apellido">
+                                    <label for="floatingInputNombre">segundo apellido</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control cuadro_texto2" id="floatingInputtelefo"
+                                        placeholder="telefono" name="telefono">
+                                    <label for="floatingInputApellidos">telefono</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputcorreo"
+                                        placeholder="correo" name="correo">
+                                    <label for="floatingInputTelefono">Correo</label>
+                                </div>
+                            </div>  
+                                <!-- este es el combo box -->
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                <select id="sexo" name="sexo" class="form-select cuadro_texto2" aria-label="Seleccione el Sexo">
+                                <!-- <option value="" disabled selected hidden></option> -->
+                                        <?php
+                                        // TODO: Consulta SQL para traer todos los datos de los administradores
+                                        $sql_producto = "SELECT * FROM `tbl_sexo`";
+                                        $result = mysqli_query($conn,$sql_producto);
+
+                                        // Ciclo para mostrar los registros
+                                        while ($row = mysqli_fetch_assoc($result)){
+                                            echo "<option value='".$row['codigo_sexo']."'>".$row['sexo']."</option>"; 
+                                        }
+                                        ?>               
+                                    </select>
+                                    <label for="sexo">Sexo</label>
+                                </div>
+                            </div>
+                                <!-- fin de combo box -->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control cuadro_texto2"
+                                        id="floatingInputIdentificacion" placeholder="Fecha de nacimiento" name ="fecha_nacimiento">
+                                    <label for="floatingInputfechanacimiento">Fecha de nacimiento</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control cuadro_texto2"
+                                        id="floatingInputdireccion" placeholder="Direccion" name ="direccion">
+                                    <label for="floatingInputfechanacimiento">Dirección</label>
+                                </div>
+                            </div>
+                            
                         </div>
 
                         <div class="row">
@@ -76,27 +158,19 @@
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control cuadro_texto2"
                                         id="floatingInputIdentificacion" placeholder="usuario" name ="usuario">
-                                    <label for="floatingInputIdentificacion">Usuario</label>
+                                    <label for="floatingInputusuario">Usuario</label>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control cuadro_texto2" id="floatingInputTelefono"
-                                        placeholder="correo" name="correo">
-                                    <label for="floatingInputTelefono">Correo</label>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                 <input type="password" class="form-control cuadro_texto2" id="contraseña" placeholder="Contraseña" name="contraseña">
                                     <label for="contraseña">Contraseña</label>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
                                     <input type="password" class="form-control cuadro_texto2" id="confirm_password" placeholder="Confirmar contraseña" name="confirm_password">

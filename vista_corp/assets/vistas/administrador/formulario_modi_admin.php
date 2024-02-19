@@ -15,12 +15,13 @@
     $id=$_GET["id"];
     $sql = "SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
                 tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo,
+                tbl_tipo_usuario.codigo_tipo_usuario, tbl_tipo_usuario.tipo_usuario, 
                 tbl_sexo.codigo_sexo, tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_persona.direccion, tbl_usuario.usuario
                 FROM `tbl_persona`
                 JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
                 JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
                 JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
-                WHERE tbl_tipo_usuario.codigo_tipo_usuario = 1 AND tbl_persona.identificacion = '$id'";
+                WHERE tbl_persona.identificacion = '$id'";
     // $sql="SELECT * FROM tbl_admin WHERE `tbl_admin`.`id`='$id'";
     $query=mysqli_query($conn, $sql);
 
@@ -52,6 +53,50 @@
                 <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" value="<?= $row['identificacion']?>" readonly requered>
                 <label for="floatingInputidentificacion">Identificación:</label>
             </div>
+
+            <!-- <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:5% !important;">
+                <label for="tipo_usuario" style="margin-top:-2%;">Tipo de usuario:</label>
+                <select id="tipo_usuario" name="tipo_usuario" class="form-control cuadro_texto1">
+                <?php
+                
+                //TODO: Consulta SQL para traer todos los datos de los administradores
+                    $sql_sexo = "SELECT * FROM `tbl_tipo_usuario` WHERE tipo_usuario <> 'proveedor'";
+                    $result_sexo = mysqli_query($conn,$sql_sexo);
+                    
+                    //* Ciclo para mostrar los registros
+                    while ($row_sexo = mysqli_fetch_assoc($result_sexo)){
+                        echo "<option value='".$row_sexo['codigo_tipo_usuario']."'>".$row_sexo['tipo_usuario']."</option>"; 
+                    }?>               
+                </select>
+            </div> -->
+
+            <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:5% !important;">
+                <label for="floatingInputipo" style="margin-top:-2% !important;">Tipo de usuario:</label>
+                <select id="tipo_usuario" name="tipo_usuario" class="form-control cuadro_texto1" style="cursor:pointer;" placeholder="tipo_usuario" >
+                    <?php
+                    // Almacena el valor actual en una variable antes del bucle
+                    $valorActual3 = $row['codigo_tipo_usuario'];
+                    $valorActual4 = $row['tipo_usuario'];
+
+                    // Muestra el valor actual como la primera opción
+                    echo "<option value='$valorActual3'>$valorActual4</option>";
+
+                    // Consulta SQL para traer todos los datos de los tipos de servicio
+                    $sql_tipo_usuario = "SELECT * FROM `tbl_tipo_usuario` WHERE tipo_usuario <> 'proveedor'";
+                    $result_usuario = mysqli_query($conn, $sql_tipo_usuario);
+
+                    // Ciclo para mostrar los registros
+                    while ($row4 = mysqli_fetch_assoc($result_usuario)) {
+                        // Verifica que el valor no sea igual al valor actual
+                        if ($row4['codigo_tipo_usuario'] != $valorActual3) {
+                            echo "<option value='" . $row4['codigo_tipo_usuario'] . "'>" . $row4['tipo_usuario'] . "</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+            
+            <hr>
 
             <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
                 <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">

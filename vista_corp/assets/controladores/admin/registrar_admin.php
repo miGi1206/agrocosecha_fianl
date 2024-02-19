@@ -17,6 +17,7 @@ if(isset($_POST["guardar_admin"])) {
     
     //* Toma la informacion ingresada en el formulario y las guarda en variables
     $id = $_POST['identificacion'];
+    $tipo_usuario = $_POST['tipo_usuario'];
     $nombre = $_POST['nombre'];
     $nombre2 = $_POST['nombre2'];
     $apellido = $_POST['apellido'];
@@ -176,7 +177,7 @@ if(isset($_POST["guardar_admin"])) {
         //! Consulta SQL para mandar el usuario y contraseña a una tabla de usuario
         $sql_usuario = "INSERT INTO `tbl_usuario` (`codigo_usuario`, `usuario`, `contraseña`, 
         `cod_persona`, `cod_tipo_usuario`,`nit_proveedor`) 
-        VALUES (NULL, '$usuario', '$hashed_password','$codigo_persona','1',NULL)";
+        VALUES (NULL, '$usuario', '$hashed_password','$codigo_persona','$tipo_usuario',NULL)";
         echo "Consulta SQL: " . $sql_usuario; // Imprime la consulta SQL para depuración
         $result_usuario = mysqli_query($conn, $sql_usuario);
 
