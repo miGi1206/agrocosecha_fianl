@@ -13,7 +13,7 @@
 include "../../conections/coneccion_tabla.php";
 
 //TODO: Guarda la informaciion en variables 
-    $id = $_POST['identificacion'];
+    $codigo = $_POST['codigo_servicio'];
     $tipo = $_POST['tipo'];
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
@@ -35,10 +35,10 @@ include "../../conections/coneccion_tabla.php";
     }
 
     // Obtener el ID del producto a modificar de la URL
-$id_usuario_modificar = $_POST['identificacion'];
+$id_usuario_modificar = $_POST['codigo_servicio'];
 
 // Verificar la existencia del nombre excluyendo el usuario a modificar
-$consulta_existencia = "SELECT nombre FROM tbl_servicio WHERE nombre = '$nombre' AND id != $id_usuario_modificar";
+$consulta_existencia = "SELECT nombre FROM tbl_servicio WHERE nombre = '$nombre' AND codigo_servicio != $id_usuario_modificar";
 $nombre_existencia = mysqli_query($conn, $consulta_existencia);
 
 if (mysqli_num_rows($nombre_existencia) > 0) {
@@ -55,7 +55,7 @@ if (mysqli_num_rows($nombre_existencia) > 0) {
 }
 else{
     //! Consulta de actualización para tbl_admin
-    $sql_modi_servicio = "UPDATE `tbl_servicio` SET `tipo_servicio`='$tipo', `nombre`='$nombre', `descripcion`='$descripcion', `precio`='$precio', `duracion`='$duracion' WHERE `tbl_servicio`.`id`='$id'";
+    $sql_modi_servicio = "UPDATE `tbl_servicio` SET `cod_tipo_servicio`='$tipo', `nombre`='$nombre', `descripcion`='$descripcion', `precio`='$precio', `duracion`='$duracion' WHERE `tbl_servicio`.`codigo_servicio`='$codigo'";
     $result_modi_servicio = mysqli_query($conn, $sql_modi_servicio);
 
 

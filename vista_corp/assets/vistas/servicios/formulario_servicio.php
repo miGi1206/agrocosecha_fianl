@@ -32,23 +32,23 @@
         <form action="../../controladores/servicio/registrar_servicio.php" method="POST" >
         
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" requered>
+                <input name="codigo_servicio" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" requered>
                 <label for="floatingInputidentificacion">Codigo:</label>
             </div>
 
             <div class="form-group">
-                <label for="tipo">Tipo de producto:</label>
+                <label for="tipo">Tipo de servicio:</label>
                 <select id="tipo" name="tipo">
                 <?php
                 
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql_tipo_servicio = "SELECT codigo_tipo,tipo FROM `tipo_servicio`";
+                    $sql_tipo_servicio = "SELECT codigo_tipo_servicio ,tipo_servicio FROM `tbl_tipo_servicio`";
                     $result = mysqli_query($conn,$sql_tipo_servicio);
                     
 
                     //* Ciclo para mostrar los registros
                     while ($row = mysqli_fetch_assoc($result)){
-                        echo "<option value='".$row['codigo_tipo']."'>".$row['tipo']."</option>"; 
+                        echo "<option value='".$row['codigo_tipo_servicio']."'>".$row['tipo_servicio']."</option>"; 
                     }?>               
                 </select>
             </div>
@@ -72,8 +72,7 @@
             <div class="form-floating mb-3" style="margin-top:15px;">
                 <input name="duracion" type="number" class="form-control cuadro_texto1" id="floatingInputduracion" placeholder="duracion" requered>
                 <label for="floatingInputduracion">Duracion por hora:</label>
-            </div>
-
+            </div>               
             <button type="submit" class="submit" name="guardar_servicio">Guardar</button>
         </form>
     </div>
