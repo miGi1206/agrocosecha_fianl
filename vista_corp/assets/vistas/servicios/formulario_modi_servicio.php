@@ -13,10 +13,11 @@
 
     //! Toma el id del admin para modificarlo
     $id=$_GET["id"];
-    $sql="SELECT `tbl_servicio`.`id`, `tbl_servicio`.`nombre`, `tipo_servicio`.`tipo`, `tipo_servicio`.`codigo_tipo`,
-    `tbl_servicio`.`descripcion`, `tbl_servicio`.`precio`, `tbl_servicio`.`fecha_registro`,
-    `tbl_servicio`.`duracion`  FROM `tbl_servicio`, `tipo_servicio` WHERE 
-    `tbl_servicio`.`tipo_servicio` = `tipo_servicio`.`codigo_tipo` AND `tbl_servicio`.`id` = $id";
+    $sql = "SELECT tbl_servicio.codigo_servicio, tbl_servicio.nombre, tbl_servicio.descripcion,tbl_servicio.precio,
+    tbl_servicio.precio, tbl_servicio.duracion, tbl_tipo_servicio.tipo_servicio, tbl_tipo_servicio.codigo_tipo_servicio, tbl_servicio.cod_tipo_servicio
+    FROM tbl_servicio
+    JOIN tbl_tipo_servicio ON tbl_servicio.cod_tipo_servicio  = tbl_tipo_servicio.codigo_tipo_servicio
+    WHERE tbl_servicio.codigo_servicio = '$id'";
     $query=mysqli_query($conn, $sql);
 
     $row=mysqli_fetch_array($query);
@@ -45,30 +46,30 @@
         <form action="../../controladores/servicio/modificar_servicio.php" method="POST">
             
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" value="<?= $row['id']?>" readonly requered>
-                <label for="floatingInputidentificacion">Codigo:</label>
+                <input name="codigo_servicio" type="number" class="form-control cuadro_texto1" id="floatingInputcodigo_servicio" placeholder="codigo_servicio" value="<?= $row['codigo_servicio']?>" readonly requered>
+                <label for="floatingInputcodigo_servicio">Codigo:</label>
             </div>
 
-            <label for="floatingInputipo">Tipo de producto:</label>
+            <label for="floatingInputipo">Tipo de servicio:</label>
             <div class="form-group">
                 <select id="tipo" name="tipo">
                     <?php
                     // Almacena el valor actual en una variable antes del bucle
-                    $valorActual = $row['codigo_tipo'];
-                    $valorActual2 = $row['tipo'];
+                    $valorActual = $row['codigo_tipo_servicio'];
+                    $valorActual2 = $row['tipo_servicio'];
 
                     // Muestra el valor actual como la primera opción
                     echo "<option value='$valorActual'>$valorActual2</option>";
 
                     // Consulta SQL para traer todos los datos de los tipos de servicio
-                    $sql_tipo_servicio = "SELECT codigo_tipo, tipo FROM `tipo_servicio`";
+                    $sql_tipo_servicio = "SELECT codigo_tipo_servicio, tipo_servicio FROM `tbl_tipo_servicio`";
                     $result = mysqli_query($conn, $sql_tipo_servicio);
 
                     // Ciclo para mostrar los registros
                     while ($row2 = mysqli_fetch_assoc($result)) {
                         // Verifica que el valor no sea igual al valor actual
-                        if ($row2['codigo_tipo'] != $valorActual) {
-                            echo "<option value='" . $row2['codigo_tipo'] . "'>" . $row2['tipo'] . "</option>";
+                        if ($row2['codigo_tipo_servicio'] != $valorActual) {
+                            echo "<option value='" . $row2['codigo_tipo_servicio'] . "'>" . $row2['tipo_servicio'] . "</option>";
                         }
                     }
                     ?>

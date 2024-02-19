@@ -15,7 +15,7 @@ include "../../conections/coneccion_tabla.php";
 //! funcion para capturar y mandar a la base de datos los datos que se ingresen en el formulario
 if(isset($_POST["guardar_servicio"])) {
     
-    $id = $_POST['identificacion'];
+    $codigo = $_POST['codigo_servicio'];
     $tipo = $_POST['tipo'];
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
@@ -25,7 +25,7 @@ if(isset($_POST["guardar_servicio"])) {
     $duracion = $_POST['duracion'];
     
     //* Validacion si el ID ingresada esta en la base de datos
-    $consulta_existencia = "SELECT id FROM tbl_servicio WHERE id = '$id'";
+    $consulta_existencia = "SELECT codigo_servicio  FROM tbl_servicio WHERE codigo_servicio  = '$codigo'";
     $id_existencia = mysqli_query($conn, $consulta_existencia);
 
     //* Condicion de el ID existe o no
@@ -78,8 +78,10 @@ if(isset($_POST["guardar_servicio"])) {
     else{
 
         // TODO: consulta sql para ingresar datos a la tabla admin
-        $sql_servicio = "INSERT INTO `tbl_servicio`(`id`, `nombre`, `descripcion`, `precio`, `fecha_registro`, `duracion`,`tipo_servicio`) VALUES ('$id', '$nombre','$descripcion','$precio','$fecha_registro','$duracion', '$tipo')";
+        $sql_servicio = "INSERT INTO `tbl_servicio`(`codigo_servicio`, `nombre`, `descripcion`, `precio`, `duracion`, `fecha_registro`, `cod_tipo_servicio`) 
+        VALUES ('$codigo', '$nombre','$descripcion','$precio','$duracion','$fecha_registro', '$tipo')";
         echo "Consulta SQL: " . $sql_servicio; // Imprime la consulta SQL para depuración
+
         $result_servicio = mysqli_query($conn, $sql_servicio);
 
         // TODO: funcion para mandarlo de regreso a la tabla si no que mande un error

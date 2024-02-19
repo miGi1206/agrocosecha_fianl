@@ -94,10 +94,11 @@
     
         if (isset($_GET['busqueda'])) {
             $buscar = "WHERE `tbl_servicio`.`tipo_servicio` = `tipo_servicio`.`codigo_tipo`
-                AND (`tbl_servicio`.`id` LIKE '%" . $busqueda . "%' 
-                OR `tipo_servicio`.`tipo` LIKE '%" . $busqueda . "%' 
-                OR `tbl_servicio`.`nombre` LIKE '%" . $busqueda . "%' 
-                OR `tbl_servicio`.`fecha_registro` LIKE '%" . $busqueda . "%')";
+            AND (`tbl_servicio`.`codigo_servicio` LIKE '%" . $busqueda . "%' 
+            OR `tbl_tipo_servicio`.`tipo_servicio` LIKE '%" . $busqueda . "%' 
+            OR `tbl_servicio`.`nombre` LIKE '%" . $busqueda . "%' 
+            OR `tbl_servicio`.`fecha_registro` LIKE '%" . $busqueda . "%')";
+
         }
     }
     ?>
@@ -121,27 +122,27 @@
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT `tbl_servicio`.`id`, `tbl_servicio`.`nombre`, `tipo_servicio`.`tipo`,
-                    `tbl_servicio`.`descripcion`, `tbl_servicio`.`precio`, `tbl_servicio`.`fecha_registro`,
-                    `tbl_servicio`.`duracion` FROM `tbl_servicio`
-                    INNER JOIN `tipo_servicio` ON `tbl_servicio`.`tipo_servicio` = `tipo_servicio`.`codigo_tipo` $buscar";
+                    $sql = "SELECT tbl_servicio.codigo_servicio, tbl_servicio.nombre, tbl_servicio.descripcion, tbl_servicio.precio,
+                    tbl_servicio.duracion, tbl_servicio.fecha_registro, tbl_tipo_servicio.tipo_servicio, tbl_tipo_servicio.codigo_tipo_servicio 
+                    FROM tbl_servicio
+                    INNER JOIN `tbl_tipo_servicio` ON tbl_servicio.cod_tipo_servicio = tbl_tipo_servicio.codigo_tipo_servicio $buscar";
                     $result = mysqli_query($conn,$sql);
                     while ($row = mysqli_fetch_assoc($result)){ 
                     ?>
                     <tr>
-                        <td><?php echo $row["id"] ?></td>
-                        <td><?php echo $row["tipo"] ?></td>
+                        <td><?php echo $row["codigo_servicio"] ?></td>
+                        <td><?php echo $row["tipo_servicio"] ?></td>
                         <td><?php echo $row["nombre"] ?></td>
                         <td><?php
                             $descripcion_corta = substr($row["descripcion"], 0, 100);
                             $descripcion_larga = substr($row["descripcion"], 100);
 
-                            echo "<span id='resumen" . $row['id'] . "'>" . $descripcion_corta . "</span>";
+                            echo "<span id='resumen" . $row['codigo_servicio'] . "'>" . $descripcion_corta . "</span>";
 
                             if (strlen($row["descripcion"]) > 100) {
-                                echo "<span id='detalle" . $row['id'] . "' style='display:none;'>" . $descripcion_larga . "</span>";
-                                echo "<button onclick='leerMas(" . $row['id'] . ")' style='background-color: transparent; border:none; color:blue;'>Leer más</button>";
-                                echo "<button onclick='leerMenos(" . $row['id'] . ")' style='display:none; background-color: transparent; border:none; color:blue;'>Leer menos</button>";
+                                echo "<span id='detalle" . $row['codigo_servicio'] . "' style='display:none;'>" . $descripcion_larga . "</span>";
+                                echo "<button onclick='leerMas(" . $row['codigo_servicio'] . ")' style='background-color: transparent; border:none; color:blue;'>Leer más</button>";
+                                echo "<button onclick='leerMenos(" . $row['codigo_servicio'] . ")' style='display:none; background-color: transparent; border:none; color:blue;'>Leer menos</button>";
                             }
                             ?>
                         </td>
@@ -150,15 +151,15 @@
                         <td><?php echo $row["fecha_registro"] ?></td>
                         <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
                             <form method="POST" action="./formulario_modi_servicio.php">
-                                <a href="./formulario_modi_servicio.php?id=<?php echo $row['id'];?>" type="botton"
-                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
+                                <a href="./formulario_modi_servicio.php?id=<?php echo $row['codigo_servicio'];?>" type="botton"
+                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px; background-color: #FFCC03 !important;">Editar</a>
                             </form>
                             
                             <!-- //* Coneccion con la funcion para eliminar el registro -->
                             <form method="POST" class="eliminarForm" style="margin-top:-13px;">
                                 <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
-                                    style="margin-top:5% !important;" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn">
+                                    style="margin-top:5% !important;" value="<?php echo $row['codigo_servicio']; ?>">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn" style="background-color:red;">
                                     Eliminar
                                 </button>
                             </form>
