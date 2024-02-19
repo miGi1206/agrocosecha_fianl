@@ -32,9 +32,9 @@
                             <a class="nav-link hola" href="../servicios/admin_servicio_tabla.php">Servicios</a>
                         </li>
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link hola" href="../mensaje/admin_mensaje.php">Mensajes</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <?php if (!isset($_SESSION['codigo_usuario'])) { ?>

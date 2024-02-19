@@ -31,7 +31,7 @@
         <form action="../../controladores/producto/registrar_producto.php" method="POST" >
 
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" requered>
+                <input name="codigo_producto" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="codigo_producto" requered>
                 <label for="floatingInputidentificacion">Codigo:</label>
             </div>
 
@@ -45,15 +45,22 @@
                 <label for="descripcion">Descripcion:</label>
                 <textarea type="text" id="descripcion" name="descripcion" rows="4" required></textarea>
             </div>
+            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
+                <div class="form-floating mb-3" style="margin-top:15px; margin-right: 5%;">
+                    <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" requered>
+                    <label for="floatingInputprecio">Precio:</label>
+                </div>
 
-            <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" requered>
-                <label for="floatingInputprecio">Precio:</label>
+                <div class="form-floating mb-3" style="margin-top:15px;">
+                    <input name="stock" type="number" class="form-control cuadro_texto1" id="floatingInputstock" placeholder="stock" requered>
+                    <label for="floatingInputstock">Stock:</label>
+                </div>
             </div>
 
+            <!-- //TODO: aqui va el campo para el video-->
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="stock" type="number" class="form-control cuadro_texto1" id="floatingInputstock" placeholder="stock" requered>
-                <label for="floatingInputstock">Stock:</label>
+                <input name="video" type="text" class="form-control cuadro_texto1" id="floatingInputvideo" placeholder="video" requered>
+                <label for="floatingInputvideo">Video:</label>
             </div>
 
             <button type="submit" class="submit" name="guardar_producto">Guardar</button>

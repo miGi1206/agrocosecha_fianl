@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="../../css/navbar_cliente.css">
     <link rel="stylesheet" href="../../css/navbar_admin.css">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../vista_corp/assets/css/fontawesome.min.css">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -42,6 +41,26 @@
     <!-- //* alerta nuevo registro -->
     <?php
     include "../../controladores/alertas.php";
+    ?>
+
+    <!-- //* alerta sesion iniciada -->
+    <?php
+    if(isset($_SESSION['msj_inicio_sesion'])){
+        $respuesta = $_SESSION['msj_inicio_sesion'];?>
+    <script>
+    Swal.fire({
+        title: "Sesion iniciada",
+        text: "",
+        icon: "success",
+        timer: 2000,
+        timerProgressBar: true,
+        backdrop: false
+    });
+    </script>
+
+    <?php
+    unset($_SESSION['msj_inicio_sesion']);
+    }
     ?>
 
     <h1>Clientes/Administradores</h1>

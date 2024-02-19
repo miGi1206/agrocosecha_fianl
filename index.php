@@ -54,7 +54,7 @@ https://templatemo.com/tm-559-zay-shop
                     $_SESSION['usuario'] = $row['usuario'];
                     $_SESSION['cod_tipo_usuario'] = $row['cod_tipo_usuario'];
                     if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") {
-                        header("Location: ./vista_corp/assets/vistas/mensaje/admin_mensaje.php");
+                        header("Location: ./vista_corp/assets/vistas/administrador/admin_admin_tabla.php");
                         session_start();
                         $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
                     } else {

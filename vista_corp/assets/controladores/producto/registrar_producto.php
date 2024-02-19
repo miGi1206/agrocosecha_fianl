@@ -14,16 +14,17 @@ include "../../conections/coneccion_tabla.php";
 //! funcion para capturar y mandar a la base de datos los datos que se ingresen en el formulario
 if(isset($_POST["guardar_producto"])) {
     
-    $id = $_POST['identificacion'];
+    $codigo_producto = $_POST['codigo_producto'];
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
     $precio = $_POST['precio'];
+    $stock = $_POST['stock'];
+    $video = $_POST['video'];
     // Obtener la fecha actual
     $fecha_registro = date('Y-m-d'); // Formato: Año-Mes-Día
-    $stock = $_POST['stock'];
     
     // TODO: verifica si la identificacion ya esta registrada
-    $consulta_existencia = "SELECT id FROM tbl_producto WHERE id = '$id'";
+    $consulta_existencia = "SELECT codigo_producto FROM tbl_producto WHERE codigo_producto = '$codigo_producto'";
     $id_existencia = mysqli_query($conn, $consulta_existencia);
 
     //* funcion para que el nombre solo lleve letras
@@ -61,12 +62,12 @@ if(isset($_POST["guardar_producto"])) {
     else {
 
         // TODO: consulta sql para ingresar datos a la tabla admin
-        $sql_servicio = "INSERT INTO `tbl_producto`(`id`, `nombre`, `descripcion`, `precio`, `fecha_registro`, `stock`) VALUES ('$id', '$nombre','$descripcion','$precio','$fecha_registro','$stock')";
-        echo "Consulta SQL: " . $sql_proveedor; // Imprime la consulta SQL para depuración
-        $result_servicio = mysqli_query($conn, $sql_servicio);
+        $sql_producto = "INSERT INTO `tbl_producto`(`codigo_producto`, `nombre`, `descripcion`, `precio`, `fecha_registro`,`video`, `stock`) VALUES ('$codigo_producto', '$nombre','$descripcion','$precio','$fecha_registro','$video','$stock')";
+        echo "Consulta SQL: " . $sql_producto; // Imprime la consulta SQL para depuración
+        $result_producto = mysqli_query($conn, $sql_producto);
 
         // TODO: funcion para mandarlo de regreso a la tabla si no que mande un error
-        if($result_servicio) {
+        if($result_producto) {
             header("Location: ../../vistas/producto/admin_producto_tabla.php");
             session_start();
             $_SESSION['msj_registrar'] = "Se inserto la informacion al sistema";

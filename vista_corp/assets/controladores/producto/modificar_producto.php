@@ -13,11 +13,12 @@
 include "../../conections/coneccion_tabla.php";
 
 //TODO: Guarda la informaciion en variables 
-$id = $_POST['identificacion'];
+$codigo_producto = $_POST['codigo_producto'];
 $nombre = $_POST['nombre'];
 $descripcion = $_POST['descripcion'];
 $precio = $_POST['precio'];
 $stock = $_POST['stock'];
+$video = $_POST['video'];
 
 //* funcion para que el nombre solo lleve letras
 if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
@@ -34,10 +35,10 @@ if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
 }
 
 // Obtener el ID del producto a modificar de la URL
-$id_usuario_modificar = $_POST['identificacion'];
+$codigo_producto_modificar = $_POST['codigo_producto'];
 
 // Verificar la existencia del nombre excluyendo el usuario a modificar
-$consulta_existencia = "SELECT nombre FROM tbl_producto WHERE nombre = '$nombre' AND id != $id_usuario_modificar";
+$consulta_existencia = "SELECT nombre FROM tbl_producto WHERE nombre = '$nombre' AND codigo_producto != $codigo_producto_modificar";
 $nombre_existencia = mysqli_query($conn, $consulta_existencia);
 
 if (mysqli_num_rows($nombre_existencia) > 0) {
@@ -55,7 +56,7 @@ if (mysqli_num_rows($nombre_existencia) > 0) {
 
     else {
         //! Consulta de actualización para tbl_admin
-        $sql_modi_servicio = "UPDATE `tbl_producto` SET `nombre`='$nombre', `descripcion`='$descripcion', `precio`='$precio', `stock`='$stock' WHERE `tbl_producto`.`id`='$id'";
+        $sql_modi_servicio = "UPDATE `tbl_producto` SET `nombre`='$nombre', `descripcion`='$descripcion', `precio`='$precio', `stock`='$stock', `video`='$video' WHERE `tbl_producto`.`codigo_producto`='$codigo_producto'";
         $result_modi_servicio = mysqli_query($conn, $sql_modi_servicio);
 
 

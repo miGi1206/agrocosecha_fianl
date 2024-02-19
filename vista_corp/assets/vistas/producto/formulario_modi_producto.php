@@ -16,7 +16,7 @@
     $id=$_GET["id"];
 
     //! Consulta para traer la informacion del cliente
-    $sql="SELECT * FROM tbl_producto WHERE `tbl_producto`.`id`='$id'";
+    $sql="SELECT * FROM tbl_producto WHERE `tbl_producto`.`codigo_producto`='$id'";
     $query=mysqli_query($conn, $sql);
 
     $row=mysqli_fetch_array($query);
@@ -44,8 +44,8 @@
         <form action="../../controladores/producto/modificar_producto.php" method="POST">
         
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="identificacion" type="number" class="form-control cuadro_texto1" id="floatingInputidentificacion" placeholder="Identificacion" value="<?= $row['id']?>" readonly requered>
-                <label for="floatingInputidentificacion">Codigo:</label>
+                <input name="codigo_producto" type="number" class="form-control cuadro_texto1" id="floatingInputcodigo_producto" placeholder="codigo_producto" value="<?= $row['codigo_producto']?>" readonly requered>
+                <label for="floatingInputcodigo_producto">Codigo:</label>
             </div>
 
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:15px !important;">
@@ -59,14 +59,22 @@
                 <textarea type="text" id="descripcion" name="descripcion" rows="4" required><?= $row['descripcion']?></textarea>
             </div>
             
-            <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" value="<?= $row['precio']?>" requered>
-                <label for="floatingInputprecio">Precio:</label>
+            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
+                <div class="form-floating mb-3" style="margin-top:15px;">
+                    <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" value="<?= $row['precio']?>" requered>
+                    <label for="floatingInputprecio">Precio:</label>
+                </div>
+
+                <div class="form-floating mb-3" style="margin-top:15px;">
+                    <input name="stock" type="number" class="form-control cuadro_texto1" id="floatingInputstock" placeholder="stock" value="<?= $row['stock']?>" requered>
+                    <label for="floatingInputstock">Stock:</label>
+                </div>
             </div>
 
+            <!-- //TODO: aqui va el campo para el video-->
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="stock" type="number" class="form-control cuadro_texto1" id="floatingInputstock" placeholder="stock" value="<?= $row['stock']?>" requered>
-                <label for="floatingInputstock">Stock:</label>
+                <input name="video" type="text" class="form-control cuadro_texto1" id="floatingInputvideo" placeholder="video" value="<?= $row['video']?>" requered>
+                <label for="floatingInputvideo">Video:</label>
             </div>
 
             <button type="submit" class="submit" name="modificar_producto">Actualizar</button>
