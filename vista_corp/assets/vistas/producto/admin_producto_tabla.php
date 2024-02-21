@@ -93,7 +93,7 @@
     }
     ?>
 
-    <div class="tabla_container" style="margin-top:-15px !important;">
+    <div class="tabla_container" style="margin-top:-15px !important;  width:100%;">
         <button class="boton-registrar"><a href="./formulario_producto.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
         <div style="overflow-x:auto !important; width:100% !important;">
@@ -134,7 +134,7 @@
                             }
                             ?>
                         </td>
-                        <td>$<?php echo $row["precio"] ?></td>
+                        <td>$ <?php echo number_format($row["precio"], 0, ',', '.'); ?></td>
                         <td><?php echo $row["stock"] ?></td>
                         <td><?php echo $row["video"] ?></td>
                         <td><?php echo $row["fecha_registro"] ?></td>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light shadow" style="border 1px solid #28a745;">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand text-success logo1 h1 align-self-center" href="#">
+        <div class="container d-flex justify-content-between align-items-center" style="margin-left: 5%;">
+            <a class="navbar-brand text-success logo1 h1 align-self-center" href="/agrocosecha_final/index.php">
                 <img src="/agrocosecha_final/vista_corp/assets/img/nombre_logo.png" alt="" style="width:50% !important;"/>
             </a>
 
@@ -13,11 +13,11 @@
             <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
                 id="templatemo_main_nav">
                 <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto" style="margin-right:3% !important;">
 
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class=" nav-link hola" href="../cliente/admin_cliente.php">Clientes</a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a class=" nav-link hola" href="../administrador/admin_admin_tabla.php">Personas</a>
                         </li>
@@ -38,7 +38,7 @@
                     </ul>
                 </div>
                 <?php if (!isset($_SESSION['codigo_usuario'])) { ?>
-                <div class="navbar align-self-center d-flex">
+                <div class="navbar align-self-center d-flex" >
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="#" class="btn" data-bs-toggle="modal"
@@ -51,15 +51,14 @@
                     //definir $nombre aunque sea como una cadena vacía
                     $nombre = isset($_SESSION['usuario']) ? $_SESSION['usuario'] : '';
                     ?>
-                <div class="navbar align-self-center d-flex">
+                <div class="navbar align-self-center d-flex" >
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user"></i> <?php echo $nombre; ?>
                             </a>
-                            <div class="dropdown-menu dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown"
-                                style="border:none !important;">
+                            <div class="dropdown-menu dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown">
                                 <?php
                     if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") { ?>
                                 <a class="dropdown-item"

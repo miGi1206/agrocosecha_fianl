@@ -110,14 +110,20 @@
     if (isset($_GET['enviar'])){
         $busqueda = $_GET['busqueda'];
 
-        if (isset($_GET['busqueda'])){
-            $buscar = "WHERE identificacion LIKE '%".$busqueda."%' OR primer_nombre LIKE '%".$busqueda."%'
-            OR segundo_nombre LIKE '%".$busqueda."%' OR primer_apellido LIKE '%".$busqueda."%' 
-            OR segundo_apellido LIKE '%".$busqueda."%'OR telefono LIKE '%".$busqueda."%' 
-            OR correo LIKE '%".$busqueda."%' OR sexo LIKE '%".$busqueda."%' OR tipo_usuario LIKE '%".$busqueda."%'
-            OR fecha_nacimiento LIKE '%".$busqueda."%' OR direccion LIKE '%".$busqueda."%' 
-            OR usuario LIKE '%".$busqueda."%' OR fecha_creacion LIKE '%".$busqueda."%'
-            AND tbl_persona.codigo_persona = tbl_usuario.cod_persona";
+        if (isset($_GET['busqueda'])) {
+            $buscar = "WHERE tbl_persona.identificacion LIKE '%" . $busqueda . "%' 
+                OR tbl_persona.primer_nombre LIKE '%" . $busqueda . "%'
+                OR tbl_persona.segundo_nombre LIKE '%" . $busqueda . "%' 
+                OR tbl_persona.primer_apellido LIKE '%" . $busqueda . "%' 
+                OR tbl_persona.segundo_apellido LIKE '%" . $busqueda . "%'
+                OR tbl_persona.telefono LIKE '%" . $busqueda . "%' 
+                OR tbl_persona.correo LIKE '%" . $busqueda . "%' 
+                OR tbl_sexo.sexo LIKE '%" . $busqueda . "%' 
+                OR tbl_tipo_usuario.tipo_usuario LIKE '%" . $busqueda . "%'
+                OR tbl_persona.fecha_nacimiento LIKE '%" . $busqueda . "%' 
+                OR tbl_persona.direccion LIKE '%" . $busqueda . "%' 
+                OR tbl_usuario.usuario LIKE '%" . $busqueda . "%' 
+                OR tbl_persona.fecha_creacion LIKE '%" . $busqueda . "%'";
         }
     }
     ?>
@@ -149,14 +155,15 @@
                 <tbody>
                     <?php
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql = "SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
-                    tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
-                    tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
-                    FROM `tbl_persona`
-                    JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
-                    JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
-                    JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
-                    $buscar";
+                $sql = "SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
+                tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
+                tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
+                FROM `tbl_persona`
+                JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
+                JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
+                JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
+                $buscar";
+
 
                     $result = mysqli_query($conn, $sql);
         
@@ -168,7 +175,23 @@
                         <td><?php echo $row["identificacion"] ?></td>
                         <td><?php echo $row["primer_nombre"] . " " . $row["segundo_nombre"]; ?></td>
                         <td><?php echo $row["primer_apellido"] . " " . $row["segundo_apellido"]; ?></td>
-                        <td><?php echo $row["telefono"] ?></td>
+                        <?php
+                        // Supongamos que $row["telefono"] contiene el número de teléfono
+                        $telefono = $row["telefono"];
+
+                        // Asegurémonos de que solo tengamos dígitos
+                        $telefono = preg_replace('/[^0-9]/', '', $telefono);
+
+                        // Verifiquemos si el número de teléfono tiene 10 dígitos
+                        if (strlen($telefono) >= 7) {
+                            // Formateemos el número con guiones
+                            $telefono_formateado = substr($telefono, 0, 3) . '-' . substr($telefono, 3, 3) . '-' . substr($telefono, 6, 4);
+                            echo '<td>' . $telefono_formateado . '</td>';
+                        } else {
+                            // Si no tiene 10 dígitos, simplemente mostramos el número sin formato
+                            echo '<td>' . $telefono . '</td>';
+                        }
+                        ?>
                         <td><?php echo $row["correo"] ?></td>
                         <td><?php echo $row["sexo"] ?></td>
                         <td><?php echo $row["fecha_nacimiento"] ?></td>

@@ -93,17 +93,15 @@
         $busqueda = $_GET['busqueda'];
     
         if (isset($_GET['busqueda'])) {
-            $buscar = "WHERE `tbl_servicio`.`tipo_servicio` = `tipo_servicio`.`codigo_tipo`
-            AND (`tbl_servicio`.`codigo_servicio` LIKE '%" . $busqueda . "%' 
+            $buscar = "WHERE `tbl_servicio`.`codigo_servicio` LIKE '%" . $busqueda . "%' 
             OR `tbl_tipo_servicio`.`tipo_servicio` LIKE '%" . $busqueda . "%' 
             OR `tbl_servicio`.`nombre` LIKE '%" . $busqueda . "%' 
-            OR `tbl_servicio`.`fecha_registro` LIKE '%" . $busqueda . "%')";
-
+            OR `tbl_servicio`.`fecha_registro` LIKE '%" . $busqueda . "%'";
         }
     }
     ?>
 
-    <div class="tabla_container" style="margin-top:-15px !important;">
+    <div class="tabla_container" style="margin-top:-15px !important;  width:100%;">
         <button class="boton-registrar"><a href="formulario_servicio.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
         <div style="overflow-x:auto !important; width:100% !important;">
@@ -146,7 +144,7 @@
                             }
                             ?>
                         </td>
-                        <td>$<?php echo $row["precio"] ?></td>
+                        <td>$ <?php echo number_format($row["precio"], 0, ',', '.'); ?></td>
                         <td><?php echo $row["duracion"]?> horas</td>
                         <td><?php echo $row["fecha_registro"] ?></td>
                         <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">

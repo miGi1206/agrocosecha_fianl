@@ -46,8 +46,8 @@
         <form action="../../controladores/servicio/modificar_servicio.php" method="POST">
             
             <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="codigo_servicio" type="number" class="form-control cuadro_texto1" id="floatingInputcodigo_servicio" placeholder="codigo_servicio" value="<?= $row['codigo_servicio']?>" readonly requered>
-                <label for="floatingInputcodigo_servicio">Codigo:</label>
+                <input name="codigo_servicio" type="number" class="form-control cuadro_texto1" id="codigo_servicio" placeholder="codigo_servicio" value="<?= $row['codigo_servicio']?>" readonly required>
+                <label for="codigo_servicio">Codigo:</label>
             </div>
 
             <label for="floatingInputipo">Tipo de servicio:</label>
@@ -77,7 +77,7 @@
             </div>
 
             <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:15px !important;">
-                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre" value="<?= $row['nombre']?>" requered>
+                <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="Nombre"  maxlength="30" value="<?= $row['nombre']?>" required>
                 <label for="nombre">Nombre:</label>
                 <div id="result_nombre" style="color:red; font-size:15px;"></div>
             </div>
@@ -86,24 +86,100 @@
                 <label for="descripcion">Descripcion:</label>
                 <textarea id="descripcion" name="descripcion" rows="4" required><?= $row['descripcion']?></textarea>
             </div>
+            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
+                <div class="form-floating mb-3" style="margin-top:15px; margin-right: 5% !important;">
+                    <input name="precio" type="text" class="form-control cuadro_texto1" id="precio" placeholder="precio" value="<?= $row['precio']?>" required maxlength="15">
+                    <label for="precio">Precio:</label>
+                    <div id="result_precio" style="color:red; font-size:15px;"></div>
+                </div>
 
-            <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="precio" type="number" class="form-control cuadro_texto1" id="floatingInputprecio" placeholder="precio" value="<?= $row['precio']?>" requered>
-                <label for="floatingInputprecio">Precio:</label>
+                <div class="form-floating mb-3" style="margin-top:15px;">
+                <input name="duracion" type="text" class="form-control cuadro_texto1" id="duracion" placeholder="duracion" value="<?= $row['duracion']?>"  required maxlength="2">
+                    <label for="duracion">Duracion por hora:</label>
+                    <div id="result_duracion" style="color:red; font-size:15px;"></div>
+                </div>
             </div>
-
-            <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="duracion" type="number" class="form-control cuadro_texto1" id="floatingInputduracion" placeholder="duracion" value="<?= $row['duracion']?>" requered>
-                <label for="floatingInputduracion">Duracion por hora:</label>
-            </div>
-
             <button type="submit" class="submit" name="guardar_servicio">Guardar</button>
         </form>
     </div>
     <!--//TODO: Fin formulario de registro del cliente -->
     </div>
 
-    <script src="../../js/validaciones.js"></script>
-</body>
+    <script>
+    const nombre = document.getElementById('nombre');
+    const result_nombre = document.getElementById('result_nombre');
 
+    let lastValidInput = ''; // Variable para almacenar la última entrada válida
+
+    nombre.addEventListener('input', (event) => {
+        const textValue = event.currentTarget.value;
+
+        if (!isValidInput(textValue)){
+            nombre.value = lastValidInput; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_nombre.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
+        } else {
+            lastValidInput = textValue; // Actualizar la última entrada válida
+        }
+        result_nombre.innerHTML = '';
+    });
+
+    function isValidInput(text){
+        // Verificar si la cadena solo contiene letras y espacios
+        return /^[A-Za-zñÑ\s]*$/.test(text);
+    }
+</script>
+
+   <!-- //! Validacion para solo numeros en el campo del precio -->
+<script>
+    const precio = document.getElementById('precio');
+    const result_precio = document.getElementById('result_precio');
+
+    let lastValidInputprecio = ''; // Variable para almacenar la última entrada válida
+
+    precio.addEventListener('input', (event) => {
+        const textValue = event.currentTarget.value;
+
+        if (!isValidInputPrecio(textValue)){
+            precio.value = lastValidInputprecio; // Restaurar el último valor válido
+            return result_precio.innerHTML = `Este campo solo permite números`;
+        } else {
+            lastValidInputprecio = textValue; // Actualizar la última entrada válida
+        }
+        result_precio.innerHTML = '';
+    });
+
+    function isValidInputPrecio(text){
+        // Verificar si la cadena solo contiene números
+        return /^[0-9]*$/.test(text);
+    }
+</script>
+
+</script>
+
+    <!-- //! Validacion para solo numeros en el campo de duracion-->
+    <script>
+    const duracion = document.getElementById('duracion');
+    const result_duracion = document.getElementById('result_duracion');
+
+    let lastValidInputduracion = ''; // Variable para almacenar la última entrada válida
+
+    duracion.addEventListener('input', (event) => {
+        const textValue = event.currentTarget.value;
+
+        if (!isValidInputduracion(textValue)){
+            duracion.value = lastValidInputduracion; // Restaurar el último valor válido
+            return result_duracion.innerHTML = `Este campo solo permite números`;
+        } else {
+            lastValidInputduracion = textValue; // Actualizar la última entrada válida
+        }
+        result_duracion.innerHTML = '';
+    });
+
+    function isValidInputduracion(text){
+        // Verificar si la cadena solo contiene números
+        return /^[0-9]*$/.test(text);
+    }
+</script>
+
+</body>
 </html>

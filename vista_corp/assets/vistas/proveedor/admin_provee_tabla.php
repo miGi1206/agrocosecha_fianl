@@ -125,10 +125,10 @@
                     <tr>
                         <td><?php echo $row["nit"] ?></td>
                         <td><?php echo $row["nombre_razonsocial"] ?></td>
-                        <td><?php echo $row["telefono"] ?></td>
+                        <td><?php echo number_format($row["telefono"], 0, '-', '-'); ?></td>
                         <td><?php echo $row["correo"] ?></td>
                         <td><?php echo $row["nom_per_contacto"] ?></td>
-                        <td><?php echo $row["tel_contacto"] ?></td>
+                        <td><?php echo number_format($row["tel_contacto"], 0, '-', '-'); ?></td>
                         <td><?php echo $row["correo_contacto"] ?></td>
                         <td><?php echo $row["usuario"] ?></td>
                         <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
