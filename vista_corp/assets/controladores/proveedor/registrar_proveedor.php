@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Error</title>
+    <link rel="website icon" type="jpg" href="../../img/Size-16.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -25,17 +26,21 @@ if(isset($_POST["guardar_proveedor"])) {
 
     $hashed_password = SHA1($contraseña); // Colocar la contraseña encriptada
     
-    // TODO: verifica si la identificacion ya esta registrada
+    //* verifica si la identificacion ya esta registrada
     $consulta_existencia ="SELECT nit FROM tbl_proveedor WHERE nit = '$nit'";
     $nit_existencia = mysqli_query($conn, $consulta_existencia);
 
-    //* Validar si el id del usuario ya existe
-    $consulta_existencia ="SELECT nit_proveedor FROM tbl_usuario WHERE nit_proveedor = '$nit'";
-    $nit_usuario_existencia = mysqli_query($conn, $consulta_existencia);
+    //* Validar si el usuario ya existe
+    $consulta_existencia = "SELECT nombre_razonsocial FROM tbl_proveedor WHERE nombre_razonsocial = '$nombre_razonsocial'";
+    $nombre_razonsocial_existencia = mysqli_query($conn, $consulta_existencia);
+    
+    //* Validar si el correo empresarial ya existe
+    $consulta_existencia = "SELECT correo FROM tbl_proveedor WHERE correo = '$correo_empresarial'";
+    $correo_empresarial_existencia = mysqli_query($conn, $consulta_existencia);
 
     //* Validar si el correo ya existe
-    $consulta_existencia = "SELECT correo FROM tbl_proveedor WHERE correo = '$correo'";
-    $correo_existencia = mysqli_query($conn, $consulta_existencia);
+    $consulta_existencia = "SELECT correo_contacto FROM tbl_proveedor WHERE correo_contacto = '$correo_contacto'";
+    $correo_personal_existencia = mysqli_query($conn, $consulta_existencia);
 
     //* Validar si el usuario ya existe
     $consulta_existencia = "SELECT usuario FROM tbl_usuario WHERE usuario = '$usuario'";
@@ -45,20 +50,7 @@ if(isset($_POST["guardar_proveedor"])) {
     if (mysqli_num_rows($nit_existencia) > 0) {  
         echo '<script>
                 Swal.fire({
-                    title: "La identificacion ya esta registrado. Por favor, elige otra",
-                    text: "",
-                    icon: "error"
-                }).then(function() {
-                    history.back(); // Regresa a la página anterior
-                });
-            </script>';
-        exit();  
-    } 
-    //* Condicion de el ID existe o no
-    if (mysqli_num_rows($nit_usuario_existencia) > 0) {  
-        echo '<script>
-                Swal.fire({
-                    title: "La identificacion ya esta registrado con un usuario. Por favor, elige otra",
+                    title: "El nit ya esta registrado. Por favor, elige otra",
                     text: "",
                     icon: "error"
                 }).then(function() {
@@ -69,7 +61,7 @@ if(isset($_POST["guardar_proveedor"])) {
     } 
 
     //* funcion para que el nombre solo lleve letras
-    if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+    if (!preg_match('/^[a-zA-Z\s]+$/', $nombre_razonsocial)) {
         echo '<script>
             Swal.fire({
                 title: "El nombre solo debe contener letras.",
@@ -81,11 +73,39 @@ if(isset($_POST["guardar_proveedor"])) {
         exit();
     }
 
-    //* Condicion de el correo existe o no
-    else if(mysqli_num_rows($correo_existencia) > 0) { 
+     //* Condicion de si el nombre existe o no
+    if(mysqli_num_rows($nombre_razonsocial_existencia) > 0) { 
         echo '<script>
             Swal.fire({
-                title: "El correo ya esta registrado. Por favor, elige otro",
+                title: "El nombre o razon social ya está registrado. Por favor, elige otro",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                history.back(); // Regresa a la página anterior
+            });
+        </script>';
+        exit(); 
+    }
+
+    //* Condicion de el correo empresarial existe o no
+    else if(mysqli_num_rows($correo_empresarial_existencia) > 0) { 
+        echo '<script>
+            Swal.fire({
+                title: "El correo empresarial ya esta registrado. Por favor, elige otro",
+                text: "",
+                icon: "error"
+            }).then(function() {
+                history.back(); // Regresa a la página anterior
+            });
+        </script>';
+        exit();   
+    }
+
+    //* Condicion de el correo existe o no
+    else if(mysqli_num_rows($correo_personal_existencia) > 0) { 
+        echo '<script>
+            Swal.fire({
+                title: "El correo personal ya esta registrado. Por favor, elige otro",
                 text: "",
                 icon: "error"
             }).then(function() {

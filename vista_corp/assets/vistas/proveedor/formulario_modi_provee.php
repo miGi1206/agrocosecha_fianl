@@ -27,7 +27,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agrocosecha</title>
-    <link rel="stylesheet" href="../../../assets/css/formulario_admin.css ">
+    <link rel="stylesheet" href="../../../assets/css/formulario_personas.css ">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
 </head>
 <body>
     <!-- //TODO: Formulario para modificar al admin; el formulario se muestra con la informacion de la base de datos -->
-    <div id="form-container">
+    <div class="formulario-contacto">
         <div class="contenedor">
             <div id="productos">
                 <h1 class="text-siccess" style="color: #065F2C;"><b>Modificar proveedor</b></h1>
@@ -54,14 +54,14 @@
                 <div id="result_nombre_razonsocial" style="color:red; font-size:15px;"></div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-bottom:0px !important; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3  campo_intermedio" style="margin-bottom:0px !important;" >
                     <input name="telefono_empresarial" type="text" class="form-control cuadro_texto1" id="telefono_empresarial" placeholder="telefono_empresarial" value="<?= $row['telefono']?>" requered maxlength="15">
                     <label for="telefono_empresarial">Telefono empresarial:</label>
                     <div id="result_telefono_empresarial" style="color:red; font-size:15px;"></div>
                 </div>
 
-                <div class="form-floating mb-3" style=" margin-bottom:5% !important;">
+                <div class="form-floating mb-3 correo_empresarial" style=" margin-bottom:5% !important;">
                     <input name="correo_empresarial" type="email" class="form-control cuadro_texto1" id="correo_empresarial" placeholder="correo_empresarial" value="<?= $row['correo']?>" requered maxlength="50">
                     <label for="correo_empresarial">Correo empresarial:</label>
                     <div id="result_correo_empresarial" style="color:red; font-size:15px;"></div>
@@ -76,8 +76,8 @@
                 <div id="result_nombre_contacto" style="color:red; font-size:15px;"></div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3  campo_intermedio" style="margin-top:15px; margin-bottom:0px !important; ">
                     <input name="telefono_contacto" type="text" class="form-control cuadro_texto1" id="telefono_contacto" placeholder="telefono_contacto" value="<?= $row['tel_contacto']?>" requered maxlength="15">
                     <label for="telefono_contacto">Telefono personal:</label>
                     <div id="result_telefono_contacto" style="color:red; font-size:15px;"></div>

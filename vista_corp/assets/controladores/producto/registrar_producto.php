@@ -41,6 +41,20 @@ if(isset($_POST["guardar_producto"])) {
         exit();
     }
 
+    //* Condicion de el ID existe o no
+    if (mysqli_num_rows($id_existencia) > 0) {  
+        echo '<script>
+                Swal.fire({
+                    title: "el codigo ya esta registrado. Por favor, elige otra",
+                    text: "",
+                    icon: "error"
+                }).then(function() {
+                    history.back(); // Regresa a la página anterior
+                });
+            </script>';
+        exit();  
+    } 
+
     //* Validar si el usuario ya existe
     $consulta_existencia = "SELECT nombre FROM tbl_producto WHERE nombre = '$nombre'";
     $nombre_existencia = mysqli_query($conn, $consulta_existencia);

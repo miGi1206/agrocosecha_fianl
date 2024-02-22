@@ -13,7 +13,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agrocosecha</title>
-    <link rel="stylesheet" href="../../css/formulario_registro.css">
+    <link rel="stylesheet" href="../../css/formulario_personas.css
+    ">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
@@ -46,8 +47,8 @@
                 <label for="descripcion">Descripcion:</label>
                 <textarea type="text" id="descripcion" name="descripcion" rows="4" required></textarea>
             </div>
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-right: 5%;">
+            <div class="campos">
+                <div class="form-floating mb-3  campo_intermedio" style="margin-top:15px;">
                     <input name="precio" type="text" class="form-control cuadro_texto1" id="precio" placeholder="precio" required maxlength="15">
                     <label for="precio">Precio:</label>
                     <div id="result_precio" style="color:red; font-size:15px;"></div>
