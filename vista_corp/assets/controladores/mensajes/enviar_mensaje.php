@@ -1,32 +1,58 @@
 <?php
-include "../../conections/coneccion_tabla.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-//! funcion para capturar y mandar a la base de datos los datos que se ingresen en el formulario
-if(isset($_POST["enviar_mensaje"])) {
-    
-    $nombre = $_POST['nombre'];
-    $telefono = $_POST['telefono'];
-    $email = $_POST['email'];
-    $municipio = $_POST['municipio'];
-    $producto_interes = $_POST['productos'];
-    $mensaje = $_POST['mensaje'];
-    // Obtener la fecha actual
-    $fecha_envio = date('Y-m-d'); // Formato: Año-Mes-Día
+require 'C:\xampp\htdocs\agrocosecha_final\vendor\autoload.php';
 
-    // TODO: consulta sql para ingresar datos a la tabla admin
-    $sql_mensaje = "INSERT INTO `contactanos`(`id`, `nombre`, `telefono`, `correo`, `municipio`, `producto_interes`, `mensaje`,`fecha_envio`) 
-VALUES ('', '$nombre', '$telefono', '$email', '$municipio', '$producto_interes', '$mensaje','$fecha_envio')";
 
-    echo "Consulta SQL: " . $sql_mensaje; // Imprime la consulta SQL para depuración
-    $result_mensaje = mysqli_query($conn, $sql_mensaje);
 
-    // TODO: funcion para mandarlo de regreso a la tabla si no que mande un error
-    if($result_mensaje) {
-        header("Location: /agrocosecha_final/vista_corp/contact.php");
-        session_start();
-        $_SESSION['msj_mensaje_enviado'] = "Mensaje enviado";
+// Comprueba si el formulario ha sido enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Comprueba si los datos del formulario están presentes
+    if (isset($_POST['enviar_mensaje'])) {
+        // Llama a la función sendEmailContacto() para enviar el correo electrónico
+        sendEmailContacto($_POST);
     } else {
-        die("Error en la consulta: " . mysqli_error($conn));
+        echo "Error: No se encontraron datos del formulario.";
+    }
+} else {
+    echo "Error: El formulario no ha sido enviado correctamente.";
+}
+
+// Función para enviar el correo electrónico
+function sendEmailContacto($request)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        // Configuración del servidor SMTP
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'trabajadoragrocosecha'; // Correo electrónico desde el que se enviará el mensaje
+        $mail->Password = 'ztef nfyh glcd wave'; // Contraseña del correo electrónico
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        // Configuración del remitente y destinatario
+        $mail->setFrom($request['email'], $request['nombre']);
+        $mail->addAddress('trabajadoragrocosecha@gmail.com', 'Trabajador Agrocosecha');
+
+        // Contenido del correo electrónico
+        $mail->isHTML(true);
+        $mail->Subject = 'Nuevo mensaje de Contactanos';
+        $mail->Body = '<b>Nombre: <p></b>'.$request['nombre'].'</p><br>
+        <b>Telefono: </b> <p>'.$request['telefono'].
+        '</p><br><b>Municipio: </b><p>'.$request['municipio'].
+        '</p> <br><b>Asunto:</b><p>'.$request['asunto'].
+        '</p><br><b>Este es el mensaje enviado:</b><br><p>' . $request['mensaje'] . 
+        '</p><br><p>Para responder, contactarse con: ' . $request['email'] . '</p>';
+
+        // Envío del correo electrónico
+        $mail->send();
+        echo 'Mensaje enviado. Pronto te responderemos!';
+    } catch (Exception $e) {
+        echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
     }
 }
 ?>

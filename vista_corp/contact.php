@@ -2,7 +2,7 @@
 <?php include "./assets/controladores/inicio_usuario.php";?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <title>Agrocosecha - Conctatanos</title>
@@ -112,20 +112,9 @@ https://templatemo.com/tm-559-zay-shop
             </div>
 
             <div class="form-group">
-                <label for="productos">Productos de Interés:</label>
-                <select id="productos" name="productos">
-                <?php
-                
-                //TODO: Consulta SQL para traer todos los datos de los administradores
-                    $sql_producto = "SELECT codigo_producto,nombre FROM `tbl_producto`";
-                    $result = mysqli_query($conn,$sql_producto);
-                    
-
-                    //* Ciclo para mostrar los registros
-                    while ($row = mysqli_fetch_assoc($result)){
-                        echo "<option value='".$row['codigo_producto']."'>".$row['nombre']."</option>"; 
-                    }?>               
-                </select>
+                <label for="productos">Asunto:</label>
+                <input type="text" id="asunto" name="asunto" required>
+                 
             </div>
 
             <div class="form-group">
