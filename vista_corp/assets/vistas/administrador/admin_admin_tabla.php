@@ -133,7 +133,7 @@
 
         <button class="boton-registrar"><a href="formulario_admin.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
-
+        <div style="overflow-x:auto !important; width:100% !important;">
             <table>
                 <thead>
                     <tr>
@@ -154,21 +154,49 @@
                 </thead>
                 <tbody>
                     <?php
+
+                        if(!empty($_REQUEST["nume"])){ $_REQUEST["nume"];}else{ $_REQUEST["nume"] = '1';}
+                        if($_REQUEST["nume"] == ""){$_REQUEST["nume"] = "1";}
+                        $articulos=mysqli_query($conn,"SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
+                        tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
+                        tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
+                        FROM `tbl_persona`
+                        JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
+                        JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
+                        JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
+                        $buscar  ;");
+                        $num_registros=mysqli_num_rows($articulos);
+                        $registros= '5';
+                        $pagina=$_REQUEST["nume"];
+                        if(is_numeric($pagina))
+                        $inicio= (($pagina-1)*$registros);
+                        else
+                        $inicio=0;
+                        $busqueda=mysqli_query($conn,"SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
+                        tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
+                        tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
+                        FROM `tbl_persona`
+                        JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
+                        JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
+                        JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
+                        $buscar LIMIT $inicio,$registros;");
+                        $paginas=ceil($num_registros/$registros);
+
                 //TODO: Consulta SQL para traer todos los datos de los administradores
-                $sql = "SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
-                tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
-                tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
-                FROM `tbl_persona`
-                JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
-                JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
-                JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
-                $buscar";
+                // $sql = "SELECT tbl_persona.codigo_persona, tbl_persona.identificacion, tbl_persona.primer_nombre, tbl_persona.segundo_nombre,
+                // tbl_persona.primer_apellido, tbl_persona.segundo_apellido, tbl_persona.telefono, tbl_persona.correo, tbl_tipo_usuario.tipo_usuario,
+                // tbl_sexo.sexo, tbl_persona.fecha_nacimiento, tbl_usuario.usuario, tbl_persona.fecha_creacion, tbl_persona.direccion 
+                // FROM `tbl_persona`
+                // JOIN `tbl_usuario` ON tbl_persona.codigo_persona = tbl_usuario.cod_persona
+                // JOIN `tbl_sexo` ON tbl_persona.cod_sexo = tbl_sexo.codigo_sexo
+                // JOIN `tbl_tipo_usuario` ON tbl_usuario.cod_tipo_usuario = tbl_tipo_usuario.codigo_tipo_usuario
+                // $buscar";
 
 
-                    $result = mysqli_query($conn, $sql);
+                //     $result = mysqli_query($conn, $sql);
         
                     //* Ciclo para mostrar los registros
-                    while ($row = mysqli_fetch_assoc($result)){ 
+                    while ($row = mysqli_fetch_assoc($busqueda)){ 
                     ?>
                     <tr>
                         <td><?php echo $row["codigo_persona"] ?></td>
@@ -228,6 +256,47 @@
         </div>
     </div>
     <!-- //TODO: Fin de la tabla de los administradores -->
+
+    <!-- //! paginacion -->
+<div class="container-fluid" style="display:flex; justify-content:center; text-align:center; margin-top:-5%;">
+    <ul class="pagination pg-dark justify-content-center pb-5 pt-5 mb-0" style="float:none;">
+        <?php
+        $pagina = $_REQUEST["nume"];
+        $ultima = ceil($num_registros / $registros);
+
+        if ($_REQUEST["nume"] > 1) {
+            // página anterior
+            echo "<li class='page-item'><a class='page-link' href='/agrocosecha_final/vista_corp/assets/vistas/administrador/admin_admin_tabla.php?nume=" . ($_REQUEST["nume"] - 1) . "' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
+        }
+        
+
+        // Enlace a la página anterior
+        if ($pagina > 1) {
+            echo "<li class='page-item'><a class='page-link' href='/agrocosecha_final/vista_corp/assets/vistas/administrador/admin_admin_tabla.php?nume=" . ($pagina - 1) . "'>" . ($pagina - 1) . "</a></li>";
+        }
+
+        // Enlace a la página actual
+        echo "<li class='page-item active'><a class='page-link'>" . $pagina . "</a></li>";
+
+        // Enlace a la página siguiente
+        if ($pagina < $ultima) {
+            echo "<li class='page-item'><a class='page-link' href='/agrocosecha_final/vista_corp/assets/vistas/administrador/admin_admin_tabla.php?nume=" . ($pagina + 1) . "'>" . ($pagina + 1) . "</a></li>";
+        }
+
+        if ($pagina < $paginas && $paginas > 1) {
+    // página siguiente
+    echo "<li class='page-item'><a class='page-link' href='/agrocosecha_final/vista_corp/assets/vistas/administrador/admin_admin_tabla.php?nume=" . ($pagina + 1) . "' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
+}
+
+
+        echo "<li class='page-item'><a class='page-link' aria-label='Next'>" . $ultima . " Paginas</a></li>";
+        ?>
+    </ul>
+</div>
+<!-- //! fin paginacion -->
+
+
+
 
     <!-- Scripts de Bootstrap (jQuery y Popper.js son necesarios para Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

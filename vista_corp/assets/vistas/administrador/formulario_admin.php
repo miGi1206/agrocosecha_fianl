@@ -13,13 +13,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agrocosecha</title>
-    <link rel="stylesheet" href="../../css/formulario_registro.css">
+    <!-- <link rel="stylesheet" href="/agrocosecha_final/vista_corp/assets/css/formulario_registro.css"> -->
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <title>Agrocosecha</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="website icon" type="jpg" href="../../img/Size-16.png">
+    <link rel="stylesheet" href="../../css/formulario_personas.css">
 </head>
 <body>
 
@@ -28,7 +29,7 @@
     <!-- //! Formulario de registro de cliente -->
     <div class="formulario-contacto">
         <div style="text-align: center;">
-            <h3 class="text-success h1 formulario"><b>Registrar administrador</b></h3>
+            <h3 class="text-success h1 formulario"><b>Registrar Persona</b></h3>
         </div>
         <form action="../../controladores/admin/registrar_admin.php" method="POST" >
             
@@ -56,8 +57,8 @@
 
             <hr>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;">
                     <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="nombre" required maxlength="50">
                     <label for="nombre">Primer nombre:</label>
                     <div id="result_nombre" style="color:red; font-size:15px;"></div>
@@ -70,8 +71,8 @@
                 </div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;">
                     <input name="apellido" type="text" class="form-control cuadro_texto1" id="apellido" placeholder="apellido" required maxlength="50">
                     <label for="apellido">Primer apellido:</label>
                     <div id="result_apellido" style="color:red; font-size:15px;"></div>
@@ -83,9 +84,9 @@
                     <div id="result_apellido2" style="color:red; font-size:15px;"></div>
                 </div>
             </div>
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
+            <div class="campos">
                 
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;">
                     <input name="fecha_nacimiento" type="date" class="form-control cuadro_texto1" id="fecha_nacimiento" placeholder="fecha_nacimiento" required>
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                     <!-- <div id="result_usuario" style="color:red; font-size:15px;"></div> -->
@@ -108,8 +109,8 @@
                 </div>
             </div>
             
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:7px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div  class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:7px; margin-bottom:0px !important;">
                     <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="Correo" required maxlength="30">
                     <label for="correo">Correo electronico:</label>
                 </div>
@@ -124,9 +125,9 @@
 
             <hr>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
+            <div class="campos">
 
-                <div class="form-floating mb-3" style="margin-top: 3%; margin-right: 5% !important;">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top: 3%;"> 
                     <input name="direccion" type="text" class="form-control cuadro_texto1" id="direccion" placeholder="direccion" required maxlength="50">
                     <label for="direccion">Direccion:</label>
                 </div>
@@ -139,8 +140,8 @@
                 
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top: 3%; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top: 3%;">
                     <input name="contraseña" type="password" class="form-control cuadro_texto1" id="contraseña" placeholder="contraseña" required maxlength="50">
                     <label for="contraseña">Contraseña:</label>
                     <div id="result_contraseña" style="color:red; font-size:15px;"></div>
@@ -155,7 +156,7 @@
         </form>
     </div>
     <!-- //! Fin formulario de registro del cliente -->
-</div>
+
 
 <!-- //! script para mostrar un mensaje de que no puede colocar letras -->
 <script>
