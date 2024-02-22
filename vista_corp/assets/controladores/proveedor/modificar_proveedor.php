@@ -14,7 +14,7 @@ include "../../conections/coneccion_tabla.php";
 
 //TODO: Guarda la informaciion en variables 
 $nit = $_POST['nit'];
-$nombre_empresarial = $_POST['nombre_empresarial'];
+$nombre_empresarial = $_POST['nombre_razonsocial'];
 $telefono_empresarial = $_POST['telefono_empresarial'];
 $correo_empresarial = $_POST['correo_empresarial'];
 $nombre_contacto = $_POST['nombre_contacto'];
@@ -23,61 +23,61 @@ $correo_contacto = $_POST['correo_contacto'];
 $usuario = $_POST['usuario'];
 
 //* Validar si el usuario ya existe
-// $consulta_existencia = "SELECT usuario FROM tbl_usuarios WHERE usuario = '$usuario'";
-// $usuario_existencia = mysqli_query($conn, $consulta_existencia);
+$consulta_existencia = "SELECT usuario FROM tbl_usuario WHERE usuario = '$usuario'";
+$usuario_existencia = mysqli_query($conn, $consulta_existencia);
 
-// //* funcion para que el nombre solo lleve letras
-// if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
-//     echo '<script>
-//         Swal.fire({
-//             title: "El nombre solo debe contener letras.",
-//             text: "",
-//             icon: "error"
-//         }).then(function() {
-//             history.back(); // Regresa a la página anterior
-//         });
-//     </script>';
-//     exit();
-// }
+//* funcion para que el nombre solo lleve letras
+if (!preg_match('/^[a-zA-Z\s]+$/', $nombre_empresarial)) {
+    echo '<script>
+        Swal.fire({
+            title: "El nombre solo debe contener letras.",
+            text: "",
+            icon: "error"
+        }).then(function() {
+            history.back(); // Regresa a la página anterior
+        });
+    </script>';
+    exit();
+}
 
-// // Obtener el ID del usuario a modificar de la URL
-// $id_usuario_modificar = $_POST['identificacion'];
+// Obtener el ID del usuario a modificar de la URL
+$id_usuario_modificar = $_POST['nit'];
 
-// // Verificar la existencia del usuario excluyendo el usuario a modificar
-// $consulta_existencia = "SELECT usuario FROM tbl_usuarios WHERE usuario = '$usuario' AND id != $id_usuario_modificar";
-// $usuario_existencia = mysqli_query($conn, $consulta_existencia);
+// Verificar la existencia del usuario excluyendo el usuario a modificar
+$consulta_existencia = "SELECT usuario FROM tbl_usuario WHERE usuario = '$usuario' AND nit_proveedor != $id_usuario_modificar";
+$usuario_existencia = mysqli_query($conn, $consulta_existencia);
 
-// if (mysqli_num_rows($usuario_existencia) > 0) {
-//     echo '<script>
-//         Swal.fire({
-//             title: "Este nombre de usuario ya está registrado. Por favor, elige otro",
-//             text: "",
-//             icon: "error"
-//         }).then(function() {
-//             history.back(); // Regresa a la página anterior
-//         });
-//     </script>';
-//     exit();
-// }
+if (mysqli_num_rows($usuario_existencia) > 0) {
+    echo '<script>
+        Swal.fire({
+            title: "Este nombre de usuario ya está registrado. Por favor, elige otro",
+            text: "",
+            icon: "error"
+        }).then(function() {
+            history.back(); // Regresa a la página anterior
+        });
+    </script>';
+    exit();
+}
 
-// // Verificar la existencia del correo excluyendo el usuario a modificar
-// $consulta_existencia = "SELECT correo FROM tbl_proveedor WHERE correo = '$correo' AND id != $id_usuario_modificar";
-// $correo_existencia = mysqli_query($conn, $consulta_existencia);
+// Verificar la existencia del correo excluyendo el usuario a modificar
+$consulta_existencia = "SELECT correo FROM tbl_proveedor WHERE correo = '$correo' AND id != $id_usuario_modificar";
+$correo_existencia = mysqli_query($conn, $consulta_existencia);
 
-// if (mysqli_num_rows($correo_existencia) > 0) {
-//     echo '<script>
-//         Swal.fire({
-//             title: "Este correo ya está registrado. Por favor, elige otro",
-//             text: "",
-//             icon: "error"
-//         }).then(function() {
-//             history.back(); // Regresa a la página anterior
-//         });
-//     </script>';
-//     exit();
-// }
+if (mysqli_num_rows($correo_existencia) > 0) {
+    echo '<script>
+        Swal.fire({
+            title: "Este correo ya está registrado. Por favor, elige otro",
+            text: "",
+            icon: "error"
+        }).then(function() {
+            history.back(); // Regresa a la página anterior
+        });
+    </script>';
+    exit();
+}
 
-// else{
+else{
     //! Consulta de actualización para tbl_admin
     $sql_modi_proveedor = "UPDATE `tbl_proveedor` SET `nombre_razonsocial`='$nombre_empresarial',
     `telefono`='$telefono_empresarial', `correo`='$correo_empresarial',`nom_per_contacto`='$nombre_contacto',
@@ -99,7 +99,7 @@ $usuario = $_POST['usuario'];
         $_SESSION['msj_modificar'] = "error al modificar la información";
         // die("Error en la consulta: " . mysqli_error($conn));
     }
-// }
+}
 ?>
 </body>
 </html>

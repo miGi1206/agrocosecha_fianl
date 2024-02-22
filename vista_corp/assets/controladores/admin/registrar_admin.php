@@ -96,7 +96,7 @@ if(isset($_POST["guardar_admin"])) {
         exit();
     }
 
-    // //* Condicion de el correo existe o no
+    //* Condicion de el correo existe o no
     elseif(mysqli_num_rows($correo_existencia) > 0) { 
         echo '<script>
             Swal.fire({

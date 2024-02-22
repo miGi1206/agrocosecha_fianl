@@ -33,7 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agrocosecha</title>
-    <link rel="stylesheet" href="../../../assets/css/formulario_admin.css ">
+    <link rel="stylesheet" href="../../../assets/css/formulario_personas.css ">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
@@ -41,11 +41,12 @@
     <link rel="website icon" type="jpg" href="../../img/Size-16.png">
 </head>
 <body>
+    
     <!-- //TODO: Formulario para modificar al admin; el formulario se muestra con la informacion de la base de datos -->
-    <div id="form-container">
+    <div class="formulario-contacto ">
         <div class="contenedor">
             <div id="productos">
-                <h1 class="text-success"><b>Modificar administrador</b></h1>
+                <h1 class="text-success"><b>Modificar personas</b></h1>
             </div> 
         <form action="../../controladores/admin/modificar_admin.php" method="POST">
             
@@ -82,8 +83,8 @@
             
             <hr>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;">
                     <input name="nombre" type="text" class="form-control cuadro_texto1" id="nombre" placeholder="nombre" value="<?= $row['primer_nombre']?>" required maxlength="50">
                     <label for="nombre">Primer nombre:</label>
                     <div id="result_nombre" style="color:red; font-size:15px;"></div>
@@ -96,8 +97,8 @@
                 </div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;">
                     <input name="apellido" type="text" class="form-control cuadro_texto1" id="apellido" placeholder="apellido" value="<?= $row['primer_apellido']?>" required maxlength="50">
                     <label for="apellido">Primer apellido:</label>
                     <div id="result_apellido" style="color:red; font-size:15px;"></div>
@@ -110,9 +111,9 @@
                 </div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
+            <div class="campos">
 
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important; ">
                     <input name="fecha_nacimiento" type="date" class="form-control cuadro_texto1" id="fecha_nacimiento" placeholder="fecha_nacimiento" value="<?= $row['fecha_nacimiento']?>" required>
                     <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                 </div>
@@ -146,8 +147,8 @@
 
             <hr>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div  class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;" >
                     <input name="correo" type="email" class="form-control cuadro_texto1" id="correo" placeholder="Correo" value="<?= $row['correo']?>" required>
                     <label for="correo">Correo electronico:</label>
                 </div>
@@ -160,8 +161,8 @@
             </div>
             
             
-            <div style="display:grid; grid-template-columns: repeat(2,1fr); margin-bottom:5%;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important; margin-right: 5% !important;">
+            <div  class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important; ">
                     <input name="direccion" type="text" class="form-control cuadro_texto1" id="direccion" placeholder="direccion" value="<?= $row['direccion']?>" required>
                     <label for="direccion">Dirección:</label>
                 </div>

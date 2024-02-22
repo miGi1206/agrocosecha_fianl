@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agrocosecha</title>
-    <link rel="stylesheet" href="../../css/formulario_registro.css">
+    <link rel="stylesheet" href="../../css/formulario_personas.css">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
@@ -40,8 +40,8 @@
                 <div id="result_nombre_razonsocial" style="color:red; font-size:15px;"></div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px !important;  margin-bottom:0px !important;">
                     <input name="telefono_empresarial" type="text" class="form-control cuadro_texto1" id="telefono_empresarial" placeholder="telefono_empresarial" required maxlength="15">
                     <label for="telefono_empresarial">Telefono empresarial:</label>
                     <div id="result_telefono_empresarial" style="color:red; font-size:15px;"></div>
@@ -59,8 +59,8 @@
                 <label for="nombre_contacto">Persona de contacto:</label>
                 <div id="result_nombre_contacto" style="color:red; font-size:15px;"></div>
             </div>
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top:15px; margin-right: 5% !important;">
+            <div clas="campos">
+                <div class="form-floating mb-3 campos_intermedio" style="margin-top:15px !important;">
                     <input name="telefono_contacto" type="text" class="form-control cuadro_texto1" id="telefono_contacto" placeholder="telefono_contacto" required maxlength="15">
                     <label for="telefono_contacto">Telefono personal:</label>
                     <div id="result_telefono_contacto" syle="color:red !important; font-size:15px;"></div>
@@ -80,8 +80,8 @@
                 <div id="result_usuario" style="color:red; font-size:15px;"></div>
             </div>
 
-            <div style="display:grid; grid-template-columns: repeat(2,1fr) ;">
-                <div class="form-floating mb-3" style="margin-top: 3%; margin-right: 5% !important;">
+            <div class="campos">
+                <div class="form-floating mb-3 campos_intermedio" style="margin-top: 3%;">
                     <input name="contraseña" type="password" class="form-control cuadro_texto1" id="contraseña" placeholder="contraseña" required maxlength="50">
                     <label for="contraseña">Contraseña:</label>
                     <div id="result_contraseña" style="color:red; font-size:15px;"></div>
