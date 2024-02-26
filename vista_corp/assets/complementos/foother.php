@@ -21,27 +21,35 @@
                     </ul>
                 </div>
 
+                <?php
+                $sql_producto_foother = "SELECT nombre FROM tbl_producto";
+                $result_producto_foother = mysqli_query($conn,$sql_producto_foother);
+                ?>
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light"><b style="color: #fff;">Productos</b></h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Gallinas criollas</a></li>
-                        <li><a class="text-decoration-none" href="#">Pollos</a></li>
-                        <li><a class="text-decoration-none" href="#">Cerdos</a></li>
-                        <li><a class="text-decoration-none" href="#">Ponedoras</a></li>
-                        <li><a class="text-decoration-none" href="#">Ganado</a></li>
-                        <li><a class="text-decoration-none" href="#">Arroz</a></li>
-                        <li><a class="text-decoration-none" href="#">Yuca</a></li>
-                        <li><a class="text-decoration-none" href="#">Plátano</a></li>
-                        <li><a class="text-decoration-none" href="#">Peces</a></li>
+                        <?php
+                        while ($row_producto_foother = mysqli_fetch_assoc($result_producto_foother)){
+                            echo "<li>".$row_producto_foother['nombre']."</li>";
+                        }
+                        ?>
+                        
                     </ul>
                 </div>
 
+                <?php
+                $sql_servicio_foother = "SELECT tipo_servicio FROM tbl_tipo_servicio";
+                $result_servicio_foother = mysqli_query($conn,$sql_servicio_foother);
+                ?>
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light"><b style="color: #fff;">Servicios</b></h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Alquiler de equipos</a></li>
-                        <li><a class="text-decoration-none" href="#">Preparación de tierras</a></li>
-                        <li><a class="text-decoration-none" href="#">Servicios personales</a></li>
+                        <?php
+                        while ($row_servicio_foother = mysqli_fetch_assoc($result_servicio_foother)){
+                            echo "<li>".$row_servicio_foother['tipo_servicio']."</li>";
+                        }
+                        ?>
+                        
                     </ul>
                 </div>
 

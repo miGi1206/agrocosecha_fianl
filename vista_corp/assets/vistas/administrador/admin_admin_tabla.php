@@ -4,8 +4,6 @@
         header("Location: /agrocosecha_final/index.php");
         exit();
     }
-    
-    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,9 +32,35 @@
     include "../../controladores/admin/eliminar_admin.php"; 
     ?>
 
-    <!-- //TODO: Inicio del navbar -->
-    <?php include "../../complementos/navbar_admin.php";?>
-    <!-- //TODO Fin del navbar -->
+    <style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+    }
+    .fuera-navbar{
+        margin-top:6%;
+    }
+    @media (max-width: 1000px) {
+    .fuera-navbar {
+        margin-top:10%; 
+    }
+    }
+    @media (max-width: 500px) {
+    .fuera-navbar {
+        margin-top:15%; 
+    }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <?php include "../../complementos/navbar_admin.php";?>
+    </div>
 
     <!-- //* alerta nuevo registro -->
     <?php
@@ -63,31 +87,30 @@
     }
     ?>
 
-    <h1>Clientes/Administradores</h1>
+    <h1 class="fuera-navbar">Clientes/Administradores</h1>
 
     <!-- //! Barra de busqueda -->
     <div class="container-fluid" style="display:flex; justify-content:center;">
-        <form class="d-flex" style="width: 70%;">
-            <form action="" method="GET">
-                
+        <form class="d-flex" style="width: 70%;" method="GET">
+
                 <!-- //TODO: informacion sobre busqueda -->
                 <div class="btn-group" style="height:30px !important">
-                    <button type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" style="margin-top:5px; background-color:transparent !important; border:none;">
+                    <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        style="margin-top:5px; background-color:transparent !important; border:none;">
                         <img src="../../img/informacion.png" alt="">
                     </button>
                     <ul class="dropdown-menu" style="width:200px !important;">
                         <p style="padding:10% !important;">
-                            Puedes buscar por cualquier campo de la tabla 
+                            Puedes buscar por cualquier campo de la tabla
                             <br>
-                            
+
                             <br><br>
                             <span style="color:#065F2C;">
-                            <b>
-                            Para regresar darle
-                            click a buscar sin nada en la barra
-                            de busqueda
-                            </b>
+                                <b>
+                                    Para regresar darle
+                                    click a buscar sin nada en la barra
+                                    de busqueda
+                                </b>
                             </span>
                         </p>
 
@@ -96,11 +119,9 @@
                 <!-- //TODO: Fin de informacion sobre busqueda -->
 
                 <input style="border-radius:30px; height:70% !important;" class="form-control me-2" type="search"
-                    placeholder="Buscar"
-                    name="busqueda">
+                    placeholder="Buscar" name="busqueda">
                 <button style="height:auto !important; margin-top:0px !important; border-radius:100px;" class="botones"
                     type="submit" name="enviar">Buscar</button>
-            </form>
         </form>
     </div>
     <!-- //! Fin barra de busqueda -->
@@ -227,14 +248,14 @@
                         <td><?php echo $row["usuario"] ?></td>
                         <td><?php echo $row["fecha_creacion"] ?></td>
                         <td><?php echo $row["tipo_usuario"] ?></td>
-                        
+
                         <td
                             style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
 
                             <!-- //* Ingresar al formulario para modificar los datos del admin -->
                             <form method="POST" action="formulario_modi_admin.php">
-                                <a href="formulario_modi_admin.php?id=<?php echo $row['identificacion'];?>" type="botton"
-                                    class="botones"
+                                <a href="formulario_modi_admin.php?id=<?php echo $row['identificacion'];?>"
+                                    type="botton" class="botones"
                                     style="text-decoration:none !important; color:white; margin-right:5px; background-color: #FFCC03 !important;">Editar</a>
                             </form>
 
@@ -242,7 +263,8 @@
                             <form method="POST" class="eliminarForm" style="margin-top:-13px;">
                                 <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
                                     style="margin-top:5% !important;" value="<?php echo $row['identificacion']; ?>">
-                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn" style="background-color:red;">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn"
+                                    style="background-color:red;">
                                     Eliminar
                                 </button>
                             </form>
@@ -258,9 +280,9 @@
     <!-- //TODO: Fin de la tabla de los administradores -->
 
     <!-- //! paginacion -->
-<div class="container-fluid" style="display:flex; justify-content:center; text-align:center; margin-top:-5%;">
-    <ul class="pagination pg-dark justify-content-center pb-5 pt-5 mb-0" style="float:none;">
-        <?php
+    <div class="container-fluid" style="display:flex; justify-content:center; text-align:center; margin-top:-5%;">
+        <ul class="pagination pg-dark justify-content-center pb-5 pt-5 mb-0" style="float:none;">
+            <?php
         $pagina = $_REQUEST["nume"];
         $ultima = ceil($num_registros / $registros);
 
@@ -291,9 +313,9 @@
 
         echo "<li class='page-item'><a class='page-link' aria-label='Next'>" . $ultima . " Paginas</a></li>";
         ?>
-    </ul>
-</div>
-<!-- //! fin paginacion -->
+        </ul>
+    </div>
+    <!-- //! fin paginacion -->
 
 
 

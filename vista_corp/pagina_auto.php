@@ -1,22 +1,114 @@
-<?php include "./assets/complementos/prod_stock_precio.php";?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <?php include "./assets/complementos/head_produc_servi.php"?>
-
 </head>
 
 <body>
-    <!-- Start Top Nav -->
-    <?php include "./assets/complementos/navbar_superior.php"; ?>
-    <!-- Close Top Nav -->
 
-    <!-- Header -->
-    <?php include "./assets/complementos/navbar_menu.php"; ?>
-    <!-- Close Header -->
+    <?php include "./assets/conections/coneccion_tabla.php"?>
+    <!-- //! iniciar sesion -->
+    <?php
+        session_start();
+        include "./config/SERVER.php";
+        include "./config/database.php";
+
+
+        if($_POST){
+
+            $usuario = $_POST['usuario'];
+            $password = $_POST['contraseña'];
+            
+            $sql = "SELECT codigo_usuario, usuario, contraseña, cod_tipo_usuario from tbl_usuario where usuario='$usuario'";
+            $resultado = $mysqli->query($sql);
+            $num = $resultado->num_rows;
+
+            if($num > 0){
+                $row= $resultado->fetch_assoc();
+                $password_bd = $row['contraseña'];
+                $pass_c = sha1($password);
+
+                if($password_bd == $pass_c){
+
+                    $_SESSION['codigo_usuario'] = $row['codigo_usuario'];
+                    $_SESSION['usuario'] = $row['usuario'];
+                    $_SESSION['cod_tipo_usuario'] = $row['cod_tipo_usuario'];
+                    if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") {
+                        header("Location: ./assets/vistas/administrador/admin_admin_tabla.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    } else {
+                        header("Location: /agrocosecha_final/index.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    }          
+                    
+                    exit;
+                } else{
+                    echo '<script>
+                        Swal.fire({
+                            title: "contraseña incorrecta",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+                }
+            }else{
+                echo '<script>
+                        Swal.fire({
+                            title: "No existe este usuario",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+            }
+        }
+    ?>
+
+
+    <style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+        background-color:white;
+    }
+
+    .fuera-navbar {
+        margin-top: 10%;
+    }
+
+    @media (max-width: 1000px) {
+        .fuera-navbar {
+            margin-top: 10%;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .fuera-navbar {
+            margin-top: 15%;
+        }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <!-- Start Top Nav -->
+        <?php include "./assets/complementos/navbar_superior.php"; ?>
+        <!-- Close Top Nav -->
+        <!-- Header -->
+        <?php include "./assets/complementos/navbar_menu.php"; ?>
+        <!-- Close Header -->
+    </div>
 
     <!-- Close Header -->
 
@@ -27,7 +119,7 @@
 
 
     <!-- Start Content -->
-    <div class="container py-3">
+    <div class="container py-3 fuera-navbar">
         <div class="row" id="div">
 
             <!--Inicio de sidebar-->
@@ -308,14 +400,15 @@
 
 
                             </div>
-                            
+
                         </div>
                     </div>
 
                 </div>
 
                 <div>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/UxeZeUd0Yb0" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/UxeZeUd0Yb0" frameborder="0"
+                        allowfullscreen></iframe>
 
                     <!-- <iframe width="100%" height="315"
                         src="https://www.youtube.com/embed/JBOmT-Mnm60?si=rpB4_5W3-uPtVAE1" title="YouTube video player"

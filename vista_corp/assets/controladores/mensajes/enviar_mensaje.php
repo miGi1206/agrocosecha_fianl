@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mensaje</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -30,7 +41,7 @@ function sendEmailContacto($request)
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'trabajadoragrocosecha'; // Correo electrónico desde el que se enviará el mensaje
-        $mail->Password = 'ztef nfyh glcd wave'; // Contraseña del correo electrónico
+        $mail->Password = 'mnmx jnid dmoc wilv'; // Contraseña del correo electrónico
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
@@ -50,9 +61,22 @@ function sendEmailContacto($request)
 
         // Envío del correo electrónico
         $mail->send();
-        echo 'Mensaje enviado. Pronto te responderemos!';
+        echo '<script>
+                Swal.fire({
+                    title: "Mensaje enviado. Pronto te responderemos",
+                    text: "",
+                    icon: "success",
+                    timer: 4000,
+                    timerProgressBar: true,
+                    backdrop: false
+                }).then(function() {
+                    history.back(); // Regresa a la página anterior
+                });
+            </script>';
     } catch (Exception $e) {
         echo "Error al enviar el mensaje: {$mail->ErrorInfo}";
     }
 }
 ?>
+</body>
+</html>

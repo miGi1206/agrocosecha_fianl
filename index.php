@@ -91,16 +91,44 @@ https://templatemo.com/tm-559-zay-shop
 
 
 
+    <?php include "./vista_corp/assets/conections/coneccion_tabla.php" ?>
+
+    <style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 10000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+        background-color:white;
+    }
+    .fuera-navbar{
+        margin-top:6%;
+    }
+    @media (max-width: 1000px) {
+    .fuera-navbar {
+        margin-top:10%; 
+    }
+    }
+    @media (max-width: 500px) {
+    .fuera-navbar {
+        margin-top:15%; 
+    }
+    }
+    </style>
+    <div class="contenido-fijo">
+        
     <!-- Start Top Nav -->
     <?php include "./vista_corp/assets/complementos/navbar_superior.php"?>
     <!-- Close Top Nav -->
-    <?php include "./vista_corp/assets/conections/coneccion_tabla.php" ?>
-
-
     <!-- Header -->
     <?php include "./vista_corp/assets/complementos/navbar_menu.php";?>
     <!-- Close Header -->
-
+    </div>
     <!-- Modal -->
     <?php include "./vista_corp/assets/complementos/modal.php"?>
     <!--fin moval-->
@@ -127,7 +155,7 @@ https://templatemo.com/tm-559-zay-shop
     ?>
 
     <!-- Carrusel -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide fuera-navbar" data-bs-ride="carousel">
         <ol class="carousel-indicators">
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
@@ -212,22 +240,22 @@ https://templatemo.com/tm-559-zay-shop
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-3 p-5 mt-3">
+            <div class="col-6 col-md-3 p-5 mt-3">
                 <a href="./vista_corp/vista_arroz.php"><img src="./vista_corp/assets/img/arrozcirculo.png"
                         class="rounded-circle img-fluid border"></a>
                 <h5 class="text-center mt-3 mb-3">Arroz</h5>
             </div>
-            <div class="col-12 col-md-3 p-5 mt-3">
+            <div class="col-6 col-md-3 p-5 mt-3">
                 <a href="./vista_corp/vista_gallinas.php"><img src="./vista_corp/assets/img/gallinacircular.jpg"
                         class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Gallina</h2>
             </div>
-            <div class="col-12 col-md-3 p-5 mt-3">
+            <div class="col-6 col-md-3 p-5 mt-3">
                 <a href="./vista_corp/vista_peces.php"><img src="./vista_corp/assets/img/pesecircular.jpg"
                         class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Peces</h2>
             </div>
-            <div class="col-12 col-md-3 p-5 mt-3">
+            <div class="col-6 col-md-3 p-5 mt-3">
                 <a href="./vista_corp/vista_yuca.php"><img src="./vista_corp/assets/img/yucacircular.jpg"
                         class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">Yuca</h2>

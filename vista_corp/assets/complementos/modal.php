@@ -17,14 +17,14 @@
                             <h5 class="modal-title" id="exampleModalToggleLabel"
                                 style="margin-bottom: 5%; color: #065F2C;">Iniciar sesión</h5>
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control cuadro_texto2" id="floatingInput" name="usuario"
+                                <input type="text" class="form-control cuadro_texto2" id="floatingInputUsuario" name="usuario"
                                     placeholder="usuario">
-                                <label for="floatingInput">Usuario</label>
+                                <label for="floatingInputUsuario">Usuario</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control cuadro_texto2" id="floatingInput" name="contraseña"
+                                <input type="password" class="form-control cuadro_texto2" id="floatingInputcontraseña" name="contraseña"
                                     placeholder="Contraseña">
-                                <label for="floatingInput">Contraseña</label>
+                                <label for="floatingInputcontraseña">Contraseña</label>
                             </div>
                             <div style="display:grid; grid-template-columns: repeat(1, 1fr);">
                                 <button type="submit" class="btn-iniciar2" style="padding:1% 5%; margin-bottom:5%;">Iniciar sesión</button>

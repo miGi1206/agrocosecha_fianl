@@ -1,6 +1,3 @@
-<!-- //! Confirmar que es un usuario -->
-<?php include "./assets/controladores/inicio_usuario.php";?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,8 +24,8 @@
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin="" />
 
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!--
     
 TemplateMo 559 Zay Shop
@@ -39,16 +36,108 @@ https://templatemo.com/tm-559-zay-shop
 </head>
 
 <body>
-    <!-- Start Top Nav -->
-    <?php include "./assets/complementos/navbar_superior.php"; ?>
-    <!-- Close Top Nav -->
 
     <?php include "./assets/conections/coneccion_tabla.php" ?>
 
+    <?php
+        session_start();
+        include "./config/SERVER.php";
+        include "./config/database.php";
 
-    <!-- Header -->
-    <?php include "./assets/complementos/navbar_menu.php"; ?>
-    <!-- Close Header -->
+
+        if($_POST){
+
+            $usuario = $_POST['usuario'];
+            $password = $_POST['contraseña'];
+            
+            $sql = "SELECT codigo_usuario, usuario, contraseña, cod_tipo_usuario from tbl_usuario where usuario='$usuario'";
+            $resultado = $mysqli->query($sql);
+            $num = $resultado->num_rows;
+
+            if($num > 0){
+                $row= $resultado->fetch_assoc();
+                $password_bd = $row['contraseña'];
+                $pass_c = sha1($password);
+
+                if($password_bd == $pass_c){
+
+                    $_SESSION['codigo_usuario'] = $row['codigo_usuario'];
+                    $_SESSION['usuario'] = $row['usuario'];
+                    $_SESSION['cod_tipo_usuario'] = $row['cod_tipo_usuario'];
+                    if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") {
+                        header("Location: ./assets/vistas/administrador/admin_admin_tabla.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    } else {
+                        header("Location: /agrocosecha_final/index.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    }          
+                    
+                    exit;
+                } else{
+                    echo '<script>
+                        Swal.fire({
+                            title: "contraseña incorrecta",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+                }
+            }else{
+                echo '<script>
+                        Swal.fire({
+                            title: "No existe este usuario",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+            }
+        }
+    ?>
+
+    <style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+        background-color:white;
+    }
+
+    .fuera-navbar {
+        margin-top: 8%;
+    }
+
+    @media (max-width: 1000px) {
+        .fuera-navbar {
+            margin-top: 10%;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .fuera-navbar {
+            margin-top: 15%;
+        }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <!-- Start Top Nav -->
+        <?php include "./assets/complementos/navbar_superior.php"; ?>
+        <!-- Close Top Nav -->
+        <!-- Header -->
+        <?php include "./assets/complementos/navbar_menu.php"; ?>
+        <!-- Close Header -->
+    </div>
 
     <!-- Close Header -->
 
@@ -79,7 +168,7 @@ https://templatemo.com/tm-559-zay-shop
 
 
     <!-- Start Content Page -->
-    <div class="contenedor">
+    <div class="contenedor fuera-navbar">
         <h2>Contactanos</h2>
         <p class="contactanos">Nuestro equipo comercial y técnico está a tu disposición para responder tus dudas,
             opiniones y necesidades o
@@ -114,7 +203,7 @@ https://templatemo.com/tm-559-zay-shop
             <div class="form-group">
                 <label for="productos">Asunto:</label>
                 <input type="text" id="asunto" name="asunto" required>
-                 
+
             </div>
 
             <div class="form-group">
@@ -126,7 +215,7 @@ https://templatemo.com/tm-559-zay-shop
         </form>
     </div>
 
-    
+
     <!-- End Contact -->
 
 
