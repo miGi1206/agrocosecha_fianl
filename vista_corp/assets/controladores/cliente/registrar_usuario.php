@@ -17,10 +17,10 @@ if (isset($_POST["nuevo_registro"])) {
 
     //* Guardar los datos ingresados en el formulario en variable
     $id = $_POST['identificacion'];
-    $primer_nombre = $_POST['primer_nombre'];
-    $segundo_nombre = $_POST['segundo_nombre'];
-    $primer_apellido = $_POST['primer_apellido'];
-    $segundo_apellido = $_POST['segundo_apellido'];
+    $primer_nombre = $_POST['nombre'];
+    $segundo_nombre = $_POST['nombre2'];
+    $primer_apellido = $_POST['apellido'];
+    $segundo_apellido = $_POST['apellido2'];
     $telefono = $_POST['telefono'];
     $correo = $_POST['correo'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
