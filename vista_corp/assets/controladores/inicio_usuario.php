@@ -34,7 +34,7 @@
                 $_SESSION['usuario'] = $row['usuario'];
                 $_SESSION['cod_tipo_usuario'] = $row['cog_tipo_usuario'];
                 if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") {
-                    header("Location: /agrocosecha_final/vista_corp/assets/vistas/mensaje/admin_mensaje.php");
+                    header("Location: /agrocosecha_final/vista_corp/assets/vistas/administrador/admin_admin_tabla.phpp");
                     session_start();
                     $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
                 } else {

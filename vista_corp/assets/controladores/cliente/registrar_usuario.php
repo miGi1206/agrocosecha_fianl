@@ -17,29 +17,38 @@ if (isset($_POST["nuevo_registro"])) {
 
     //* Guardar los datos ingresados en el formulario en variable
     $id = $_POST['identificacion'];
-    $nombre = $_POST['nombre'];
+    $primer_nombre = $_POST['primer_nombre'];
+    $segundo_nombre = $_POST['segundo_nombre'];
+    $primer_apellido = $_POST['primer_apellido'];
+    $segundo_apellido = $_POST['segundo_apellido'];
+    $telefono = $_POST['telefono'];
+    $correo = $_POST['correo'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $direccion = $_POST['direccion'];
+    $sexo = $_POST['sexo'];
+    $fecha_creacion = date('Y-m-d'); // Formato: Año-Mes-Día
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
-    $correo = $_POST['correo'];
+    
     $confirm_password = $_POST["confirm_password"];
 //* Validar si el ID ya existe
-$consulta_existencia = "SELECT id FROM tbl_cliente WHERE id = '$id'";
+$consulta_existencia = "SELECT identificacion FROM tbl_persona WHERE identificacion = '$id'";
 $id_existencia = mysqli_query($conn, $consulta_existencia);
 
 //* Validar si el ID ya existe en los usuarios
-$consulta_existencia = "SELECT id FROM tbl_usuarios WHERE id = '$id'";
+$consulta_existencia = "SELECT codigo_usuario  FROM tbl_usuario WHERE codigo_usuario  = '$id'";
 $id_usuario_existencia = mysqli_query($conn, $consulta_existencia);
 
 //* Validar si el correo ya existe
-$consulta_existencia = "SELECT correo FROM tbl_cliente WHERE correo = '$correo'";
+$consulta_existencia = "SELECT correo FROM tbl_persona WHERE correo = '$correo'";
 $correo_existencia = mysqli_query($conn, $consulta_existencia);
 
 //* Validar si el usuario ya existe
-$consulta_existencia = "SELECT usuario FROM tbl_usuarios WHERE usuario = '$usuario'";
+$consulta_existencia = "SELECT usuario FROM tbl_usuario WHERE usuario = '$usuario'";
 $usuario_existencia = mysqli_query($conn, $consulta_existencia);
 
 //* funcion para que el nombre solo lleve letras
-if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+if (!preg_match('/^[a-zA-Z\s]+$/', $primer_nombre)) {
     echo '<script>
         Swal.fire({
             title: "El nombre solo debe contener letras.",
@@ -131,13 +140,28 @@ elseif(mysqli_num_rows($usuario_existencia) > 0) {
             // Verificar si las contraseñas coinciden
             if ($contraseña === $confirm_password) {
                    //! Consulta SQL para guardar la informacion del cliente en la base de datos
-                $sql_cliente = "INSERT INTO `tbl_cliente`(`id`, `nombre`, `usuario`, `contraseña`, `correo`) VALUES ('$id', '$nombre','$usuario','$hashed_password','$correo')";
-                $result_cliente = mysqli_query($conn, $sql_cliente);
+                
+                $sql_persona = "INSERT INTO 
+                `tbl_persona` (`codigo_persona`,`identificacion`, `primer_nombre`, `segundo_nombre`,`primer_apellido`,`segundo_apellido`,`telefono`,`correo`,`cod_sexo`,`fecha_nacimiento`,`direccion`,`fecha_creacion`) 
+                VALUES (NULL,'$id', '$primer_nombre','$segundo_nombre','$primer_apellido','$segundo_apellido','$telefono','$correo','$sexo','$fecha_nacimiento','$direccion','$fecha_creacion')";
 
+                $result_persona = mysqli_query($conn, $sql_persona);
+                
+                $sql_persona2 = "SELECT codigo_persona FROM tbl_persona WHERE identificacion='$id'";
+                $result_persona2= mysqli_query($conn,$sql_persona2);
+
+                if($result_persona2){
+                    $row = mysqli_fetch_assoc($result_persona2);
+                    // ahora $row contiene los datos de la fila y puede acceder al codigo de la persona 
+                    $codigo_persona2 = $row['codigo_persona'];
+                }
                 //! Consulta SQL para mandar el usuario y contraseña a una tabla de usuario
-                $sql_usuario = "INSERT INTO `tbl_usuarios` (`id`, `usuario`, `password`, `tipo_usuario`) VALUES ('$id', '$usuario', '$hashed_password','2')";                   
+                $sql_usuario = "INSERT INTO `tbl_usuario` (`codigo_usuario`,`usuario`, `contraseña`,`cod_persona`, `cod_tipo_usuario`, `nit_proveedor`) VALUES
+                (null,'$usuario', '$hashed_password','$codigo_persona2','2', null)";
+                
                 $result_usuario = mysqli_query($conn, $sql_usuario);
-                if ($result_cliente && $result_usuario) {
+                
+                if ($result_persona) {
                     echo '<script>
                         Swal.fire({
                             title: "registro exitoso",

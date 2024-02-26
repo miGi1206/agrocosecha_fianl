@@ -7,7 +7,7 @@ if(isset($_POST['id_a_eliminar'])) {
     $id_a_eliminar = $_POST['id_a_eliminar'];
 
     //! Consulta SQL para eliminar el registro del producto
-    $sql_delete_producto = "DELETE FROM `tbl_producto` WHERE `tbl_producto`.`id`= $id_a_eliminar";
+    $sql_delete_producto = "DELETE FROM `tbl_producto` WHERE `tbl_producto`.`codigo_producto`= $id_a_eliminar";
     $result_detete_producto = mysqli_query($conn, $sql_delete_producto);
 
     //* Condicion de registro eliminado

@@ -1,0 +1,66 @@
+.formulario-contacto {
+    width: 40%;
+    margin: 20px auto;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+        /* media de la letra de formulario de contacto*/
+@media (max-width: 800px) {
+    .formulario-contacto {
+        width: 100%; 
+    }
+    .campos{
+        grid-template-columns: repeat(1,1fr) !important;
+    }
+    .campo_intermedio{
+        margin-right: 0 !important;
+    }
+    .correo_empresarial{
+        margin-top: 15px !important;
+    }
+}
+@media (min-width: 800px) {
+    .campo_intermedio{
+        margin-right: 5% !important;
+    }
+}
+.form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333; 
+    }
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        
+    }
+
+    #guardar {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    #guardar:hover {
+        background-color: #065F2C;
+        transform: scale(1.1);
+    }
+    .campos{
+        display:grid; 
+        grid-template-columns: repeat(2,1fr) ;
+    }

@@ -20,7 +20,7 @@
                 <div class="dropdown-menu dropdown-menu dropdown-menu-end" aria-labelledby="usuarioDropdown">
                     <?php
                     if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] == "1") { ?>
-                        <a class="dropdown-item" href="/agrocosecha_final/vista_corp/assets/vistas/mensaje/admin_mensaje.php">Admin</a>
+                        <a class="dropdown-item" href="/agrocosecha_final/vista_corp/assets/vistas/administrador/admin_admin_tabla.php">Admin</a>
                     <?php } ?>
                     <a class="dropdown-item" href="/agrocosecha_final/vista_corp/config/logout.php">Salir</a>
                 </div>

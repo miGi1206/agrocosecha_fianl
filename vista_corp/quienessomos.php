@@ -1,5 +1,3 @@
-<!-- //! Confirmar que es un usuario -->
-<?php include "../vista_corp/assets/controladores/inicio_usuario.php";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,40 +27,133 @@ https://templatemo.com/tm-559-zay-shop
 </head>
 
 <body>
-    <!-- Start Top Nav -->
-    <?php include "./assets/complementos/navbar_superior.php"; ?>
-    <!-- Close Top Nav -->
+    <!-- //! iniciar sesion -->
+    <?php
+        session_start();
+        include "./config/SERVER.php";
+        include "./config/database.php";
 
-    <?php include "./assets/conections/coneccion_tabla.php" ;?>
+
+        if($_POST){
+
+            $usuario = $_POST['usuario'];
+            $password = $_POST['contraseña'];
+            
+            $sql = "SELECT codigo_usuario, usuario, contraseña, cod_tipo_usuario from tbl_usuario where usuario='$usuario'";
+            $resultado = $mysqli->query($sql);
+            $num = $resultado->num_rows;
+
+            if($num > 0){
+                $row= $resultado->fetch_assoc();
+                $password_bd = $row['contraseña'];
+                $pass_c = sha1($password);
+
+                if($password_bd == $pass_c){
+
+                    $_SESSION['codigo_usuario'] = $row['codigo_usuario'];
+                    $_SESSION['usuario'] = $row['usuario'];
+                    $_SESSION['cod_tipo_usuario'] = $row['cod_tipo_usuario'];
+                    if (isset($_SESSION['cod_tipo_usuario']) && $_SESSION['cod_tipo_usuario'] == "1") {
+                        header("Location: ./assets/vistas/administrador/admin_admin_tabla.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    } else {
+                        header("Location: /agrocosecha_final/index.php");
+                        session_start();
+                        $_SESSION['msj_inicio_sesion'] = "Sesion iniciada";
+                    }          
+                    
+                    exit;
+                } else{
+                    echo '<script>
+                        Swal.fire({
+                            title: "contraseña incorrecta",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+                }
+            }else{
+                echo '<script>
+                        Swal.fire({
+                            title: "No existe este usuario",
+                            text: "",
+                            icon: "error"
+                        }).then(function() {
+                            window.location.replace("");
+                        });
+                    </script>';
+            }
+        }
+    ?>
+    <style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+        background-color: white;
+    }
+
+    .fuera-navbar {
+        margin-top: 8%;
+    }
+
+    @media (max-width: 1000px) {
+        .fuera-navbar {
+            margin-top: 10%;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .fuera-navbar {
+            margin-top: 15%;
+        }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <!-- Start Top Nav -->
+        <?php include "./assets/complementos/navbar_superior.php"; ?>
+        <!-- Close Top Nav -->
+
+        <?php include "./assets/conections/coneccion_tabla.php" ;?>
 
 
-    <!-- Header -->
-    <?php include "./assets/complementos/navbar_menu.php"; ?>
-    <!-- Close Header -->
+        <!-- Header -->
+        <?php include "./assets/complementos/navbar_menu.php"; ?>
+        <!-- Close Header -->
+    </div>
 
     <!-- Modal -->
     <?php include "../vista_corp/assets/complementos/modal.php"?>
     <!--fin moval-->
 
-    <section class="py-5 quienessomos">
-        
-            <div class="row align-items-center py-5" style="margin-left:15%;">
-                <div class="col12 col-md-6 text-white">
-                    <h1><b>Quienes somos</b></h1>
-                    <p>
-                        Somos una empresa comprometida con la producción, venta y compra de alimentos
-                        agrícolas, pecuarios, piscícolas en la subregión del Darién con una cada una comercial
-                        a nivel nacional, uno de nuestro pilar se fundamenta en comercializar productos
-                        frescos del campo hacia la mesa de nuestros clientes, esto lo hacemos con alianzas
-                        colaborativa con los productores del medio para garantizar el crecimiento y la
-                        estabilidad de cada uno de los campesinos aliados.
-                    </p>
-                </div>
-                <div class="col-12 col-md-6">
-                    <img src="./assets/img/logomaiz1.png" alt="" />
-                </div>
+    <section class="py-5 quienessomos fuera-navbar">
+
+        <div class="row align-items-center py-5" style="margin-left:15%;">
+            <div class="col12 col-md-6 text-white">
+                <h1><b>Quienes somos</b></h1>
+                <p>
+                    Somos una empresa comprometida con la producción, venta y compra de alimentos
+                    agrícolas, pecuarios, piscícolas en la subregión del Darién con una cada una comercial
+                    a nivel nacional, uno de nuestro pilar se fundamenta en comercializar productos
+                    frescos del campo hacia la mesa de nuestros clientes, esto lo hacemos con alianzas
+                    colaborativa con los productores del medio para garantizar el crecimiento y la
+                    estabilidad de cada uno de los campesinos aliados.
+                </p>
             </div>
-        
+            <div class="col-12 col-md-6">
+                <img src="./assets/img/logomaiz1.png" alt="" />
+            </div>
+        </div>
+
     </section>
     <!-- Close Banner -->
 
@@ -112,7 +203,7 @@ https://templatemo.com/tm-559-zay-shop
             <p>Ampliar nuestra presencia en el mercado nacional, consolidándonos como líderes
                 en la producción y comercialización de alimentos agrícolas, pecuarios y piscícolas</p>
         </div>
-    
+
         <div class="contenedor_objetivos">
             <h2>Alianza colaborativa</h2>
             <p>Fortalecer alianzas colaborativas con productores locales y actores del sector,

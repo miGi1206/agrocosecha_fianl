@@ -59,9 +59,10 @@
                     <ul class="dropdown-menu" style="width:200px !important;">
                         <p style="padding:10% !important;">
                             Puedes buscar por: <br>
-                            codigo, <br>
-                            nombre, <br>
-                            fecha: <span style="color: red;">AAAA-MM-DD</span>
+                            codigo de producto, <br>
+                            nombre y<br>
+                            fecha de registro: <br>
+                            <span style="color:red;">AAAA/MM/DD</span>
                             <br><br>
                             <span style="color:#065F2C;">
                             <b>
@@ -87,12 +88,12 @@
         $busqueda = $_GET['busqueda'];
 
         if (isset($_GET['busqueda'])){
-            $buscar = "WHERE id LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%' OR fecha_registro LIKE '%".$busqueda."%'";
+            $buscar = "WHERE codigo_producto LIKE '%".$busqueda."%' OR nombre LIKE '%".$busqueda."%' OR fecha_registro LIKE '%".$busqueda."%'";
         }
     }
     ?>
 
-    <div class="tabla_container" style="margin-top:-15px !important;">
+    <div class="tabla_container" style="margin-top:-15px !important;  width:100%;">
         <button class="boton-registrar"><a href="./formulario_producto.php" class="text-decoration-none"
                 style="color:white;"><b>Registrar</b></a></button>
         <div style="overflow-x:auto !important; width:100% !important;">
@@ -100,10 +101,11 @@
                 <thead>
                     <tr>
                         <th>Codigo</th>
-                        <th>Nombres</th>
+                        <th>Nombre</th>
                         <th>Descripcion</th>
                         <th>Precio</th>
                         <th>Stock</th>
+                        <th>Video</th>
                         <th>Fecha de Registro</th>
                         <th>Acciones</th>
                     </tr>
@@ -117,34 +119,35 @@
                     while ($row = mysqli_fetch_assoc($result)){ 
                     ?>
                     <tr>
-                        <td><?php echo $row["id"] ?></td>
+                        <td><?php echo $row["codigo_producto"] ?></td>
                         <td><?php echo $row["nombre"] ?></td>
                         <td><?php
                             $descripcion_corta = substr($row["descripcion"], 0, 100);
                             $descripcion_larga = substr($row["descripcion"], 100);
 
-                            echo "<span id='resumen" . $row['id'] . "'>" . $descripcion_corta . "</span>";
+                            echo "<span codigo_producto='resumen" . $row['codigo_producto'] . "'>" . $descripcion_corta . "</span>";
 
                             if (strlen($row["descripcion"]) > 100) {
-                                echo "<span id='detalle" . $row['id'] . "' style='display:none;'>" . $descripcion_larga . "</span>";
-                                echo "<button onclick='leerMas(" . $row['id'] . ")' style='background-color: transparent; border:none; color:blue;'>Leer más</button>";
-                                echo "<button onclick='leerMenos(" . $row['id'] . ")' style='display:none; background-color: transparent; border:none; color:blue;'>Leer menos</button>";
+                                echo "<span codigo_producto='detalle" . $row['codigo_producto'] . "' style='display:none;'>" . $descripcion_larga . "</span>";
+                                echo "<button onclick='leerMas(" . $row['codigo_producto'] . ")' style='background-color: transparent; border:none; color:blue;'>Leer más</button>";
+                                echo "<button onclick='leerMenos(" . $row['codigo_producto'] . ")' style='display:none; background-color: transparent; border:none; color:blue;'>Leer menos</button>";
                             }
                             ?>
                         </td>
-                        <td>$<?php echo $row["precio"] ?></td>
+                        <td>$ <?php echo number_format($row["precio"], 0, ',', '.'); ?></td>
                         <td><?php echo $row["stock"] ?></td>
+                        <td><?php echo $row["video"] ?></td>
                         <td><?php echo $row["fecha_registro"] ?></td>
                         <td style="display:grid; grid-template-columns: repeat(2,1fr); padding-top:15px; padding-bottom:15px;">
                             <form method="POST" action="./formulario_modi_producto.php">
-                                <a href="./formulario_modi_producto.php?id=<?php echo $row['id'];?>" type="botton"
-                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px;">Editar</a>
+                                <a href="./formulario_modi_producto.php?id=<?php echo $row['codigo_producto'];?>" type="botton"
+                                    class="botones" style="text-decoration:none !important; color:white; margin-right:5px; background-color: #FFCC03 !important;">Editar</a>
                             </form>
                             <!-- //* Coneccion con la funcion para eliminar el registro -->
                             <form method="POST" class="eliminarForm" style="margin-top:-13px;">
                                 <input type="hidden" name="id_a_eliminar" class="id_a_eliminar_input"
-                                    style="margin-top:5% !important;" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn">
+                                    style="margin-top:5% !important;" value="<?php echo $row['codigo_producto']; ?>">
+                                <button type="submit" name="registro_eliminar" class="botones eliminarBtn" style="background-color:red;">
                                     Eliminar
                                 </button>
                             </form>
