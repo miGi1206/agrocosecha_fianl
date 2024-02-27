@@ -8,7 +8,7 @@
             let idAEliminar = btn.parentElement.querySelector('.id_a_eliminar_input').value;
 
             Swal.fire({
-                title: "¿Estás seguro de eliminar la información con ID: " + idAEliminar + "?",
+                title: "¿Estás seguro de eliminar la información?",
                 text: "",
                 icon: "warning",
                 showCancelButton: true,
@@ -26,6 +26,8 @@
                             title: "Informacion eliminada",
                             text: "",
                             icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
                             willClose: () => {
                                 formulario.submit();
                             }
@@ -42,7 +44,9 @@
                     Swal.fire({
                         title: "Eliminacion cancelada",
                         text: "",
-                        icon: "error"
+                        icon: "error",
+                        timer: 2000,
+                        timerProgressBar: true
                     });
                 }
             });

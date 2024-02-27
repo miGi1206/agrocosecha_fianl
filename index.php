@@ -102,7 +102,7 @@ https://templatemo.com/tm-559-zay-shop
         /* Puedes ajustar la posición izquierda según tus necesidades */
         width: 100%;
         /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
-        z-index: 10000;
+        z-index: 100;
         /* Puedes ajustar la propiedad z-index según tus necesidades */
         background-color:white;
     }

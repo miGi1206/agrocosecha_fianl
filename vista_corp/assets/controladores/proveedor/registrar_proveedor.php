@@ -23,6 +23,7 @@ if(isset($_POST["guardar_proveedor"])) {
     $correo_contacto = $_POST['correo_contacto'];
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
+    $confirm_password = $_POST["confirm_password"];
 
     $hashed_password = SHA1($contraseña); // Colocar la contraseña encriptada
     
@@ -157,7 +158,9 @@ if(isset($_POST["guardar_proveedor"])) {
         </script>';
     }
     
-    else{
+    else{ 
+        
+        if ($contraseña === $confirm_password) {
         // TODO: consulta sql para ingresar datos a la tabla admin
         $sql_proveedor = "INSERT INTO `tbl_proveedor`(`nit`, `nombre_razonsocial`, `telefono`, `correo`, `nom_per_contacto`, `tel_contacto`, `correo_contacto`) 
         VALUES ('$nit', '$nombre_razonsocial','$telefono_empresarial','$correo_empresarial', '$nombre_contacto',
@@ -181,7 +184,21 @@ if(isset($_POST["guardar_proveedor"])) {
             $_SESSION['msj_registrar'] = "error al guardar la información";
             // die("Error en la consulta: " . mysqli_error($conn));
         }
-    }
+    } else {
+        // Las contraseñas no coinciden
+            echo '<script>
+                Swal.fire({
+                    title: "Las contraseña no coninciden",
+                    text: "",
+                    timer: 2000,
+                    timerProgressBar:true,
+                    icon: "error"
+                }).then(function() {
+                    history.back(); // Regresa a la página anterior
+                });
+            </script>';
+        }
+}
 }
 ?>
 </body>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <link rel="website icon" type="jpg" href="../../img/Size-16.png">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
-<?php
+    <?php
 //! Conectarse a la base de datos
 include "../../conections/coneccion_tabla.php";
 
@@ -29,6 +31,7 @@ if(isset($_POST["guardar_admin"])) {
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
     $usuario = $_POST['usuario'];
     $contraseña = $_POST['contraseña'];
+    $confirm_password = $_POST["confirm_password"];
     // Obtener la fecha actual
     $fecha_creacion = date('Y-m-d'); // Formato: Año-Mes-Día
 
@@ -158,6 +161,9 @@ if(isset($_POST["guardar_admin"])) {
         //* Encriptar la contraseña
         $hashed_password = SHA1($contraseña);
 
+        // Verificar si las contraseñas coinciden
+        if ($contraseña === $confirm_password) {
+
         //! Consulta SQL para para mandar la informacion del admin a la base de datos
         $sql_admin = "INSERT INTO `tbl_persona`(`codigo_persona`,`identificacion`, `primer_nombre`,`segundo_nombre`,
         `primer_apellido`,`segundo_apellido`,`telefono`,`correo`,`cod_sexo`,`fecha_nacimiento`,`direccion`, 
@@ -196,8 +202,23 @@ if(isset($_POST["guardar_admin"])) {
             $_SESSION['msj_registrar'] = "error al guardar la información";
             // die("Error en la consulta: " . mysqli_error($conn));
         }
-    }
+    } else {
+        // Las contraseñas no coinciden
+            echo '<script>
+                Swal.fire({
+                    title: "Las contraseña no coninciden",
+                    text: "",
+                    timer: 2000,
+                    timerProgressBar:true,
+                    icon: "error"
+                }).then(function() {
+                    history.back(); // Regresa a la página anterior
+                });
+            </script>';
+        }
+}
 }
 ?>
 </body>
+
 </html>

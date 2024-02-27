@@ -78,6 +78,7 @@
     <div class="contenido-fijo">
         <?php include "../../complementos/navbar_admin.php";?>
     </div>
+    
     <!-- //TODO: Formulario para modificar al admin; el formulario se muestra con la informacion de la base de datos -->
     <div class="formulario-contacto fuera-navbar" >
         <div id="productos">

@@ -180,38 +180,46 @@ https://templatemo.com/tm-559-zay-shop
             <h3 class="text-success h1 formulario"><b>formulario de contacto</b></h3>
         </div>
         <form action="../vista_corp/assets/controladores/mensajes/enviar_mensaje.php" method="POST" class="fromcantact">
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-            </div>
+        <div class="form-floating mb-3 campo_intermedio" style="margin-top:15px; margin-bottom:0px !important;">
+                    <input name="nombre1" type="text" class="form-control cuadro_texto1" id="nombre1" placeholder="nombre1"
+                        required maxlength="50">
+                    <label for="nombre1">nombres:</label>
+                    <div id="result_nombre1" style="color:red; font-size:15px;"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="number" id="telefono" name="telefono" required>
-            </div>
+                <div class="form-floating mb-3" style="margin-top: 3%;">
+                    <input name="telefono1" type="text" class="form-control cuadro_texto1" id="telefono1"
+                        placeholder="telefono1" required maxlength="15">
+                    <label for="telefono1">Telefono:</label>
+                    <div id="result_telefono1" style="color:red; font-size:15px;"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:3%; margin-bottom:0px !important;">
+                    <input name="correo1" type="email" class="form-control cuadro_texto1" id="correo1"
+                        placeholder="Correo1" required maxlength="30">
+                    <label for="correo1">Correo electronico:</label>
+                </div>
 
-            <div class="form-group">
-                <label for="municipio">Municipio:</label>
-                <input type="text" id="municipio" name="municipio" required>
-            </div>
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top: 3%; margin-bottom:0px !important;">
+                    <input name="nombre3" type="text" class="form-control cuadro_texto1" id="nombre3" placeholder="nombre3"
+                        required maxlength="50">
+                    <label for="nombre3">Municipio:</label>
+                </div>
 
-            <div class="form-group">
-                <label for="productos">Asunto:</label>
-                <input type="text" id="asunto" name="asunto" required>
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:3%; margin-bottom:0px !important;">
+                    <input name="asunto" type="text" class="form-control cuadro_texto1" id="asunto"
+                        placeholder="asunto" required maxlength="60">
+                    <label for="asunto">Asunto:</label>
+                </div>
 
-            </div>
+                <div class="form-floating mb-3 campo_intermedio" style="margin-top:3%; margin-bottom:0px !important;">
+                    <textarea class="form-control cuadro_texto1" id="mensaje" name="mensaje" style="height: 100px;" required></textarea>
+                    <label for="mensaje">Mensaje:</label>
+                    <div id="result_mensaje" style="color:red; font-size:15px;"></div>
+                </div>
 
-            <div class="form-group">
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="4"></textarea>
-            </div>
 
-            <button type="submit" class="submit" name="enviar_mensaje">Enviar</button>
+            <button type="submit" class="submit" name="enviar_mensaje"  style="margin-top:3% !important ;" >Enviar</button>
         </form>
     </div>
 
@@ -224,6 +232,92 @@ https://templatemo.com/tm-559-zay-shop
     <!-- End Footer -->
 
     <!-- Start Script -->
+    <!-- validacion de nombre -->
+    <script>
+    const nombre1 = document.getElementById('nombre1');
+    const result_nombre1 = document.getElementById('result_nombre1');
+
+    let lastValidInputNombre1 = ''; // Variable para almacenar la última entrada válida
+
+    nombre1.addEventListener('input', (event) => {
+        const textValue = event.currentTarget.value;
+
+        if (!isValidInputNombre1(textValue)) {
+            nombre1.value =
+                lastValidInputNombre1; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_nombre1.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
+        } else {
+            lastValidInputNombre1 = textValue; // Actualizar la última entrada válida
+        }
+        result_nombre1.innerHTML = '';
+    });
+
+    function isValidInputNombre1(text) {
+        // Verificar si la cadena solo contiene letras y espacios
+        return /^[A-Za-zñÑ\s]*$/.test(text);
+    }
+    </script>
+
+     <!-- validacion del telefono -->
+    <script>
+    const telefono1 = document.getElementById('telefono1');
+    const result_telefono1 = document.getElementById('result_telefono1');
+
+    let lastValidInputTelefono1 = ''; // Variable para almacenar la última entrada válida
+
+    telefono1.addEventListener('input', (event) => {
+        const textValue = event.currentTarget.value;
+
+        if (!isValidInputTelefono1(textValue)) {
+            telefono1.value = lastValidInputTelefono1; // Restaurar el último valor válido
+            return result_telefono1.innerHTML = `Este campo solo permite números`;
+        } else {
+            lastValidInputTelefono1 = textValue; // Actualizar la última entrada válida
+        }
+        result_telefono1.innerHTML = '';
+    });
+1
+    function isValidInputTelefono1(text) {
+        // Verificar si la cadena solo contiene números
+        return /^[0-9]*$/.test(text);
+    }
+    </script>
+    <!-- validacion de correo -->
+    <script>
+    const correo1 = document.getElementById('correo1');
+
+    correo1.addEventListener('keydown', (event) => {
+        if (event.key === ' ') {
+            event.preventDefault(); // Evitar que se escriba el espacio
+        }
+    });
+    </script>
+    <!-- alidacion de municipio -->
+    <script>
+    const nombre3 = document.getElementById('nombre3');
+    const result_nombre3 = document.getElementById('result_nombre3');
+
+    let lastValidInputNombre3 = ''; // Variable para almacenar la última entrada válida
+
+    nombre3.addEventListener('input', (event) => {
+        const textValue = event.currentTarget.value;
+
+        if (!isValidInputNombre1(textValue)) {
+            nombre3.value =
+                lastValidInputNombre3; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_nombre3.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
+        } else {
+            lastValidInputNombre3 = textValue; // Actualizar la última entrada válida
+        }
+        result_nombre3.innerHTML = '';
+    });
+
+    function isValidInputNombre1(text) {
+        // Verificar si la cadena solo contiene letras y espacios
+        return /^[A-Za-zñÑ\s]*$/.test(text);
+    }
+    </script>
+
     <script src="../vista_corp/assets/js/jquery-1.11.0.min.js"></script>
     <script src="../vista_corp/assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="../vista_corp/assets/js/bootstrap.bundle.min.js"></script>

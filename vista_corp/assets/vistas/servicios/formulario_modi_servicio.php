@@ -32,14 +32,48 @@
     <link rel="stylesheet" href="../../../assets/css/formulario_personas.css">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
+    <link rel="stylesheet" href="../../css/admin_cliente.css">
+    <link rel="stylesheet" href="../../css/navbar_cliente.css">
+    <link rel="stylesheet" href="../../css/navbar_admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="website icon" type="jpg" href="../../img/Size-16.png">
 </head>
 
 <body>
+<style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+        background-color:white;
+    }
+    .fuera-navbar{
+        margin-top:6%;
+    }
+    @media (max-width: 1000px) {
+    .fuera-navbar {
+        margin-top:10%; 
+    }
+    }
+    @media (max-width: 500px) {
+    .fuera-navbar {
+        margin-top:15%; 
+    }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <?php include "../../complementos/navbar_admin.php";?>
+    </div>
+
     <!--//TODO: formulario de registro de cliente -->
-    <div class="formulario-contacto">
+    <div class="formulario-contacto fuera-navbar">
         <div style="text-align: center;">
             <h3 class="text-success h1 formulario"><b>Modificar servicio</b></h3>
         </div>
@@ -99,7 +133,7 @@
                     <div id="result_duracion" style="color:red; font-size:15px;"></div>
                 </div>
             </div>
-            <button type="submit" class="submit" name="guardar_servicio">Guardar</button>
+            <button type="submit" class="submit" id="guardar" name="guardar_servicio">Actualizar</button>
         </form>
     </div>
     <!--//TODO: Fin formulario de registro del cliente -->
@@ -180,6 +214,9 @@
         return /^[0-9]*$/.test(text);
     }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>

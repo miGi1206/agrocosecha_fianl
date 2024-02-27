@@ -23,6 +23,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,79 +31,132 @@
     <link rel="stylesheet" href="../../../assets/css/formulario_personas.css ">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <!-- Enlace al archivo CSS de Bootstrap 5 -->
+    <link rel="stylesheet" href="../../css/admin_cliente.css">
+    <link rel="stylesheet" href="../../css/navbar_cliente.css">
+    <link rel="stylesheet" href="../../css/navbar_admin.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="website icon" type="jpg" href="../../img/Size-16.png">
 </head>
+
 <body>
+
+    <style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+    }
+
+    .fuera-navbar {
+        margin-top: 6%;
+    }
+
+    @media (max-width: 1000px) {
+        .fuera-navbar {
+            margin-top: 10%;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .fuera-navbar {
+            margin-top: 15%;
+        }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <?php include "../../complementos/navbar_admin.php";?>
+    </div>
+
     <!-- //TODO: Formulario para modificar al admin; el formulario se muestra con la informacion de la base de datos -->
-    <div class="formulario-contacto">
+    <div class="formulario-contacto fuera-navbar">
         <div class="contenedor">
             <div id="productos">
                 <h1 class="text-siccess" style="color: #065F2C;"><b>Modificar proveedor</b></h1>
-            </div> 
-        <form action="../../controladores/proveedor/modificar_proveedor.php" method="POST">
-
-            <div class="form-floating mb-3" style="margin-top:15px;">
-                <input name="nit" type="text" class="form-control cuadro_texto1" id="nit" placeholder="nit" value="<?= $row['nit']?>" readonly required>
-                <label for="nit">NIT:</label>
             </div>
+            <form action="../../controladores/proveedor/modificar_proveedor.php" method="POST">
 
-            <div class="form-floating mb-3" style="margin-top:5%; margin-bottom:5% !important;">
-                <input name="nombre_razonsocial" type="text" class="form-control cuadro_texto1" id="nombre_razonsocial" placeholder="nombre_razonsocial" value="<?= $row['nombre_razonsocial']?>" required maxlength="100">
-                <label for="nombre_razonsocial">Nombre o razon social:</label>
-                <div id="result_nombre_razonsocial" style="color:red; font-size:15px;"></div>
-            </div>
-
-            <div class="campos">
-                <div class="form-floating mb-3  campo_intermedio" style="margin-bottom:0px !important;" >
-                    <input name="telefono_empresarial" type="text" class="form-control cuadro_texto1" id="telefono_empresarial" placeholder="telefono_empresarial" value="<?= $row['telefono']?>" requered maxlength="15">
-                    <label for="telefono_empresarial">Telefono empresarial:</label>
-                    <div id="result_telefono_empresarial" style="color:red; font-size:15px;"></div>
+                <div class="form-floating mb-3" style="margin-top:15px;">
+                    <input name="nit" type="text" class="form-control cuadro_texto1" id="nit" placeholder="nit"
+                        value="<?= $row['nit']?>" readonly required>
+                    <label for="nit">NIT:</label>
                 </div>
 
-                <div class="form-floating mb-3 correo_empresarial" style=" margin-bottom:5% !important;">
-                    <input name="correo_empresarial" type="email" class="form-control cuadro_texto1" id="correo_empresarial" placeholder="correo_empresarial" value="<?= $row['correo']?>" requered maxlength="50">
-                    <label for="correo_empresarial">Correo empresarial:</label>
-                    <div id="result_correo_empresarial" style="color:red; font-size:15px;"></div>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="form-floating mb-3" style="margin-top: 5%;">
-                <input name="nombre_contacto" type="text" class="form-control cuadro_texto1" id="nombre_contacto" placeholder="nombre_contacto" value="<?= $row['nom_per_contacto']?>" requered maxlength="30">
-                <label for="nombre_contacto">Persona de contacto:</label>
-                <div id="result_nombre_contacto" style="color:red; font-size:15px;"></div>
-            </div>
-
-            <div class="campos">
-                <div class="form-floating mb-3  campo_intermedio" style="margin-top:15px; margin-bottom:0px !important; ">
-                    <input name="telefono_contacto" type="text" class="form-control cuadro_texto1" id="telefono_contacto" placeholder="telefono_contacto" value="<?= $row['tel_contacto']?>" requered maxlength="15">
-                    <label for="telefono_contacto">Telefono personal:</label>
-                    <div id="result_telefono_contacto" style="color:red; font-size:15px;"></div>
+                <div class="form-floating mb-3" style="margin-top:5%; margin-bottom:5% !important;">
+                    <input name="nombre_razonsocial" type="text" class="form-control cuadro_texto1"
+                        id="nombre_razonsocial" placeholder="nombre_razonsocial"
+                        value="<?= $row['nombre_razonsocial']?>" required maxlength="100">
+                    <label for="nombre_razonsocial">Nombre o razon social:</label>
+                    <div id="result_nombre_razonsocial" style="color:red; font-size:15px;"></div>
                 </div>
 
-                <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
-                    <input name="correo_contacto" type="email" class="form-control cuadro_texto1" id="correo_contacto" placeholder="correo_contacto" value="<?= $row['correo_contacto']?>" requered maxlength="50">
-                    <label for="correo_contacto">Correo personal:</label>
-                </div>
-            </div>
+                <div class="campos">
+                    <div class="form-floating mb-3  campo_intermedio" style="margin-bottom:0px !important;">
+                        <input name="telefono_empresarial" type="text" class="form-control cuadro_texto1"
+                            id="telefono_empresarial" placeholder="telefono_empresarial" value="<?= $row['telefono']?>"
+                            requered maxlength="15">
+                        <label for="telefono_empresarial">Telefono empresarial:</label>
+                        <div id="result_telefono_empresarial" style="color:red; font-size:15px;"></div>
+                    </div>
 
-            <div class="form-floating mb-3" style="margin-top: 5%;">
-                <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario" placeholder="usuario" value="<?= $row['usuario']?>" requered maxlength="50">
-                <label for="usuario">Usuario:</label>
-                <div id="result_usuario" style="color:red; font-size:15px;"></div>
-            </div>
-            
-            <button type="submit" name="modificar_proveedor" style="border-radius:5px !important;">Actualizar</button>
-        </form>
+                    <div class="form-floating mb-3 correo_empresarial" style=" margin-bottom:5% !important;">
+                        <input name="correo_empresarial" type="email" class="form-control cuadro_texto1"
+                            id="correo_empresarial" placeholder="correo_empresarial" value="<?= $row['correo']?>"
+                            requered maxlength="50">
+                        <label for="correo_empresarial">Correo empresarial:</label>
+                        <div id="result_correo_empresarial" style="color:red; font-size:15px;"></div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form-floating mb-3" style="margin-top: 5%;">
+                    <input name="nombre_contacto" type="text" class="form-control cuadro_texto1" id="nombre_contacto"
+                        placeholder="nombre_contacto" value="<?= $row['nom_per_contacto']?>" requered maxlength="30">
+                    <label for="nombre_contacto">Persona de contacto:</label>
+                    <div id="result_nombre_contacto" style="color:red; font-size:15px;"></div>
+                </div>
+
+                <div class="campos">
+                    <div class="form-floating mb-3  campo_intermedio"
+                        style="margin-top:15px; margin-bottom:0px !important; ">
+                        <input name="telefono_contacto" type="text" class="form-control cuadro_texto1"
+                            id="telefono_contacto" placeholder="telefono_contacto" value="<?= $row['tel_contacto']?>"
+                            requered maxlength="15">
+                        <label for="telefono_contacto">Telefono personal:</label>
+                        <div id="result_telefono_contacto" style="color:red; font-size:15px;"></div>
+                    </div>
+
+                    <div class="form-floating mb-3" style="margin-top:15px; margin-bottom:0px !important;">
+                        <input name="correo_contacto" type="email" class="form-control cuadro_texto1"
+                            id="correo_contacto" placeholder="correo_contacto" value="<?= $row['correo_contacto']?>"
+                            requered maxlength="50">
+                        <label for="correo_contacto">Correo personal:</label>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3" style="margin-top: 5%;">
+                    <input name="usuario" type="text" class="form-control cuadro_texto1" id="usuario"
+                        placeholder="usuario" value="<?= $row['usuario']?>" requered maxlength="50">
+                    <label for="usuario">Usuario:</label>
+                    <div id="result_usuario" style="color:red; font-size:15px;"></div>
+                </div>
+
+                <button type="submit" name="modificar_proveedor" id="guardar"
+                    style="border-radius:5px !important;">Actualizar</button>
+            </form>
+        </div>
+        <!-- //TODO: Fin del formulario -->
     </div>
-    <!-- //TODO: Fin del formulario -->
-</div>
 
     <!-- //! script para mostrar un mensaje de nombre de la empresa no puede ser guardado -->
-<script>
+    <script>
     const nombre_razonsocial = document.getElementById('nombre_razonsocial');
     const result_nombre_razonsocial = document.getElementById('result_nombre_razonsocial');
 
@@ -111,20 +165,22 @@
     nombre_razonsocial.addEventListener('input', (event) => {
         const textValue = event.currentTarget.value;
 
-        if (!isValidInputNombreRazonsocial(textValue)){
-            nombre_razonsocial.value = lastValidInputNombreRazonsocial; // Restaurar el último valor válido solo si la nueva entrada no es válida
-            return result_nombre_razonsocial.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
+        if (!isValidInputNombreRazonsocial(textValue)) {
+            nombre_razonsocial.value =
+                lastValidInputNombreRazonsocial; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_nombre_razonsocial.innerHTML =
+                `El nombre no puede contener números ni caracteres especiales`;
         } else {
             lastValidInputNombreRazonsocial = textValue; // Actualizar la última entrada válida
         }
         result_nombre_razonsocial.innerHTML = '';
     });
 
-    function isValidInputNombreRazonsocial(text){
+    function isValidInputNombreRazonsocial(text) {
         // Verificar si la cadena solo contiene letras y espacios
         return /^[A-Za-zñÑ\s]*$/.test(text);
     }
-</script>
+    </script>
 
     <!-- //! Validacion para solo numeros en el campo del telefono empresarial -->
     <script>
@@ -136,7 +192,7 @@
     telefono_empresarial.addEventListener('input', (event) => {
         const textValue = event.currentTarget.value;
 
-        if (!isValidInputTelefonoEmpresarial(textValue)){
+        if (!isValidInputTelefonoEmpresarial(textValue)) {
             telefono_empresarial.value = lastValidInputTelefonoEmpresarial; // Restaurar el último valor válido
             return result_telefono_empresarial.innerHTML = `Este campo solo permite números`;
         } else {
@@ -145,25 +201,25 @@
         result_telefono_empresarial.innerHTML = '';
     });
 
-    function isValidInputTelefonoEmpresarial(text){
+    function isValidInputTelefonoEmpresarial(text) {
         // Verificar si la cadena solo contiene números
         return /^[0-9]*$/.test(text);
     }
-</script>
+    </script>
 
-<!-- //! vadidacion para bloquear la tecla espacio en el campo de correo empresarial -->
-<script>
+    <!-- //! vadidacion para bloquear la tecla espacio en el campo de correo empresarial -->
+    <script>
     const correo_empresarial = document.getElementById('correo_empresarial');
 
     correo_empresarial.addEventListener('keydown', (event) => {
         if (event.key === ' ') {
-            event.preventDefault();  // Evitar que se escriba el espacio
+            event.preventDefault(); // Evitar que se escriba el espacio
         }
     });
-</script>
+    </script>
 
-<!-- //! script para mostrar un mensaje de nombre personal no puede ser guardado -->
-<script>
+    <!-- //! script para mostrar un mensaje de nombre personal no puede ser guardado -->
+    <script>
     const nombre_contacto = document.getElementById('nombre_contacto');
     const result_nombre_contacto = document.getElementById('result_nombre_contacto');
 
@@ -172,20 +228,22 @@
     nombre_contacto.addEventListener('input', (event) => {
         const textValue = event.currentTarget.value;
 
-        if (!isValidInputNombreContacto(textValue)){
-            nombre_contacto.value = lastValidInputNombreContacto; // Restaurar el último valor válido solo si la nueva entrada no es válida
-            return result_nombre_contacto.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
+        if (!isValidInputNombreContacto(textValue)) {
+            nombre_contacto.value =
+                lastValidInputNombreContacto; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_nombre_contacto.innerHTML =
+                `El nombre no puede contener números ni caracteres especiales`;
         } else {
             lastValidInputNombreContacto = textValue; // Actualizar la última entrada válida
         }
         result_nombre_contacto.innerHTML = '';
     });
 
-    function isValidInputNombreContacto(text){
+    function isValidInputNombreContacto(text) {
         // Verificar si la cadena solo contiene letras y espacios
         return /^[A-Za-zñÑ\s]*$/.test(text);
     }
-</script>
+    </script>
 
     <!-- //! Validacion para solo numeros en el campo del telefono persona -->
     <script>
@@ -197,7 +255,7 @@
     telefono_contacto.addEventListener('input', (event) => {
         const textValue = event.currentTarget.value;
 
-        if (!isValidInputTelefonoContacto(textValue)){
+        if (!isValidInputTelefonoContacto(textValue)) {
             telefono_contacto.value = lastValidInputTelefonoContacto; // Restaurar el último valor válido
             return result_telefono_contacto.innerHTML = `Este campo solo permite números`;
         } else {
@@ -206,49 +264,57 @@
         result_telefono_contacto.innerHTML = '';
     });
 
-    function isValidInputTelefonoContacto(text){
+    function isValidInputTelefonoContacto(text) {
         // Verificar si la cadena solo contiene números
         return /^[0-9]*$/.test(text);
     }
-</script>
+    </script>
 
-<!-- //! vadidacion para bloquear la tecla espacio en el campo de correo personal -->
-<script>
+    <!-- //! vadidacion para bloquear la tecla espacio en el campo de correo personal -->
+    <script>
     const correo_contacto = document.getElementById('correo_contacto');
 
     correo_contacto.addEventListener('keydown', (event) => {
         if (event.key === ' ') {
-            event.preventDefault();  // Evitar que se escriba el espacio
+            event.preventDefault(); // Evitar que se escriba el espacio
         }
     });
-</script>
+    </script>
 
-<script>
+    <!-- //! vadidacion para bloquear la tecla espacio en el campo de usuario -->
+    <script>
     const usuario = document.getElementById('usuario');
     const result_usuario = document.getElementById('result_usuario');
+
+    let lastValidInputusuario = ''; // Variable para almacenar la última entrada válida
 
     usuario.addEventListener('input', (event) => {
         const textValue = event.currentTarget.value;
 
-        if (!isValidTextUsuario(textValue)){
-            result_usuario.innerHTML = `Máximo 50 caracteres alfanuméricos`;
+        if (!isValidInputusuario(textValue)) {
+            usuario.value =
+                lastValidInputusuario; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_usuario.innerHTML = `El nombre de usuario no puede contener caracteres especiales`;
         } else {
-            result_usuario.innerHTML = '';
+            lastValidInputusuario = textValue; // Actualizar la última entrada válida
         }
+        result_usuario.innerHTML = '';
     });
+
+    function isValidInputusuario(text) {
+        // Verificar si la cadena solo contiene letras y espacios
+        return /^[A-Za-z0-9ñÑ]*$/.test(text);
+    }
 
     usuario.addEventListener('keydown', (event) => {
         if (event.key === ' ') {
-            event.preventDefault();  // Evitar que se escriba el espacio
+            event.preventDefault(); // Evitar que se escriba el espacio
         }
     });
+    </script>
 
-    function isValidTextUsuario(text){
-        const maxLength = 50;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-        // Permitir letras y números
-        return /^[A-Za-z0-9\s]*$/.test(text) && text.length <= maxLength;
-    }
-</script>
 </body>
+
 </html>

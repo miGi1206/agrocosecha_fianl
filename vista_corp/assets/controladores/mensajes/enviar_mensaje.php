@@ -46,18 +46,18 @@ function sendEmailContacto($request)
         $mail->Port = 587;
 
         // Configuración del remitente y destinatario
-        $mail->setFrom($request['email'], $request['nombre']);
+        $mail->setFrom($request['correo1'], $request['nombre1']);
         $mail->addAddress('trabajadoragrocosecha@gmail.com', 'Trabajador Agrocosecha');
 
         // Contenido del correo electrónico
         $mail->isHTML(true);
         $mail->Subject = 'Nuevo mensaje de Contactanos';
-        $mail->Body = '<b>Nombre: <p></b>'.$request['nombre'].'</p><br>
-        <b>Telefono: </b> <p>'.$request['telefono'].
-        '</p><br><b>Municipio: </b><p>'.$request['municipio'].
+        $mail->Body = '<b>Nombre: <p></b>'.$request['nombre1'].'</p><br>
+        <b>Telefono: </b> <p>'.$request['telefono1'].
+        '</p><br><b>Municipio: </b><p>'.$request['nombre3'].
         '</p> <br><b>Asunto:</b><p>'.$request['asunto'].
         '</p><br><b>Este es el mensaje enviado:</b><br><p>' . $request['mensaje'] . 
-        '</p><br><p>Para responder, contactarse con: ' . $request['email'] . '</p>';
+        '</p><br><p>Para responder, contactarse con: ' . $request['correo1'] . '</p>';
 
         // Envío del correo electrónico
         $mail->send();

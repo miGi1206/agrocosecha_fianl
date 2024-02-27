@@ -33,9 +33,35 @@
     include "../../controladores/producto/eliminar_producto.php"; 
     ?>
 
-    <!-- //TODO: Navbar -->
-    <?php include "../../complementos/navbar_admin.php";?>
-    <!-- //TODO: Fin del navbar -->
+<style>
+    .contenido-fijo {
+        position: fixed;
+        top: 0;
+        /* Puedes ajustar la posición superior según tus necesidades */
+        left: 0;
+        /* Puedes ajustar la posición izquierda según tus necesidades */
+        width: 100%;
+        /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
+        z-index: 1000;
+        /* Puedes ajustar la propiedad z-index según tus necesidades */
+    }
+    .fuera-navbar{
+        margin-top:6%;
+    }
+    @media (max-width: 1000px) {
+    .fuera-navbar {
+        margin-top:10%; 
+    }
+    }
+    @media (max-width: 500px) {
+    .fuera-navbar {
+        margin-top:15%; 
+    }
+    }
+    </style>
+    <div class="contenido-fijo">
+        <?php include "../../complementos/navbar_admin.php";?>
+    </div>
 
     <!-- //* alerta nuevo registro -->
     <?php
@@ -43,7 +69,7 @@
     ?>
 
 
-    <h1>Productos</h1>
+    <h1 class="fuera-navbar">Productos</h1>
 
     <!-- //! Barra de busqueda -->
     <div class="container-fluid" style="display:flex; justify-content:center;">

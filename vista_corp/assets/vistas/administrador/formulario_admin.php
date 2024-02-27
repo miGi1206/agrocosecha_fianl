@@ -40,19 +40,23 @@
         /* Establecer el ancho al 100% para que ocupe todo el ancho de la pantalla */
         z-index: 1000;
         /* Puedes ajustar la propiedad z-index según tus necesidades */
+
     }
-    .fuera-navbar{
-        margin-top:6%;
+
+    .fuera-navbar {
+        margin-top: 6%;
     }
+
     @media (max-width: 1000px) {
-    .fuera-navbar {
-        margin-top:10%; 
+        .fuera-navbar {
+            margin-top: 10%;
+        }
     }
-    }
+
     @media (max-width: 500px) {
-    .fuera-navbar {
-        margin-top:15%; 
-    }
+        .fuera-navbar {
+            margin-top: 15%;
+        }
     }
     </style>
     <div class="contenido-fijo">
@@ -65,7 +69,7 @@
         <div style="text-align: center;">
             <h3 class="text-success h1 formulario"><b>Registrar Persona</b></h3>
         </div>
-        <form action="../../controladores/admin/registrar_admin.php" method="POST">
+        <form action="../../controladores/admin/registrar_admin.php" method="POST" onsubmit="return validarContraseña()">
 
             <div class="form-floating mb-3" style="margin-top:15px;">
                 <input name="identificacion" type="text" class="form-control cuadro_texto1" id="identificacion"
@@ -192,7 +196,14 @@
                     <div id="result_contraseña" style="color:red; font-size:15px;"></div>
                 </div>
 
-                <!-- //TODO: aqui va el campo de confirmar contraseña -->
+                <div class="form-floating mb-3" style="margin-top: 3%;">
+                    <input type="password" class="form-control cuadro_texto2" id="confirm_password"
+                        placeholder="Confirmar contraseña" name="confirm_password">
+                    <label for="confirm_password">Confirmar contraseña</label>
+                    <span class="error-message" id="error_message"
+                        style="color: red;  font-size: 15px; margin-left: 2% "></span>
+                    <span class="exelen" id="exelen" style="color: #065F2C;  font-size: 15px; margin-left: 2% "></span>
+                </div>
 
             </div>
 
@@ -240,7 +251,7 @@
 
         if (!isValidInputNombre(textValue)) {
             nombre.value =
-            lastValidInputNombre; // Restaurar el último valor válido solo si la nueva entrada no es válida
+                lastValidInputNombre; // Restaurar el último valor válido solo si la nueva entrada no es válida
             return result_nombre.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
         } else {
             lastValidInputNombre = textValue; // Actualizar la última entrada válida
@@ -266,7 +277,7 @@
 
         if (!isValidInputNombre2(textValue)) {
             nombre2.value =
-            lastValidInputNombre2; // Restaurar el último valor válido solo si la nueva entrada no es válida
+                lastValidInputNombre2; // Restaurar el último valor válido solo si la nueva entrada no es válida
             return result_nombre2.innerHTML = `El nombre no puede contener números ni caracteres especiales`;
         } else {
             lastValidInputNombre2 = textValue; // Actualizar la última entrada válida
@@ -292,7 +303,7 @@
 
         if (!isValidInputApellido(textValue)) {
             apellido.value =
-            lastValidInputApellido; // Restaurar el último valor válido solo si la nueva entrada no es válida
+                lastValidInputApellido; // Restaurar el último valor válido solo si la nueva entrada no es válida
             return result_apellido.innerHTML = `El apellido no puede contener números ni caracteres especiales`;
         } else {
             lastValidInputApellido = textValue; // Actualizar la última entrada válida
@@ -318,9 +329,9 @@
 
         if (!isValidInputApellido2(textValue)) {
             apellido2.value =
-            lastValidInputApellido2; // Restaurar el último valor válido solo si la nueva entrada no es válida
+                lastValidInputApellido2; // Restaurar el último valor válido solo si la nueva entrada no es válida
             return result_apellido2.innerHTML =
-            `El apellido no puede contener números ni caracteres especiales`;
+                `El apellido no puede contener números ni caracteres especiales`;
         } else {
             lastValidInputApellido2 = textValue; // Actualizar la última entrada válida
         }
@@ -374,28 +385,31 @@
     const usuario = document.getElementById('usuario');
     const result_usuario = document.getElementById('result_usuario');
 
+    let lastValidInputusuario = ''; // Variable para almacenar la última entrada válida
+
     usuario.addEventListener('input', (event) => {
         const textValue = event.currentTarget.value;
 
-        if (!isValidTextUsuario(textValue)) {
-            result_usuario.innerHTML = `Máximo 50 caracteres alfanuméricos`;
+        if (!isValidInputusuario(textValue)) {
+            usuario.value =
+                lastValidInputusuario; // Restaurar el último valor válido solo si la nueva entrada no es válida
+            return result_usuario.innerHTML = `El nombre de usuario no puede contener caracteres especiales`;
         } else {
-            result_usuario.innerHTML = '';
+            lastValidInputusuario = textValue; // Actualizar la última entrada válida
         }
+        result_usuario.innerHTML = '';
     });
+
+    function isValidInputusuario(text) {
+        // Verificar si la cadena solo contiene letras y espacios
+        return /^[A-Za-z0-9ñÑ]*$/.test(text);
+    }
 
     usuario.addEventListener('keydown', (event) => {
         if (event.key === ' ') {
             event.preventDefault(); // Evitar que se escriba el espacio
         }
     });
-
-    function isValidTextUsuario(text) {
-        const maxLength = 50;
-
-        // Permitir letras y números
-        return /^[A-Za-z0-9\s]*$/.test(text) && text.length <= maxLength;
-    }
     </script>
 
     <!-- //! vadidacion para bloquear la tecla espacio en el campo de contraseña y ponerle un min y max de los caracteres-->
@@ -420,6 +434,32 @@
             event.preventDefault(); // Evitar que se escriba el espacio
         }
     });
+    </script>
+
+    <!-- //! vadidacion para confirma contraseña-->
+    <script>
+    function validarContraseña() {
+        var password = document.getElementById("contraseña").value;
+        var confirm_password = document.getElementById("confirm_password").value;
+        var error_message = document.getElementById("error_message");
+        var exelen = document.getElementById("exelen");
+        if (password === "" || confirm_password === "") {
+            error_message.textContent = "";
+            exelen.textContent = "";
+            return; // Salir de la función si los campos están vacíos
+        }
+        if (password !== confirm_password) {
+            error_message.textContent = "Las contraseñas no coinciden.";
+            exelen.textContent = "";
+        } else {
+            error_message.textContent = ""; // Limpiar el mensaje de error si las contraseñas coinciden
+            exelen.textContent = "Las contraseñas coinciden.";
+        }
+    }
+
+    // Asignar la función validarContraseña a los eventos oninput de los campos de contraseña
+    document.getElementById("contraseña").oninput = validarContraseña;
+    document.getElementById("confirm_password").oninput = validarContraseña;
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
